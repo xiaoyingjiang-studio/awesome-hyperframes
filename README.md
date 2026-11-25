@@ -112,15 +112,15 @@ Automatically compiled from cited sources, with AI-written summaries. Projects h
 
 The four [featured examples](#featured-examples) are starting points for reusable projects. Follow the original source and its dependencies, reproduction notes and licenses.
 
-Qualified tools and integrations are added to the automatic catalog automatically, with original sources and reuse conditions to check. The handpicked examples above are maintained separately.
+Qualified tools and integrations are added automatically to the catalog, with original sources and reuse conditions to check. The handpicked examples above are maintained separately.
 
 <a id="自动发现与审核"></a>
 
 <a id="discovery-and-review"></a>
 
-Scheduled for Wednesdays and Sundays at 08:00 China Standard Time (UTC+8).
-
 ## Discovery
+
+Scheduled for Wednesdays and Sundays at 08:00 China Standard Time (UTC+8).
 
 **Scheduled collection → deduplication → source and AI checks → direct update to main.**
 
@@ -136,7 +136,7 @@ Every successful scheduled run publishes qualifying entries and summaries in all
 
 Found something useful? [Recommend a resource](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose) or open a pull request using the [contribution guide](CONTRIBUTING.en.md). Include the author, original source, use case, practical reference value, source availability, licenses and exactly what has been checked.
 
-Handpicked highlights and external pull requests are reviewed by maintainers. Automatic catalog updates publish automatically.
+Handpicked highlights and external pull requests are reviewed by maintainers. The automatic catalog is published by the workflow.
 
 <a id="归属与许可"></a>
 

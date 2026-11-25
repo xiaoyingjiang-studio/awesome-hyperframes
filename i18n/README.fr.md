@@ -100,9 +100,9 @@ Les outils et intégrations admissibles rejoignent automatiquement le catalogue 
 
 <a id="discovery-and-review"></a>
 
-Exécution les mercredis et dimanches à 08:00, heure standard de Chine (UTC+8).
-
 ## Découverte
+
+Exécution les mercredis et dimanches à 08:00, heure standard de Chine (UTC+8).
 
 **Collecte planifiée → dédoublonnage → contrôle des sources et de l’IA → mise à jour directe de main.**
 

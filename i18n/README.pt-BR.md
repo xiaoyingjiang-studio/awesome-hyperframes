@@ -100,9 +100,9 @@ Ferramentas e integrações aptas são incluídas automaticamente no catálogo a
 
 <a id="discovery-and-review"></a>
 
-Execução às quartas-feiras e aos domingos, às 08:00 no horário padrão da China (UTC+8).
-
 ## Descoberta
+
+Execução às quartas-feiras e aos domingos, às 08:00 no horário padrão da China (UTC+8).
 
 **Coleta programada → deduplicação → verificação de fontes e IA → atualização direta da main.**
 

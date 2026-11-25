@@ -100,9 +100,9 @@ Geeignete Werkzeuge und Integrationen werden mit Originalquellen und noch zu pr�
 
 <a id="discovery-and-review"></a>
 
-Geplante Ausführung mittwochs und sonntags um 08:00 Uhr chinesischer Standardzeit (UTC+8).
-
 ## Automatische Suche
+
+Geplante Ausführung mittwochs und sonntags um 08:00 Uhr chinesischer Standardzeit (UTC+8).
 
 **Geplante Suche → Deduplizierung → Quellen- und KI-Prüfung → direkte Aktualisierung von main.**
 
