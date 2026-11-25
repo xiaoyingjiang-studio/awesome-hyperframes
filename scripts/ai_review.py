@@ -6,6 +6,7 @@ No provider SDK, shell tools, web tools, credentials in prompts, or catalog writ
 from __future__ import annotations
 
 import hashlib
+from http.client import HTTPException
 import json
 import re
 import time
@@ -165,7 +166,7 @@ class Provider:
         except HTTPError as error:
             # Never expose upstream bodies, headers, endpoint credentials or authorization values.
             raise ReviewError(f"AI 请求失败（HTTP {error.code}）", retryable=error.code == 429 or error.code >= 500) from None
-        except (URLError, TimeoutError, OSError):
+        except (URLError, TimeoutError, OSError, HTTPException):
             raise ReviewError("AI 网络请求失败或超时", retryable=True) from None
         except (KeyError, IndexError, TypeError, json.JSONDecodeError, UnicodeDecodeError):
             raise ReviewError("AI 响应无法按候选 JSON 约定解析") from None

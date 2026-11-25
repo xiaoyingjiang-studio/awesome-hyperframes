@@ -1,6 +1,7 @@
 """Synthetic provider responses only: these tests never call a paid service."""
 
 import base64
+from http.client import IncompleteRead
 import io
 import json
 from pathlib import Path
@@ -189,6 +190,23 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(sleeper.call_count, 1)
         self.assertNotIn("ai_review", item)
         self.assertEqual(item["status"], "pending")
+
+    def test_truncated_http_response_retries_and_preserves_rule_preview(self):
+        item = candidate()
+        provider = a.Provider(ENV)
+        state = self.state(item)
+        with patch.object(provider.opener, "open") as opener:
+            opener.return_value.__enter__.return_value.read.side_effect = IncompleteRead(b"untrusted provider body", 10)
+            report = a.review_candidates(state, {}, NOW, ENV, provider_factory=lambda env: provider, sleep=lambda seconds: None)
+        self.assertEqual(report["status"], "failed")
+        self.assertEqual(report["calls"], 2)
+        self.assertNotIn("untrusted provider body", json.dumps(report))
+        self.assertNotIn("ai_review", item)
+        self.assertEqual(item["status"], "pending")
+        config = d.read_json(d.ROOT / "discovery/config.json")
+        _, body, selected = d.render_digest(state, config, NOW, "example/catalog")
+        self.assertEqual(selected, [item["id"]])
+        self.assertIn("调用或配置失败", body)
 
     def test_cli_failure_still_saves_preview_and_replay_is_always_offline(self):
         with tempfile.TemporaryDirectory() as directory:
