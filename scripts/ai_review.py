@@ -127,12 +127,18 @@ class Provider:
             raise ReviewError("AI_ENDPOINT 需要完整的 chat/completions 路径，与 hyperframes-cn 约定一致")
         self.model = env["AI_MODEL"].strip()
         self.key = env["AI_API_KEY"].strip()
+        thinking = env.get("AI_ENABLE_THINKING", "auto").strip().lower()
+        if thinking not in {"auto", "true", "false"}:
+            raise ReviewError("AI_ENABLE_THINKING 必须是 auto、true 或 false")
+        # Leave generic providers unchanged unless explicitly configured.
+        self.options = {} if thinking == "auto" else {"enable_thinking": thinking == "true"}
         self.max_calls = integer_setting(env, "AI_MAX_CALLS", 3, 1, 10)
         self.max_tokens = integer_setting(env, "AI_MAX_TOTAL_TOKENS", 60000, 1000, 200000)
-        self.max_output = integer_setting(env, "AI_MAX_OUTPUT_TOKENS", 4000, 256, 12000)
+        self.max_output = integer_setting(env, "AI_MAX_OUTPUT_TOKENS", 6000, 256, 12000)
         self.timeout = integer_setting(env, "AI_TIMEOUT_MS", 60000, 1000, 120000) / 1000
         self.calls = self.reserved = 0
         self.usage = {}
+        self.responses = []
         self.opener = build_opener(NoRedirects())
 
     def request(self, batch):
@@ -143,32 +149,49 @@ class Provider:
             raise ReviewError("达到本次 AI 调用或保守 Token 预算上限")
         self.calls += 1
         self.reserved += reservation
-        request = Request(self.endpoint, method="POST", headers={"Content-Type": "application/json", "Authorization": f"Bearer {self.key}"}, data=json.dumps({"model": self.model, "messages": messages, "max_tokens": self.max_output, "temperature": 0.2}, ensure_ascii=False).encode())
+        request = Request(self.endpoint, method="POST", headers={"Content-Type": "application/json", "Authorization": f"Bearer {self.key}"}, data=json.dumps({"model": self.model, "messages": messages, "max_tokens": self.max_output, "temperature": 0.2, **self.options}, ensure_ascii=False).encode())
         try:
             with self.opener.open(request, timeout=self.timeout) as response:
                 raw = response.read(1024 * 1024 + 1)
             if len(raw) > 1024 * 1024:
                 raise ReviewError("AI 响应超过大小限制")
             data = json.loads(raw)
-            value = data["choices"][0]["message"]["content"]
-            if not isinstance(value, str) or not value.strip():
-                raise ReviewError("AI 未返回正文；可能达到输出上限")
-            # Some compatible providers return a JSON fence despite the prompt.
-            value = re.sub(r"^```(?:json)?\s*|\s*```$", "", value.strip())
-            payload = json.loads(value)
+            if not isinstance(data, dict):
+                raise ReviewError("AI 响应不是 JSON 对象")
+            # Count billable usage even when the response is empty or invalid.
             usage = data.get("usage")
             usage = usage if isinstance(usage, dict) else {}
-            for key in ("prompt_tokens", "completion_tokens", "total_tokens"):
-                count = usage.get(key)
-                if type(count) in (int, float) and count >= 0:
+            details = usage.get("completion_tokens_details")
+            details = details if isinstance(details, dict) else {}
+            counts = {key: usage.get(key) for key in ("prompt_tokens", "completion_tokens", "total_tokens")}
+            counts["reasoning_tokens"] = details.get("reasoning_tokens")
+            for key, count in counts.items():
+                if type(count) is int and count >= 0:
                     self.usage[key] = self.usage.get(key, 0) + count
+            choice = data["choices"][0]
+            message = choice["message"]
+            value = message.get("content")
+            has_content = isinstance(value, str) and bool(value.strip())
+            has_reasoning = isinstance(message.get("reasoning_content"), str) and bool(message["reasoning_content"].strip())
+            finish = choice.get("finish_reason")
+            finish = finish if isinstance(finish, str) and finish in {"stop", "length", "content_filter", "tool_calls", "function_call"} else "other"
+            self.responses.append({"finish_reason": finish, "has_content": has_content, "has_reasoning": has_reasoning})
+            if finish == "length":
+                raise ReviewError("AI 输出达到 max_tokens 上限；未采用截断建议，请关闭思考模式、缩小批次或调整输出预算")
+            if finish not in {"stop", "other"}:
+                raise ReviewError("AI 未正常完成文本输出；未采用本次建议")
+            if not has_content:
+                raise ReviewError("AI 仅返回思考内容，没有正文；请核对思考模式与输出预算" if has_reasoning else "AI 未返回正文；请核对模型输出配置")
+            # Reasoning is neither a usable review nor something to log or persist.
+            value = re.sub(r"^```(?:json)?\s*|\s*```$", "", value.strip())
+            payload = json.loads(value)
             return validate_reviews(payload, batch)
         except HTTPError as error:
             # Never expose upstream bodies, headers, endpoint credentials or authorization values.
             raise ReviewError(f"AI 请求失败（HTTP {error.code}）", retryable=error.code == 429 or error.code >= 500) from None
         except (URLError, TimeoutError, OSError, HTTPException):
             raise ReviewError("AI 网络请求失败或超时", retryable=True) from None
-        except (KeyError, IndexError, TypeError, json.JSONDecodeError, UnicodeDecodeError):
+        except (KeyError, IndexError, TypeError, AttributeError, json.JSONDecodeError, UnicodeDecodeError):
             raise ReviewError("AI 响应无法按候选 JSON 约定解析") from None
 
 
@@ -195,12 +218,12 @@ def review_candidates(state, config, now, env, mode="auto", provider_factory=Pro
             if candidate["status"] != "pending":
                 continue
             cached = current_review(candidate)
-            if cached and cached.get("model") == provider.model:
+            if cached and cached.get("model") == provider.model and cached.get("request_options", {}) == provider.options:
                 report["cache_hits"] += 1
             else:
                 queue.append(candidate)
         queue.sort(key=lambda c: (c.get("last_ai_attempt", ""), c.get("last_recommended", ""), c["first_seen"], c["id"]))
-        report.update(status="completed", model=provider.model, queued=len(queue))
+        report.update(status="completed", model=provider.model, request_options=provider.options, queued=len(queue))
         for offset in range(0, min(len(queue), limit), batch_size):
             batch = queue[offset:min(offset + batch_size, limit)]
             for candidate in batch:
@@ -209,7 +232,7 @@ def review_candidates(state, config, now, env, mode="auto", provider_factory=Pro
                 try:
                     result = provider.request(batch)
                     for candidate in batch:
-                        candidate["ai_review"] = {**result[candidate["id"]], "input_hash": input_hash(candidate), "prompt_version": PROMPT_VERSION, "model": provider.model, "generated_at": now}
+                        candidate["ai_review"] = {**result[candidate["id"]], "input_hash": input_hash(candidate), "prompt_version": PROMPT_VERSION, "model": provider.model, "request_options": provider.options, "generated_at": now}
                     report["reviewed"] += len(batch)
                     break
                 except ReviewError as error:
@@ -222,7 +245,7 @@ def review_candidates(state, config, now, env, mode="auto", provider_factory=Pro
             if report["errors"]:
                 # Auth/config errors stop AI work; normal discovery and publishing still proceed.
                 break
-        report.update(calls=provider.calls, reserved_tokens=provider.reserved, usage=provider.usage, remaining=len(queue) - report["reviewed"])
+        report.update(calls=provider.calls, reserved_tokens=provider.reserved, usage=provider.usage, responses=provider.responses, remaining=len(queue) - report["reviewed"])
     except (ReviewError, ValueError):
         # Do not log arbitrary exception strings from an endpoint or provider payload.
         report.update(status="failed", errors=["AI 配置无效，未调用或未继续调用；请核对接口、模型及预算配置"])

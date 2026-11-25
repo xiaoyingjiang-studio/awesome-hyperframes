@@ -486,6 +486,10 @@ def render_digest(state, config, now, repository):
     lines.append(f"状态：{labels.get(ai.get('status'), '尚无调用记录')}；本次请求 {ai.get('calls', 0)} 次、分析 {ai.get('reviewed', 0)} 项、命中缓存 {ai.get('cache_hits', 0)} 项、待分析 {ai.get('remaining', 0)} 项。")
     if ai.get("reserved_tokens"):
         lines.append(f"保守预算用量（输入 UTF-8 字节数加输出 Token 上限）：{ai['reserved_tokens']}；服务报告实际用量：{plain(json.dumps(ai.get('usage', {}), ensure_ascii=False))}。")
+    if "request_options" in ai:
+        lines.append("请求选项：" + plain(json.dumps(ai["request_options"], ensure_ascii=False)) + "。")
+    for response in ai.get("responses", []):
+        lines.append(f"- AI 响应诊断：finish_reason={plain(response['finish_reason'])}；有正文={response['has_content']}；有思考内容={response['has_reasoning']}（不保存思考正文）。")
     lines += ["- " + plain(error) for error in ai.get("errors", [])]
     lines.append("AI 只处理已提取的公开来源片段；没有浏览或执行能力，不决定收录，也不证明工程、成片或授权已验证。有效缓存可能来自早先运行，生成日期见各条建议。")
     state_url = f"https://github.com/{repository}/blob/{config['state_branch']}/{STATE_PATH}"
