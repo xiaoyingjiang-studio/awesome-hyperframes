@@ -35,8 +35,10 @@ The English [README](README.md) is the primary catalog. The [translated editions
 
 ## Discovery and review
 
-Automation adds leads to a candidate pool. AI descriptions, classifications and checklists are editorial suggestions; they do not approve resources or establish that a project works. Compare them with the original sources before proposing an entry.
+Automation collects leads, deduplicates them and directly updates the default branch each day. Entries need original-source evidence, a supported relationship and validated summaries in all eight catalog languages. They appear in the automatic catalog and the managed homepage sections without a weekly issue or a manual merge. Automatic publication does not establish that a project works or that reuse is permitted.
 
-Record review decisions through [reviews.json](discovery/reviews.json), following the [discovery guide](discovery/README.md) (Chinese), then propose the catalog entry in a pull request. Rejected and deferred leads retain their review reasons. The workflow does not automatically approve or merge submissions.
+Maintain exclusion decisions through [reviews.json](discovery/reviews.json), following the [discovery guide](discovery/README.md) (Chinese). Rejected and deferred leads retain their reasons and are removed from the automatic catalog on its next successful update. Handpicked highlights and external submissions still follow maintainer review; the workflow does not automatically merge external pull requests.
+
+The `AUTO-CATALOG` sections and `catalog/` files are generated. Put handpicked entries outside those sections and let the publisher deduplicate them. A publication updates all languages in one non-forced commit, preserves handwritten content and does not create a commit when nothing changed.
 
 Record access problems with their dates and symptoms. A 403, 429 or login requirement does not establish that a resource is unavailable. Preserve attribution and the original licenses. Never submit credentials, account information or private materials.

@@ -12,7 +12,7 @@ Gepflegt von [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). Ei
 
 > Der Katalog ist übersetzt. Verlinkte Videos, Beispielnotizen und einige Anleitungen sind auf Chinesisch.
 
-[Einstieg](#start-here) · [Ausgewählte Beispiele](#featured-examples) · [Offizielle Ressourcen](#official-resources) · [Lernen](#learning) · [Vorlagen und Werkzeuge](#templates-and-tools) · [Automatische Suche](#discovery-and-review) · [Mitmachen](#contributing)
+[Einstieg](#start-here) · [Ausgewählte Beispiele](#featured-examples) · [Offizielle Ressourcen](#official-resources) · [Lernen](#learning) · [Täglicher Katalog](#automated-catalog) · [Vorlagen und Werkzeuge](#templates-and-tools) · [Automatische Suche](#discovery-and-review) · [Mitmachen](#contributing)
 
 <a id="start-here"></a>
 
@@ -71,23 +71,37 @@ Die offizielle Dokumentation ist oben verlinkt. Diese Community-Ressourcen sind 
 - [Chinesische Typografie](https://xiaoyingjiang.com/guides/chinese-typography/) — Schriftauswahl, Textanordnung und gute Lesbarkeit in Videos.
 - [Quellcode des Leitfadens](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — Die unabhängige chinesische Website, Beispielprojekte und Wartungsaufzeichnungen.
 
+<!-- AUTO-CATALOG:START -->
+
+<a id="automated-catalog"></a>
+
+## Täglicher Katalog
+
+Automatisch aus den genannten Quellen zusammengestellt, mit KI-Beschreibungen. Die Projekte wurden nicht unabhängig ausgeführt; Nutzungsrechte müssen noch geprüft werden.
+
+[Vollständigen Katalog öffnen (0)](../catalog/README.de.md)
+
+Noch keine geeigneten Einträge; belegte Kandidaten werden innerhalb des täglichen KI-Budgets verarbeitet.
+
+<!-- AUTO-CATALOG:END -->
+
 <a id="templates-and-tools"></a>
 
 ## Vorlagen und Werkzeuge
 
 Die vier [ausgewählten Beispiele](#featured-examples) eignen sich als Ausgangspunkt für eigene Projekte. Beachte die Abhängigkeiten, Reproduktionshinweise und Lizenzen des Quellprojekts.
 
-Werkzeuge, Erweiterungen und Produktintegrationen werden aufgenommen, nachdem ihre tatsächliche Verbindung zu HyperFrames, Urheberschaft, Nutzungsbedingungen und Lizenzen geprüft wurden. Offizielle Anwenderlisten und Suchtreffer bleiben bis dahin Recherchehinweise. [Ein Werkzeug vorschlagen](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose).
+Geeignete Werkzeuge und Integrationen werden mit Originalquellen und noch zu prüfenden Nutzungsbedingungen automatisch in den täglichen Katalog aufgenommen. Die handverlesenen Beispiele oben werden getrennt gepflegt.
 
 <a id="discovery-and-review"></a>
 
 ## Automatische Suche
 
-**Automatische Suche → Quellenbelege und optionale KI-Notizen → Prüfung durch Maintainer → Katalogeintrag.**
+**Tägliche Suche → Deduplizierung → Quellen- und KI-Prüfung → direkte Aktualisierung von main.**
 
-Der Kandidatenpool ist vom Katalog getrennt. KI kann Relevanz, Beschreibung, Kategorie und Prüfpunkte vorschlagen. Sie genehmigt keine Einträge, führt keine Projekte aus und belegt keine Nutzungsrechte. Die Aufnahme in eine Wochenübersicht ist keine Empfehlung.
+Jeder erfolgreiche tägliche Lauf veröffentlicht geeignete Einträge und Beschreibungen in acht Sprachen direkt im Katalog und auf der Startseite. Reine Suchtreffer und unzureichend belegte Hinweise bleiben Kandidaten. Ein wöchentliches Issue oder manuelles Zusammenführen ist nicht nötig.
 
-[Prüfliste](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues?q=is%3Aissue+%22%5B%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0%5D%22) · [Workflow-Ausführungen](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Alle Kandidaten](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Wartungsleitfaden (Chinesisch)](../discovery/README.md)
+[Täglicher Katalog](../catalog/README.de.md) · [Workflow-Ausführungen](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Alle Kandidaten](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Wartungsleitfaden (Chinesisch)](../discovery/README.md)
 
 <a id="contributing"></a>
 
@@ -95,7 +109,7 @@ Der Kandidatenpool ist vom Katalog getrennt. KI kann Relevanz, Beschreibung, Kat
 
 Etwas Nützliches gefunden? [Schlage eine Ressource vor](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose) oder öffne einen PR nach dem [Beitragsleitfaden (Englisch)](../CONTRIBUTING.en.md). Nenne Autor, Originalquelle, Einsatzzweck, praktischen Nutzen, Quellcode-Verfügbarkeit, Lizenzen und tatsächlich durchgeführte Prüfungen.
 
-Wir legen Wert auf nachvollziehbare Quellen und konkretes Produktionswissen. Maintainer prüfen die Einträge; Vorschläge werden nicht automatisch genehmigt oder zusammengeführt.
+Maintainer prüfen handverlesene Empfehlungen und externe Pull Requests. Der tägliche Katalog wird automatisch veröffentlicht.
 
 <a id="attribution-and-reuse"></a>
 

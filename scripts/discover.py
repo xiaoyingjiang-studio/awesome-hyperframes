@@ -21,9 +21,10 @@ from urllib.parse import quote, urlencode, urljoin, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 if __package__:
-    from . import ai_review
+    from . import ai_review, catalog
 else:
     import ai_review
+    import catalog
 
 ROOT = Path(__file__).resolve().parents[1]
 SHANGHAI = timezone(timedelta(hours=8))
@@ -317,7 +318,7 @@ def catalog_urls(config):
     urls = set()
     for pattern in config["catalog_files"]:
         for path in ROOT.glob(pattern):
-            for match in LINK.finditer(path.read_text(encoding="utf-8")):
+            for match in LINK.finditer(catalog.strip_managed(path.read_text(encoding="utf-8"))):
                 url = canonical_url(match[2])
                 if url:
                     urls.add(url)
@@ -542,7 +543,7 @@ def publish_digest(api, repository, week, body):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=["discover", "digest", "discover-and-digest"], default="discover-and-digest")
+    parser.add_argument("--mode", choices=["daily", "discover", "publish"], default="daily", help="daily collects and publishes; discover only saves candidates; publish uses saved candidates")
     parser.add_argument("--ai", choices=["auto", "off", "required"], default="auto", help="Optional AI editing; required fails visibly when configuration is absent")
     parser.add_argument("--config", type=Path, default=ROOT / "discovery/config.json")
     parser.add_argument("--reviews", type=Path, default=ROOT / "discovery/reviews.json")
@@ -551,7 +552,7 @@ def main(argv=None):
     parser.add_argument("--output", type=Path, default=ROOT / "artifacts/discovery")
     parser.add_argument("--replay", type=Path, help="Replay captured public API responses without network or writes")
     parser.add_argument("--full", action="store_true", help="Ignore incremental search checkpoints")
-    parser.add_argument("--publish", action="store_true", help="Write remote state and/or weekly issue")
+    parser.add_argument("--publish", action="store_true", help="Write remote state and, in daily/publish mode, update the default-branch catalog")
     args = parser.parse_args(argv)
     if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", args.repository):
         parser.error("Invalid repository")
@@ -577,10 +578,10 @@ def main(argv=None):
         state = validate_state(read_json(local_state)) if local_state.exists() else empty_state()
     known = catalog_urls(config)
     apply_reviews(state, reviews, known)
-    if args.mode == "digest" and not state.get("last_run"):
+    if args.mode == "publish" and not state.get("last_run"):
         raise ValueError("No collection record found; run discover first")
     problems = []
-    if args.mode != "digest":
+    if args.mode != "publish":
         # A monthly unfiltered scan also finds old projects with newly indexed mentions.
         full = args.full or datetime.fromisoformat(now).astimezone(SHANGHAI).day == 1
         problems = collect(api, config, state, now, full)
@@ -589,19 +590,26 @@ def main(argv=None):
     ai = ai_review.review_candidates(state, config, now, os.environ, "off" if args.replay else args.ai)
     week, body, selected = render_digest(state, config, now, args.repository)
     (args.output / "weekly-review.md").write_text(body, encoding="utf-8")
+    publication = {"status": "preview"}
+    catalog_failed = False
     if args.publish:
-        # Persist partial discoveries before creating the issue. Failed sources keep checkpoints.
+        # Preserve discoveries even if main publication subsequently fails.
         save_state(api, args.repository, config["state_branch"], state, sha)
-        if args.mode != "discover":
-            url, created, previous_ids = publish_digest(api, args.repository, week, body)
-            print(f"Weekly review: {url} ({'created' if created else 'already exists; preserved'})")
-            recommended = selected if created else previous_ids
-            if any(key in state["candidates"] and state["candidates"][key].get("last_recommended") != week for key in recommended):
-                for key in recommended:
-                    if key in state["candidates"]:
-                        state["candidates"][key]["last_recommended"] = week
-                _, current_sha = load_state(api, args.repository, config["state_branch"])
-                save_state(api, args.repository, config["state_branch"], state, current_sha)
+        if args.mode in {"daily", "publish"}:
+            if problems or ai["status"] in {"failed", "partial"}:
+                publication = {"status": "skipped", "reason": "采集或 AI 未完整通过，本次保留已有目录"}
+            else:
+                try:
+                    publication = catalog.publish(api, args.repository, state, config, now, sys.modules[__name__])
+                except (ApiError, ValueError, KeyError, OSError) as error:
+                    publication = {"status": "failed", "reason": str(error)}
+                    catalog_failed = True
+    state["last_catalog_run"] = publication
+    summary = ["# 每日采集与自动入库", "", f"采集记录：{now}；候选：{len(state['candidates'])}。", "", f"AI：{ai['status']}；请求 {ai['calls']} 次，分析 {ai['reviewed']} 项，缓存 {ai['cache_hits']} 项。", "", "自动目录：" + plain(json.dumps(publication, ensure_ascii=False), 1500), "", md_link("查看默认分支完整目录", f"https://github.com/{args.repository}/blob/HEAD/catalog/README.md"), ""]
+    summary += ["- " + plain(note, 500) for note in [*problems, *(state.get("last_run") or {}).get("warnings", []), *ai["errors"], *ai.get("notices", [])]]
+    if publication.get("commit"):
+        summary += ["", md_link("本次自动提交", f"https://github.com/{args.repository}/commit/{publication['commit']}")]
+    (args.output / "run-summary.md").write_text("\n".join(summary) + "\n", encoding="utf-8")
     local_state.parent.mkdir(parents=True, exist_ok=True)
     local_state.write_text(json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     warnings = (state.get("last_run") or {}).get("warnings", [])
@@ -613,8 +621,9 @@ def main(argv=None):
     print(f"AI: {ai['status']}; calls: {ai['calls']}; reviewed: {ai['reviewed']}; cache hits: {ai['cache_hits']}")
     for error in ai["errors"]:
         print("AI problem: " + error, file=sys.stderr)
+    print("Catalog: " + json.dumps(publication, ensure_ascii=False))
     # A partial run preserves usable evidence but visibly fails CI instead of claiming success.
-    return 1 if problems or ai["status"] in {"failed", "partial"} else 0
+    return 1 if problems or ai["status"] in {"failed", "partial"} or catalog_failed else 0
 
 
 if __name__ == "__main__":

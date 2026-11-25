@@ -288,7 +288,7 @@ class ReviewTests(unittest.TestCase):
 
 
 class StateTests(unittest.TestCase):
-    def test_publish_and_rerun_preserve_weekly_issue_and_recommendation_state(self):
+    def test_discover_and_rerun_save_state_without_creating_issues(self):
         remote = {"state": None, "issues": [], "tree_state": None}
         def handler(path, method, data):
             if path.endswith("/contents/ADOPTERS.md"):
@@ -322,15 +322,13 @@ class StateTests(unittest.TestCase):
             conf = config()
             conf.update(search_queries=[], sources=[{"id": "adopters", "kind": "adopters", "repository": "sample/source", "path": "ADOPTERS.md"}])
             (root / "config.json").write_text(json.dumps(conf), encoding="utf-8")
-            args = ["--config", str(root / "config.json"), "--repository", REPO, "--output", str(root / "out"), "--publish"]
+            args = ["--config", str(root / "config.json"), "--repository", REPO, "--output", str(root / "out"), "--publish", "--mode", "discover"]
             with patch.dict("os.environ", {"GH_TOKEN": "synthetic-test-token"}), patch.object(d, "GitHub", return_value=FakeApi(handler)):
                 self.assertEqual(d.main(args), 0)
-                remote["issues"][0]["body"] += "\n维护者手动审核内容"
                 self.assertEqual(d.main(args), 0)
-            self.assertEqual(len(remote["issues"]), 1)
-            self.assertTrue(remote["issues"][0]["body"].endswith("维护者手动审核内容"))
+            self.assertEqual(remote["issues"], [])
             state = json.loads(remote["state"])
-            self.assertIn("last_recommended", next(iter(state["candidates"].values())))
+            self.assertEqual(len(state["candidates"]), 1)
 
     def test_damaged_remote_state_cannot_be_silently_reset(self):
         def handler(path, *args):

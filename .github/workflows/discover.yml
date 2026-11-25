@@ -1,20 +1,19 @@
-name: 自动发现与每周审核
+name: 每日采集与自动入库
 
 on:
   schedule:
-    # 北京时间每天 09:23 发现；周一 10:17 生成审核清单。避开整点。
+    # 北京时间每天 09:23 采集、整理并直接更新默认分支。
     - cron: '23 1 * * *'
-    - cron: '17 2 * * 1'
   workflow_dispatch:
     inputs:
       mode:
         description: 执行内容
         type: choice
         options:
-          - discover-and-digest
+          - daily
           - discover
-          - digest
-        default: discover-and-digest
+          - publish
+        default: daily
       ai:
         description: AI 辅助（auto 配好即用，off 关闭，required 要求配置完整）
         type: choice
@@ -22,7 +21,7 @@ on:
           - auto
           - 'off'
           - required
-        default: auto
+        default: required
       full:
         description: 忽略搜索检查点，补查全部范围（仍受分页上限限制）
         type: boolean
@@ -37,13 +36,12 @@ concurrency:
 
 jobs:
   discover:
-    # fork 不自动向其仓库写入状态或 Issue；仍可由 fork 维护者手动运行。
+    # fork 不自动写入；仍可由 fork 维护者在默认分支手动运行。
     if: github.ref_name == github.event.repository.default_branch && (github.repository == 'xiaoyingjiang-studio/awesome-hyperframes' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
       contents: write
-      issues: write
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -51,12 +49,14 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: '3.13'
-      - name: 采集与发布
+      - name: 发布前检查
+        run: python -m unittest discover -s tests -q
+      - name: 采集、整理与直接入库
         env:
           GH_TOKEN: ${{ github.token }}
-          DISCOVERY_MODE: ${{ github.event_name == 'schedule' && github.event.schedule == '17 2 * * 1' && 'digest' || inputs.mode || 'discover' }}
+          DISCOVERY_MODE: ${{ inputs.mode || 'daily' }}
           FULL_SCAN: ${{ inputs.full || false }}
-          AI_MODE: ${{ inputs.ai || 'auto' }}
+          AI_MODE: ${{ inputs.ai || 'required' }}
           AI_ENDPOINT: ${{ vars.AI_ENDPOINT }}
           AI_MODEL: ${{ vars.AI_MODEL }}
           AI_ENABLE_THINKING: ${{ vars.AI_ENABLE_THINKING || 'false' }}
@@ -74,6 +74,6 @@ jobs:
         if: always()
         shell: bash
         run: |
-          if [ -f artifacts/discovery/weekly-review.md ]; then
-            cat artifacts/discovery/weekly-review.md >> "$GITHUB_STEP_SUMMARY"
+          if [ -f artifacts/discovery/run-summary.md ]; then
+            cat artifacts/discovery/run-summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
