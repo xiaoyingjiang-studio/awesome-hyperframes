@@ -241,6 +241,7 @@ def review_candidates(state, config, now, env, mode="auto", provider_factory=Pro
         for offset in range(0, min(len(queue), limit), batch_size):
             batch = queue[offset:min(offset + batch_size, limit)]
             feedback = None
+            pending_error = None
             for candidate in batch:
                 candidate["last_ai_attempt"] = now
             for attempt in range(2):
@@ -251,7 +252,10 @@ def review_candidates(state, config, now, env, mode="auto", provider_factory=Pro
                     report["reviewed"] += len(batch)
                     break
                 except BudgetExceeded as error:
-                    if provider.calls:
+                    if pending_error:
+                        report["errors"].append(pending_error + "；预算已用尽，未能完成本批重试或修正")
+                        report["status"] = "partial" if report["reviewed"] else "failed"
+                    elif provider.calls:
                         report["notices"].append(str(error) + "；剩余候选留待后续运行")
                         deferred = True
                     else:
@@ -260,9 +264,11 @@ def review_candidates(state, config, now, env, mode="auto", provider_factory=Pro
                 except ReviewError as error:
                     if error.repairable and attempt == 0:
                         feedback = str(error)
+                        pending_error = str(error)
                         report["notices"].append("AI 输出格式不符，进入一次修正尝试；仍受本次请求及总预算上限限制")
                         continue
                     if error.retryable and attempt == 0:
+                        pending_error = str(error)
                         sleep(2)
                         continue
                     report["errors"].append(str(error))

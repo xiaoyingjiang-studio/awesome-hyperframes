@@ -295,6 +295,19 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(report["status"], "failed")
         self.assertEqual(report["calls"], 0)
 
+    def test_budget_does_not_hide_failed_request_or_unrepaired_format(self):
+        for network_error in [False, True]:
+            item = candidate()
+            provider = a.Provider({**ENV, "AI_MAX_CALLS": "1"})
+            invalid = Reply([item], lambda payload: {"reviews": []})
+            effect = TimeoutError if network_error else lambda *args, **kwargs: io.BytesIO(invalid.raw)
+            with patch.object(provider.opener, "open", side_effect=effect):
+                report = a.review_candidates(self.state(item), {}, NOW, ENV, provider_factory=lambda env: provider, sleep=lambda seconds: None)
+            self.assertEqual(report["status"], "failed")
+            self.assertEqual(report["calls"], 1)
+            self.assertTrue(report["errors"])
+            self.assertNotIn("ai_review", item)
+
     def test_cli_failure_still_saves_preview_and_replay_is_always_offline(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
