@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "state_branch": "automation/discovery-state",
+  "search_queries": [
+    "hyperframes in:name,description,readme fork:false archived:false is:public",
+    "\"hyperframes-studio\" in:name,description,readme fork:false archived:false is:public"
+  ],
+  "search_pages": 2,
+  "search_page_size": 30,
+  "overlap_days": 3,
+  "enrich_per_run": 15,
+  "digest_limit": 15,
+  "official_owners": ["heygen-com"],
+  "excluded_repositories": [
+    "xiaoyingjiang-studio/awesome-hyperframes",
+    "xiaoyingjiang-studio/hyperframes-cn",
+    "heygen-com/hyperframes"
+  ],
+  "catalog_files": ["README.md", "examples/*/README.md"],
+  "sources": [
+    {
+      "id": "official-adopters",
+      "kind": "adopters",
+      "repository": "heygen-com/hyperframes",
+      "path": "ADOPTERS.md"
+    },
+    {
+      "id": "official-registry",
+      "kind": "registry",
+      "repository": "heygen-com/hyperframes",
+      "path": "registry/registry.json",
+      "types": ["hyperframes:example"]
+    },
+    {
+      "id": "official-launches",
+      "kind": "launches",
+      "repository": "heygen-com/hyperframes-launches",
+      "path": "README.md"
+    }
+  ]
+}
