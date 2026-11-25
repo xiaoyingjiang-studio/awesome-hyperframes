@@ -361,6 +361,7 @@ def enrich(api, candidate, now):
 
 def collect(api, config, state, now, full=False):
     problems = []
+    warnings = []
     notices = []
     for source in config["sources"]:
         try:
@@ -425,8 +426,10 @@ def collect(api, config, state, now, full=False):
                 candidate["last_changed"] = now
         except (ApiError, ValueError, KeyError, TypeError) as error:
             candidate["enrichment_error"] = str(error)
-            problems.append(f"README 信息未补齐：{candidate['repository']}: {error}")
-    state["last_run"] = {"at": now, "full_search": full, "problems": problems, "notices": notices}
+            # Optional enrichment must not invalidate discoveries from primary sources.
+            # Keep the gap visible and the candidate in the fair retry queue.
+            warnings.append(f"README 信息未补齐（保留候选，后续轮换重试）：{candidate['repository']}: {error}")
+    state["last_run"] = {"at": now, "full_search": full, "problems": problems, "warnings": warnings, "notices": notices}
     return problems
 
 
@@ -477,8 +480,9 @@ def render_digest(state, config, now, repository):
     last = state.get("last_run")
     lines.append("最近采集：" + (last["at"] if last else "尚无成功记录") + "。")
     problems = last.get("problems", []) if last else []
-    lines += ["- " + plain(p, 500) for p in problems] if problems else ["最近一次任务未记录采集异常；不代表全网覆盖或资源内容已验证。"]
+    lines += ["- " + plain(p, 500) for p in problems] if problems else ["最近一次任务未记录主要来源采集错误；不代表全网覆盖或资源内容已验证。"]
     if last:
+        lines += ["- 补充信息警告：" + plain(warning, 500) for warning in last.get("warnings", [])]
         lines += ["- " + plain(notice, 500) for notice in last.get("notices", [])]
     ai = state.get("last_ai_run", {})
     lines += ["", "## AI 辅助记录", ""]
@@ -587,9 +591,12 @@ def main(argv=None):
                 save_state(api, args.repository, config["state_branch"], state, current_sha)
     local_state.parent.mkdir(parents=True, exist_ok=True)
     local_state.write_text(json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    print(f"Candidates: {len(state['candidates'])}; source problems: {len(problems)}; preview: {args.output / 'weekly-review.md'}")
+    warnings = (state.get("last_run") or {}).get("warnings", [])
+    print(f"Candidates: {len(state['candidates'])}; source problems: {len(problems)}; enrichment warnings: {len(warnings)}; preview: {args.output / 'weekly-review.md'}")
     for problem in problems:
         print("Source problem: " + problem, file=sys.stderr)
+    for warning in warnings:
+        print("Enrichment warning: " + warning, file=sys.stderr)
     print(f"AI: {ai['status']}; calls: {ai['calls']}; reviewed: {ai['reviewed']}; cache hits: {ai['cache_hits']}")
     for error in ai["errors"]:
         print("AI problem: " + error, file=sys.stderr)

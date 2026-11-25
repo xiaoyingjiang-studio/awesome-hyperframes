@@ -178,6 +178,63 @@ class CollectionTests(unittest.TestCase):
         d.collect(api, conf, state, NEXT)
         self.assertNotEqual(api.calls[0][0], api.calls[1][0])
 
+    def test_readme_403_is_visible_without_failing_cli_and_clears_after_retry(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            conf = config()
+            conf["enrich_per_run"] = 1
+            (root / "config.json").write_text(json.dumps(conf), encoding="utf-8")
+            args = ["--config", str(root / "config.json"), "--output", str(root), "--ai", "off"]
+            blocked = True
+            def handler(path, *unused):
+                if path.startswith("/search/"):
+                    return {"items": [repo_item()], "total_count": 1, "incomplete_results": False}
+                if path == "/repos/sample/project/readme":
+                    if blocked:
+                        raise d.ApiError("GitHub API HTTP 403: " + path, 403)
+                    return content("A HyperFrames example")
+                self.fail("Unexpected API call: " + path)
+            with patch.object(d, "GitHub", return_value=FakeApi(handler)), patch("builtins.print") as output:
+                self.assertEqual(d.main(args), 0)
+            state = d.read_json(root / "state.json")
+            item = next(iter(state["candidates"].values()))
+            self.assertEqual(state["last_run"]["problems"], [])
+            self.assertEqual(len(state["last_run"]["warnings"]), 1)
+            self.assertIn("403", item["enrichment_error"])
+            self.assertEqual(item["status"], "pending")
+            self.assertIn("last_enrichment_attempt", item)
+            body = (root / "weekly-review.md").read_text(encoding="utf-8")
+            self.assertIn("补充信息警告", body)
+            self.assertIn("README 补充读取失败，需人工核对", body)
+            self.assertTrue(any("Enrichment warning:" in str(call) for call in output.call_args_list))
+            blocked = False
+            with patch.object(d, "GitHub", return_value=FakeApi(handler)), patch("builtins.print"):
+                self.assertEqual(d.main(args), 0)
+            state = d.read_json(root / "state.json")
+            self.assertEqual(state["last_run"]["warnings"], [])
+            item = next(iter(state["candidates"].values()))
+            self.assertNotIn("enrichment_error", item)
+            self.assertIn("repository-readme", [e["id"] for e in item["evidence"]])
+
+    def test_primary_source_and_search_403_still_fail_cli(self):
+        for source_type in ("official", "search"):
+            with self.subTest(source_type=source_type), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                conf = config()
+                if source_type == "official":
+                    conf.update(search_queries=[], sources=[{"id": "adopters", "kind": "adopters", "repository": "sample/source", "path": "ADOPTERS.md"}])
+                (root / "config.json").write_text(json.dumps(conf), encoding="utf-8")
+                def fail(path, *unused):
+                    raise d.ApiError("GitHub API HTTP 403: " + path, 403)
+                args = ["--config", str(root / "config.json"), "--output", str(root), "--ai", "off"]
+                with patch.object(d, "GitHub", return_value=FakeApi(fail)), patch("builtins.print"):
+                    self.assertEqual(d.main(args), 1)
+                state = d.read_json(root / "state.json")
+                self.assertTrue(state["last_run"]["problems"])
+                self.assertFalse(state["last_run"]["warnings"])
+                self.assertFalse(state["checkpoints"])
+                self.assertIn("403", (root / "weekly-review.md").read_text(encoding="utf-8"))
+
     def test_replay_client_refuses_writes(self):
         with self.assertRaisesRegex(d.ApiError, "cannot publish"):
             d.GitHub(replay={}).call("/repos/sample/catalog/issues", "POST", {})
