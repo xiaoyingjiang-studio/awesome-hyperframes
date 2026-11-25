@@ -18,7 +18,7 @@ Maintained by [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). I
 
 <a id="目录"></a>
 
-[Start here](#start-here) · [Featured examples](#featured-examples) · [Official resources](#official-resources) · [Learning](#learning) · [Automatic catalog](#automated-catalog) · [Templates & tools](#templates-and-tools) · [Discovery](#discovery-and-review) · [Contribute](#contributing)
+[Start here](#start-here) · [Featured examples](#featured-examples) · [Official resources](#official-resources) · [Learning](#learning) · [Automatic catalog](#automated-catalog) · [Templates & tools](#templates-and-tools) · [Contribute](#contributing)
 
 <a id="start-here"></a>
 
@@ -126,16 +126,6 @@ Community tools and integrations are listed in the automatic catalog with their 
 <a id="自动发现与审核"></a>
 
 <a id="discovery-and-review"></a>
-
-## Discovery
-
-Scheduled for Wednesdays and Sundays at 08:00 China Standard Time (UTC+8).
-
-**Scheduled collection → deduplication → source and AI checks → direct update to main.**
-
-Every successful scheduled run publishes qualifying entries and summaries in all eight languages directly to the catalog and homepage. Search-only or insufficiently supported leads stay in the candidate pool. No weekly issue or manual merge is needed.
-
-[Automatic catalog](catalog/README.md) · [Workflow runs](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Full candidate records](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Maintainer guide (中文)](discovery/README.md)
 
 <a id="收录与贡献"></a>
 

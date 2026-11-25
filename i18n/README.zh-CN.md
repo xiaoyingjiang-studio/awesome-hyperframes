@@ -16,7 +16,7 @@
 
 > 目录提供八语种版本；链接资源保留各自的原始语言。
 
-[从这里开始](#start-here) · [精选案例](#featured-examples) · [官方资源](#official-resources) · [学习资料](#learning) · [自动资源目录](#automated-catalog) · [模板与工具](#templates-and-tools) · [自动发现](#discovery-and-review) · [参与贡献](#contributing)
+[从这里开始](#start-here) · [精选案例](#featured-examples) · [官方资源](#official-resources) · [学习资料](#learning) · [自动资源目录](#automated-catalog) · [模板与工具](#templates-and-tools) · [参与贡献](#contributing)
 
 <a id="start-here"></a>
 
@@ -108,16 +108,6 @@
 社区工具与集成收录在自动目录中，并附原始来源及待核对的复用条件。
 
 <a id="discovery-and-review"></a>
-
-## 自动发现
-
-定时执行：每周三、周日北京时间 08:00。
-
-**定时采集 → 去重 → 来源与 AI 检查 → 直接更新 main。**
-
-每次成功运行后，符合规则的条目和八语种简介会直接写入目录与首页。仅搜索命中或证据不足的线索继续保存在候选池，不再需要每周 Issue 或人工合并。
-
-[自动资源目录](../catalog/README.zh-CN.md) · [工作流运行记录](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [完整候选记录](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [维护说明](../discovery/README.md)
 
 <a id="contributing"></a>
 

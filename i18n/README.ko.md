@@ -16,7 +16,7 @@ HyperFrames 프레임워크와 HyperFrames Studio의 영상, 재사용 가능한
 
 > 카탈로그는 8개 언어로 제공됩니다. 연결된 자료는 원래 언어를 유지합니다.
 
-[시작하기](#start-here) · [주요 예제](#featured-examples) · [공식 자료](#official-resources) · [학습 자료](#learning) · [자동 카탈로그](#automated-catalog) · [템플릿과 도구](#templates-and-tools) · [자동 수집](#discovery-and-review) · [기여하기](#contributing)
+[시작하기](#start-here) · [주요 예제](#featured-examples) · [공식 자료](#official-resources) · [학습 자료](#learning) · [자동 카탈로그](#automated-catalog) · [템플릿과 도구](#templates-and-tools) · [기여하기](#contributing)
 
 <a id="start-here"></a>
 
@@ -108,16 +108,6 @@ HeyGen의 공식 프로젝트부터 살펴보세요. 소스에서 구성을 확�
 커뮤니티 도구와 연동은 원본 출처 및 확인이 필요한 재사용 조건과 함께 자동 카탈로그에 등록됩니다.
 
 <a id="discovery-and-review"></a>
-
-## 자동 수집
-
-매주 수요일과 일요일 중국 표준시 08:00(UTC+8)에 실행합니다.
-
-**정기 수집 → 중복 제거 → 출처 및 AI 검사 → main에 직접 반영.**
-
-정기 실행이 성공하면 조건에 맞는 항목과 8개 언어 소개를 카탈로그와 홈에 직접 게시합니다. 단순 검색 결과나 근거가 부족한 후보는 대기 목록에 남습니다. 주간 Issue나 수동 병합이 필요하지 않습니다.
-
-[자동 카탈로그](../catalog/README.ko.md) · [워크플로 실행 기록](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [전체 후보 기록](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [유지 관리 가이드 (중국어)](../discovery/README.md)
 
 <a id="contributing"></a>
 

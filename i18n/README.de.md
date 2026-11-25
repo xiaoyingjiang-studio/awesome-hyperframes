@@ -16,7 +16,7 @@ Gepflegt von [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). Ei
 
 > Der Katalog ist in acht Sprachen verfügbar. Verlinkte Ressourcen behalten ihre Originalsprache.
 
-[Einstieg](#start-here) · [Ausgewählte Beispiele](#featured-examples) · [Offizielle Ressourcen](#official-resources) · [Lernen](#learning) · [Automatischer Katalog](#automated-catalog) · [Vorlagen und Werkzeuge](#templates-and-tools) · [Automatische Suche](#discovery-and-review) · [Mitmachen](#contributing)
+[Einstieg](#start-here) · [Ausgewählte Beispiele](#featured-examples) · [Offizielle Ressourcen](#official-resources) · [Lernen](#learning) · [Automatischer Katalog](#automated-catalog) · [Vorlagen und Werkzeuge](#templates-and-tools) · [Mitmachen](#contributing)
 
 <a id="start-here"></a>
 
@@ -108,16 +108,6 @@ Erkunde die offiziellen Projektvorlagen und passe Inhalte, Timing und Material a
 Community-Werkzeuge und Integrationen stehen mit Originalquellen und zu prüfenden Nutzungsbedingungen im automatischen Katalog.
 
 <a id="discovery-and-review"></a>
-
-## Automatische Suche
-
-Geplante Ausführung mittwochs und sonntags um 08:00 Uhr chinesischer Standardzeit (UTC+8).
-
-**Geplante Suche → Deduplizierung → Quellen- und KI-Prüfung → direkte Aktualisierung von main.**
-
-Jeder erfolgreiche geplante Lauf veröffentlicht geeignete Einträge und Beschreibungen in acht Sprachen direkt im Katalog und auf der Startseite. Reine Suchtreffer und unzureichend belegte Hinweise bleiben Kandidaten. Ein wöchentliches Issue oder manuelles Zusammenführen ist nicht nötig.
-
-[Automatischer Katalog](../catalog/README.de.md) · [Workflow-Ausführungen](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Alle Kandidaten](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Wartungsleitfaden (Chinesisch)](../discovery/README.md)
 
 <a id="contributing"></a>
 

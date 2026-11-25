@@ -28,3 +28,5 @@ The English [README](../README.md) is the primary catalog. Each edition below co
 Contribution guidelines are available in [English](../CONTRIBUTING.en.md) and [简体中文](../CONTRIBUTING.md). Detailed example notes and automation documentation currently remain in Chinese.
 
 - Keep the global homepage focused on source-linked examples. Language-specific community material belongs in the labeled expandable learning section and the example index. Translate the GitHub Star / Watch / organization Follow invitation with the same meaning; do not promise notifications for catalog commits.
+
+- Do not add a standalone automation-process section or navigation item to the homepages. Keep scheduling and publishing details in the maintainer guide and contribution documentation; `discovery-and-review` remains an invisible compatibility anchor.
