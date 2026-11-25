@@ -8,9 +8,13 @@ Descubre vídeos, proyectos reutilizables, plantillas, herramientas y materiales
 
 [English](../README.md) · [简体中文](../i18n/README.zh-CN.md) · [日本語](../i18n/README.ja.md) · **Español** · [Français](../i18n/README.fr.md) · [Deutsch](../i18n/README.de.md) · [Português (Brasil)](../i18n/README.pt-BR.md) · [한국어](../i18n/README.ko.md)
 
+> **¿Te resulta útil esta colección?**
+>
+> ⭐ Dale una **Star** al repositorio para guardarlo y apoyar el proyecto. Usa **Watch** arriba para elegir las notificaciones de GitHub, o **Follow** en [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio) para seguir la actividad pública de la organización.
+
 Mantenido por [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). Una colección independiente de la comunidad; no es un proyecto oficial de HeyGen.
 
-> El catálogo está traducido; los vídeos enlazados, las notas de los ejemplos y algunas guías están en chino.
+> El catálogo está disponible en ocho idiomas. Los recursos enlazados conservan su idioma original.
 
 [Primeros pasos](#start-here) · [Ejemplos destacados](#featured-examples) · [Recursos oficiales](#official-resources) · [Aprendizaje](#learning) · [Catálogo automático](#automated-catalog) · [Plantillas y herramientas](#templates-and-tools) · [Descubrimiento](#discovery-and-review) · [Contribuir](#contributing)
 
@@ -22,33 +26,24 @@ Mantenido por [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). U
 | --- | --- |
 | Crear en Studio | [Guía oficial del primer vídeo](https://hyperframes.heygen.com/studio-app/first-video)<br>Conoce el flujo de trabajo de la aplicación de escritorio. |
 | Desarrollar con el framework | [Repositorio oficial](https://github.com/heygen-com/hyperframes)<br>Consulta el código fuente y la documentación del framework. |
-| Adaptar un ejemplo | [Proyectos de la comunidad](#featured-examples)<br>Mira el vídeo, estudia el proyecto y adáptalo. |
+| Adaptar un ejemplo | [Ejemplos con código fuente](#featured-examples)<br>Estudia el código de la composición y adapta su contenido. |
 
 <a id="featured-examples"></a>
 
 ## Ejemplos destacados
 
-Cuatro ejemplos originales del framework, creados por Xiaoyingjiang Studio. Cada uno incluye un vídeo terminado, el proyecto fuente y notas de producción. Los textos de los vídeos están en chino.
+Empieza por estos proyectos oficiales de HeyGen. Explora la composición en el código fuente y adáptala a tu contenido.
 
-| Presentación de producto | Explicación en chino |
+| Ejemplo | Qué estudiar |
 | --- | --- |
-| [![Presentación de producto](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/product-intro.jpg)](https://xiaoyingjiang.com/showcase/product-intro/) | [![Explicación en chino](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/chinese-explainer.jpg)](https://xiaoyingjiang.com/showcase/chinese-explainer/) |
-| **Presentación de producto** — Mensaje del producto, jerarquía visual y ritmo de las escenas. | **Explicación en chino** — Tipografía china, organización de la información y tiempos de los subtítulos. |
-| [Vídeo y descripción (chino)](https://xiaoyingjiang.com/showcase/product-intro/) · [Proyecto fuente](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/product-intro) · [Notas de producción (chino)](../examples/product-intro/README.md) | [Vídeo y descripción (chino)](https://xiaoyingjiang.com/showcase/chinese-explainer/) · [Proyecto fuente](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/chinese-explainer) · [Notas de producción (chino)](../examples/chinese-explainer/README.md) |
+| [product-promo](https://github.com/heygen-com/hyperframes/tree/main/registry/examples/product-promo) | Narrativa de producto con varias escenas y recursos SVG. |
+| [kinetic-type](https://github.com/heygen-com/hyperframes/tree/main/registry/examples/kinetic-type) | Promociones tipográficas, títulos animados y ritmo visual. |
+| [nyt-graph](https://github.com/heygen-com/hyperframes/tree/main/registry/examples/nyt-graph) | Gráficos animados de estilo editorial impreso. |
+| [Website → HyperFrames](https://github.com/heygen-com/hyperframes-launches/tree/main/website-to-hyperframes) | Un vídeo de lanzamiento sobre web a vídeo, con código, guion y storyboard. |
 
-| Historia con datos | Edición de material |
-| --- | --- |
-| [![Historia con datos](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/data-story.jpg)](https://xiaoyingjiang.com/showcase/data-story/) | [![Edición de material](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/footage-edit.jpg)](https://xiaoyingjiang.com/showcase/footage-edit/) |
-| **Historia con datos** — Gráficos animados y comparaciones con datos identificados como ejemplos. | **Edición de material** — Secuenciación de clips, textos superpuestos y ritmo de edición. |
-| [Vídeo y descripción (chino)](https://xiaoyingjiang.com/showcase/data-story/) · [Proyecto fuente](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/data-story) · [Notas de producción (chino)](../examples/data-story/README.md) | [Vídeo y descripción (chino)](https://xiaoyingjiang.com/showcase/footage-edit/) · [Proyecto fuente](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/footage-edit) · [Notas de producción (chino)](../examples/footage-edit/README.md) |
+[Galería oficial de inspiración](https://hyperframes.heygen.com/examples) · [Apache-2.0](https://github.com/heygen-com/hyperframes/blob/main/LICENSE) · [Licencias de los proyectos de lanzamiento](https://github.com/heygen-com/hyperframes-launches#license)
 
-
-<details>
-<summary>Verificación y reutilización</summary>
-
-Son ejemplos del framework HyperFrames. La interfaz de producto es conceptual y no documenta el uso de Studio. El [registro original de verificación](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/examples/verification.json) recoge comprobaciones y renderizado en Windows con HyperFrames 0.9.92: 960 × 540, 30 fps, ocho segundos y sin audio. Este catálogo cita ese registro histórico; no se volvieron a renderizar los vídeos para esta actualización. Otras versiones y entornos requieren sus propias comprobaciones. Consulta la [licencia del contenido](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/CONTENT_LICENSE.md) y los [avisos de terceros](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/THIRD_PARTY_NOTICES.md) del proyecto original.
-
-</details>
+Antes de reutilizar, revisa la licencia del código y los derechos independientes de medios, fuentes y marcas.
 
 <a id="official-resources"></a>
 
@@ -64,12 +59,24 @@ Son ejemplos del framework HyperFrames. La interfaz de producto es conceptual y 
 
 ## Aprendizaje
 
-La documentación oficial está enlazada arriba. Estos recursos de la comunidad están en **chino**:
+**Guías oficiales (inglés)**
 
-- [Guía de HyperFrames en chino](https://xiaoyingjiang.com/) — Introducción al producto, instalación y primeros pasos.
-- [Inicio rápido de Studio](https://xiaoyingjiang.com/start/studio/) — Introducción en chino a la aplicación de escritorio.
-- [Tipografía china](https://xiaoyingjiang.com/guides/chinese-typography/) — Selección de fuentes, composición de texto y legibilidad en vídeo.
-- [Código de la guía](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — El sitio independiente en chino, los ejemplos y los registros de mantenimiento.
+- [Crea tu primer vídeo](https://hyperframes.heygen.com/quickstart)
+- [HyperFrames + Codex](https://hyperframes.heygen.com/guides/with-codex)
+- [HyperFrames + Claude Code](https://hyperframes.heygen.com/guides/with-claude-code)
+
+<details>
+<summary>Recursos comunitarios en chino</summary>
+
+Para quienes crean en chino, Xiaoyingjiang Studio mantiene estas guías y notas de producción.
+
+- [HyperFrames Chinese Guide](https://xiaoyingjiang.com/)
+- [Studio quick start](https://xiaoyingjiang.com/start/studio/)
+- [Chinese typography](https://xiaoyingjiang.com/guides/chinese-typography/)
+- [Guide source](https://github.com/xiaoyingjiang-studio/hyperframes-cn)
+- [Proyectos de ejemplo y notas de producción en chino](../examples/README.md)
+
+</details>
 
 <!-- AUTO-CATALOG:START -->
 
@@ -94,9 +101,11 @@ Recopilado automáticamente a partir de las fuentes citadas, con descripciones d
 
 ## Plantillas y herramientas
 
-Los cuatro [ejemplos destacados](#featured-examples) sirven como punto de partida para proyectos reutilizables. Sigue las dependencias, las instrucciones de reproducción y las licencias del proyecto original.
+Explora las plantillas oficiales y adapta su contenido, tiempos y recursos a tu proyecto.
 
-Las herramientas e integraciones aptas se añaden automáticamente al catálogo automático, con fuentes originales y condiciones de reutilización por comprobar. Los ejemplos seleccionados de arriba se mantienen por separado.
+[HyperFrames registry](https://github.com/heygen-com/hyperframes/tree/main/registry/examples) · [Notas de fuentes de ejemplos oficiales (chino)](../examples/official-examples/README.md)
+
+Las herramientas e integraciones comunitarias figuran en el catálogo automático con sus fuentes y condiciones de reutilización por comprobar.
 
 <a id="discovery-and-review"></a>
 
