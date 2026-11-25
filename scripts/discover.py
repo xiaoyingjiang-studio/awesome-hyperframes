@@ -160,6 +160,23 @@ def validate_state(state):
     return state
 
 
+def decode_file(api, repository, result):
+    # Contents API omits inline content above 1 MiB. Fetch the immutable blob,
+    # retaining the original file SHA for optimistic updates and never resetting data.
+    if result.get("encoding") == "none":
+        sha = result.get("sha", "")
+        if not isinstance(sha, str) or not re.fullmatch(r"[0-9a-f]{40}", sha):
+            raise ValueError("Missing or invalid file blob SHA")
+        blob = api.call(f"/repos/{repository}/git/blobs/{sha}")
+        if blob.get("sha") != sha:
+            raise ValueError("File blob SHA mismatch")
+    else:
+        blob = result
+    if blob.get("encoding") != "base64" or not blob.get("content"):
+        raise ValueError("Unsupported or empty GitHub file content")
+    return base64.b64decode(blob["content"]).decode("utf-8-sig")
+
+
 def load_state(api, repository, branch):
     try:
         result = api.call(f"/repos/{repository}/contents/{STATE_PATH}?" + urlencode({"ref": branch}))
@@ -174,7 +191,7 @@ def load_state(api, repository, branch):
                 return empty_state(), None
             raise
         raise ValueError("State branch exists but state.json is missing") from None
-    return validate_state(json.loads(base64.b64decode(result["content"]))), result["sha"]
+    return validate_state(json.loads(decode_file(api, repository, result))), result["sha"]
 
 
 def save_state(api, repository, branch, state, sha):
@@ -192,9 +209,7 @@ def save_state(api, repository, branch, state, sha):
 
 def get_file(api, repository, path):
     result = api.call(f"/repos/{repository}/contents/{quote(path, safe='/')}")
-    if result.get("encoding") != "base64" or not result.get("content"):
-        raise ValueError(f"Unsupported source encoding: {repository}/{path}")
-    text = base64.b64decode(result["content"]).decode("utf-8-sig")
+    text = decode_file(api, repository, result)
     return text, result["html_url"], result["sha"]
 
 
@@ -346,9 +361,7 @@ def repository_candidate(item, query, now, official_owners=()):
 def enrich(api, candidate, now):
     repository = candidate["repository"]
     result = api.call(f"/repos/{repository}/readme")
-    if result.get("encoding") != "base64":
-        raise ValueError("Unsupported README encoding")
-    readme = base64.b64decode(result["content"]).decode("utf-8-sig")[:60000]
+    readme = decode_file(api, repository, result)[:60000]
     matches = [line.strip() for line in readme.splitlines() if re.search(r"hyperframes", line, re.I)]
     candidate["association"] = "README 提及，实际使用待核对" if matches else "仅搜索命中，关系待核对"
     # Do not retain an obsolete excerpt when the current README removes the mention.
