@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="title description">
+  <title id="title">Awesome HyperFrames</title>
+  <desc id="description">An independent collection of examples, templates, tools and learning resources. Abstract video frames in mint and orange on a dark background.</desc>
+  <rect width="1200" height="280" rx="24" fill="#111e26"/>
+  <path d="M770 0v280M0 232h1200" stroke="#26363e"/>
+  <path d="M802 40h348M802 72h348M802 104h348M802 136h348M802 168h348M802 200h348" stroke="#203039"/>
+  <g fill="#f4f5ed" font-family="Segoe UI, Arial, sans-serif">
+    <text x="54" y="69" font-size="23" letter-spacing="4">AWESOME</text>
+    <text x="50" y="151" font-size="72" font-weight="700" letter-spacing="-2">HyperFrames</text>
+    <text x="54" y="202" font-size="17" fill="#c1d1d1">Examples. Templates. Tools. Learning.</text>
+    <text x="54" y="260" font-size="12" letter-spacing="2" fill="#9cb1b2">AN INDEPENDENT COMMUNITY COLLECTION</text>
+  </g>
+  <g transform="translate(836 38)">
+    <rect x="42" y="0" width="242" height="151" rx="13" fill="#ffad64" transform="rotate(7 163 76)"/>
+    <rect x="18" y="19" width="242" height="151" rx="13" fill="#49c8ae" transform="rotate(-5 139 95)"/>
+    <rect x="0" y="35" width="242" height="151" rx="13" fill="#eaf1e9"/>
+    <path d="M0 67h242" stroke="#c8d7cf"/>
+    <g fill="#91a79d"><circle cx="16" cy="51" r="3"/><circle cx="28" cy="51" r="3"/><circle cx="40" cy="51" r="3"/></g>
+    <rect x="17" y="82" width="104" height="87" rx="7" fill="#142c31"/>
+    <path d="m59 104 27 21-27 21z" fill="#65d8bd"/>
+    <path d="M140 91h78M140 103h56M140 130h78M140 142h65M140 154h44" stroke="#a1b7ab" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(802 247)">
+    <rect width="91" height="10" rx="5" fill="#49c8ae"/>
+    <rect x="98" width="58" height="10" rx="5" fill="#ffad64"/>
+    <rect x="163" width="179" height="10" rx="5" fill="#39545b"/>
+  </g>
+</svg>
