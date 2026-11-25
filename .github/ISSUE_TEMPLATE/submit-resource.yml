@@ -1,0 +1,59 @@
+name: 推荐案例或资源
+description: 推荐值得学习的 HyperFrames 作品、模板、项目或教程。
+title: "[推荐] "
+body:
+  - type: input
+    id: resource-name
+    attributes:
+      label: 资源名称
+    validations:
+      required: true
+  - type: input
+    id: original-url
+    attributes:
+      label: 原始链接
+      description: 请提供作者的原始项目或作品页面，不使用追踪短链。
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: 分类
+      options:
+        - 产品介绍
+        - 知识讲解
+        - 数据表达
+        - 素材剪辑
+        - 模板与组件
+        - 教程与学习资源
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: 值得收录的原因
+      description: 说明用途、可借鉴内容，以及与 HyperFrames 的关系。
+    validations:
+      required: true
+  - type: textarea
+    id: author-license
+    attributes:
+      label: 作者、源码与许可
+      description: 提供作者、成片、源码或模板地址、原始许可；缺少的信息请明确写明。
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: 验证范围与使用条件
+      description: 仅核对链接、引用作者记录，还是亲自运行？注明 Studio 或框架入口、日期、版本、账号或付费要求，以及未验证内容。
+    validations:
+      required: true
+  - type: textarea
+    id: affiliation
+    attributes:
+      label: 与作者或资源的关系
+      description: 如为本人作品、商业推广或关联项目，请说明；无关联可写无。
+    validations:
+      required: true

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: HyperFrames 官方项目
+    url: https://github.com/heygen-com/hyperframes
+    about: 上游产品故障与功能反馈请联系官方项目。
+  - name: HyperFrames 中文指南
+    url: https://xiaoyingjiang.com/
+    about: 中文安装、上手与实践资料。
