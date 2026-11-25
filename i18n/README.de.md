@@ -26,7 +26,7 @@ Gepflegt von [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). Ei
 | --- | --- |
 | In Studio gestalten | [Offizielle Anleitung zum ersten Video](https://hyperframes.heygen.com/studio-app/first-video)<br>Lerne den Ablauf in der Desktop-App kennen. |
 | Mit dem Framework entwickeln | [Offizielles Repository](https://github.com/heygen-com/hyperframes)<br>Entdecke Quellcode und Framework-Dokumentation. |
-| Ein Beispiel anpassen | [Beispielprojekte der Community](#featured-examples)<br>Sieh dir das Video an, prüfe das Projekt und passe es an. |
+| Ein Beispiel anpassen | [Beispiele mit Quellcode](#featured-examples)<br>Untersuche den Quellcode der Komposition und passe ihre Inhalte an. |
 
 <a id="featured-examples"></a>
 

@@ -26,7 +26,7 @@ HyperFrames フレームワークと HyperFrames Studio の動画作品、再利
 | --- | --- |
 | Studio で制作する | [初めての動画：公式ガイド](https://hyperframes.heygen.com/studio-app/first-video)<br>デスクトップアプリの制作手順を確認できます。 |
 | フレームワークで開発する | [公式リポジトリ](https://github.com/heygen-com/hyperframes)<br>ソースコードと公式ドキュメントを確認できます。 |
-| 制作例を改変する | [コミュニティの制作例](#featured-examples)<br>完成動画を見て、プロジェクトと制作方法を学べます。 |
+| 制作例を改変する | [制作例のソース](#featured-examples)<br>構成とソースを調べ、自分のコンテンツに合わせて変更できます。 |
 
 <a id="featured-examples"></a>
 

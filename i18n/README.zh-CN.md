@@ -26,7 +26,7 @@
 | --- | --- |
 | 在 Studio 中创作 | [官方首次创作演示](https://hyperframes.heygen.com/studio-app/first-video)<br>了解桌面应用的创作流程。 |
 | 使用框架开发 | [官方源码仓库](https://github.com/heygen-com/hyperframes)<br>查看框架源码与官方文档。 |
-| 从案例开始修改 | [示例源工程](#featured-examples)<br>先看成片，再研究源码和制作方法。 |
+| 从案例开始修改 | [示例源工程](#featured-examples)<br>研究画面组织与源代码，按自己的内容进行改编。 |
 
 <a id="featured-examples"></a>
 

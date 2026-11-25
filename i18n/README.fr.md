@@ -26,7 +26,7 @@ Maintenu par [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). Un
 | --- | --- |
 | Créer dans Studio | [Guide officiel de la première vidéo](https://hyperframes.heygen.com/studio-app/first-video)<br>Découvrez le parcours de création dans l’application de bureau. |
 | Développer avec le framework | [Dépôt officiel](https://github.com/heygen-com/hyperframes)<br>Consultez le code source et la documentation du framework. |
-| Adapter un exemple | [Projets de la communauté](#featured-examples)<br>Regardez la vidéo, examinez le projet, puis adaptez-le. |
+| Adapter un exemple | [Exemples avec code source](#featured-examples)<br>Étudiez le code de la composition et adaptez son contenu. |
 
 <a id="featured-examples"></a>
 

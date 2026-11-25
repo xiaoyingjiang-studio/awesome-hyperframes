@@ -28,7 +28,7 @@ Maintained by [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). I
 | --- | --- |
 | Create in Studio | [Official first-video walkthrough](https://hyperframes.heygen.com/studio-app/first-video)<br>Follow the desktop app workflow. |
 | Build with the framework | [Official repository](https://github.com/heygen-com/hyperframes)<br>Explore the source and framework documentation. |
-| Adapt an example | [Source example projects](#featured-examples)<br>Study a video, inspect its project, then adapt it. |
+| Adapt an example | [Source example projects](#featured-examples)<br>Study the composition source and adapt its content. |
 
 <a id="作品与用例"></a>
 

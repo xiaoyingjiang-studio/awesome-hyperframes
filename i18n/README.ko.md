@@ -26,7 +26,7 @@ HyperFrames 프레임워크와 HyperFrames Studio의 영상, 재사용 가능한
 | --- | --- |
 | Studio에서 제작하기 | [첫 영상 공식 가이드](https://hyperframes.heygen.com/studio-app/first-video)<br>데스크톱 앱의 제작 과정을 살펴봅니다. |
 | 프레임워크로 개발하기 | [공식 저장소](https://github.com/heygen-com/hyperframes)<br>프레임워크 소스 코드와 공식 문서를 확인합니다. |
-| 예제 수정하기 | [소스가 있는 예제 프로젝트](#featured-examples)<br>완성 영상을 보고 프로젝트와 제작 방식을 살펴본 뒤 수정합니다. |
+| 예제 수정하기 | [소스가 있는 예제](#featured-examples)<br>구성 소스를 살펴보고 자신의 콘텐츠에 맞게 바꿔 보세요. |
 
 <a id="featured-examples"></a>
 
