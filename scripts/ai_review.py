@@ -15,6 +15,7 @@ from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 PROMPT_VERSION = 1
+MAX_REPAIR_FEEDBACK = 256
 CATEGORIES = {"作品与案例", "案例与模板", "模板与组件", "工具与集成产品", "教程与学习资源", "项目（待分类）"}
 RELEVANCE = {"supported", "mention_only", "unclear", "unrelated"}
 ENTRIES = {"Studio", "HyperFrames 框架", "待核对"}
@@ -91,7 +92,7 @@ def validate_reviews(payload, batch):
     results = {}
     for value in payload["reviews"]:
         if not isinstance(value, dict) or not isinstance(value.get("id"), str) or value["id"] not in expected or value["id"] in results:
-            raise ReviewError("AI 返回未知或重复候选 ID")
+            raise ReviewError("AI 返回未知或重复候选 ID；必须逐字复用输入 id，每个候选恰好返回一次")
         if any(not isinstance(value.get(key), str) or value[key] not in allowed for key, allowed in [("relevance", RELEVANCE), ("category", CATEGORIES), ("entry", ENTRIES)]):
             raise ReviewError("AI 分类或相关性不符合约定")
         result = {key: value[key] for key in ("relevance", "category", "entry")}
@@ -148,12 +149,25 @@ class Provider:
         self.responses = []
         self.opener = build_opener(NoRedirects())
 
-    def request(self, batch, feedback=None):
+    def messages(self, batch, feedback=None):
         messages = [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": json.dumps({"candidates": [candidate_input(c) for c in batch]}, ensure_ascii=False)}]
         if feedback:
-            messages.append({"role": "user", "content": "上次响应未通过本地格式验证：" + feedback + "。请重新返回完整批次；逐项检查所有字段、长度和来源 ID，不要添加解释或改变事实。"})
+            messages.append({"role": "user", "content": "上次响应未通过本地格式验证：" + feedback[:MAX_REPAIR_FEEDBACK] + "。请重新返回完整批次；逐项检查所有字段、长度和来源 ID，不要添加解释或改变事实。"})
+        return messages
+
+    def reservation(self, batch, feedback=None):
         # Match the existing project: UTF-8 input bytes + requested output-token ceiling.
-        reservation = len(json.dumps(messages, ensure_ascii=False).encode()) + self.max_output
+        return len(json.dumps(self.messages(batch, feedback), ensure_ascii=False).encode()) + self.max_output
+
+    def can_start_batch(self, batch):
+        # JSON-escaped control characters bound any allowed feedback of this length.
+        # Reserve a complete repair before spending a request on a new batch.
+        required = self.reservation(batch) + self.reservation(batch, "\x00" * MAX_REPAIR_FEEDBACK)
+        return self.calls + 2 <= self.max_calls and self.reserved + required <= self.max_tokens
+
+    def request(self, batch, feedback=None):
+        messages = self.messages(batch, feedback)
+        reservation = self.reservation(batch, feedback)
         if self.calls >= self.max_calls or self.reserved + reservation > self.max_tokens:
             raise BudgetExceeded("达到本次 AI 调用或保守 Token 预算上限")
         self.calls += 1
@@ -240,6 +254,12 @@ def review_candidates(state, config, now, env, mode="auto", provider_factory=Pro
         deferred = False
         for offset in range(0, min(len(queue), limit), batch_size):
             batch = queue[offset:min(offset + batch_size, limit)]
+            if not provider.can_start_batch(batch):
+                if provider.calls:
+                    report["notices"].append("剩余额度不足以支持新批次及一次完整重试或格式修正；未发出新请求，剩余候选留待后续运行")
+                else:
+                    report.update(status="failed", errors=["AI 预算不足以支持首批及一次完整重试或格式修正；请调整批次或预算"])
+                break
             feedback = None
             pending_error = None
             for candidate in batch:

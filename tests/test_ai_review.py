@@ -279,7 +279,7 @@ class PipelineTests(unittest.TestCase):
     def test_budget_exhaustion_defers_backlog_after_success_without_failing(self):
         first, second = candidate("a"), candidate("b")
         state = self.state(first, second)
-        provider = a.Provider({**ENV, "AI_MAX_CALLS": "1"})
+        provider = a.Provider({**ENV, "AI_MAX_CALLS": "2"})
         provider.opener = Reply([first])
         report = a.review_candidates(state, {"ai": {"max_candidates_per_run": 2, "batch_size": 1}}, NOW, ENV, provider_factory=lambda env: provider)
         self.assertEqual(report["status"], "completed")
@@ -298,15 +298,49 @@ class PipelineTests(unittest.TestCase):
     def test_budget_does_not_hide_failed_request_or_unrepaired_format(self):
         for network_error in [False, True]:
             item = candidate()
-            provider = a.Provider({**ENV, "AI_MAX_CALLS": "1"})
+            provider = a.Provider({**ENV, "AI_MAX_CALLS": "2"})
             invalid = Reply([item], lambda payload: {"reviews": []})
             effect = TimeoutError if network_error else lambda *args, **kwargs: io.BytesIO(invalid.raw)
             with patch.object(provider.opener, "open", side_effect=effect):
                 report = a.review_candidates(self.state(item), {}, NOW, ENV, provider_factory=lambda env: provider, sleep=lambda seconds: None)
             self.assertEqual(report["status"], "failed")
-            self.assertEqual(report["calls"], 1)
+            self.assertEqual(report["calls"], 2)
             self.assertTrue(report["errors"])
             self.assertNotIn("ai_review", item)
+
+    def test_last_batch_has_reserved_repair_and_unstarted_candidates_keep_their_turn(self):
+        first, second, third = [candidate(name) for name in ("a", "b", "c")]
+        state = self.state(first, second, third)
+        provider = a.Provider({**ENV, "AI_MAX_CALLS": "3"})
+        invalid = Reply([second], lambda payload: {"reviews": [{**payload["reviews"][0], "id": "invented"}]})
+        responses = [Reply([first]), invalid, Reply([second])]
+        with patch.object(provider.opener, "open", side_effect=[io.BytesIO(r.raw) for r in responses]):
+            report = a.review_candidates(state, {"ai": {"max_candidates_per_run": 3, "batch_size": 1}}, NOW, ENV, provider_factory=lambda env: provider)
+        self.assertEqual(report["status"], "completed")
+        self.assertEqual(report["calls"], 3)
+        self.assertEqual(report["reviewed"], 2)
+        self.assertEqual(report["remaining"], 1)
+        self.assertFalse(report["errors"])
+        self.assertIn("ai_review", second)
+        self.assertNotIn("last_ai_attempt", third)
+        self.assertTrue(report["notices"])
+
+    def test_retry_reservation_checks_tokens_as_well_as_calls_before_network(self):
+        first, second = candidate("a"), candidate("b")
+        provider = a.Provider(ENV)
+        # Enough for the first attempt and repair, but not another complete batch.
+        provider.max_tokens = provider.reservation([first]) + provider.reservation([first], "\x00" * a.MAX_REPAIR_FEEDBACK)
+        with patch.object(provider.opener, "open", return_value=io.BytesIO(Reply([first]).raw)) as opener:
+            report = a.review_candidates(self.state(first, second), {"ai": {"batch_size": 1}}, NOW, ENV, provider_factory=lambda env: provider)
+        self.assertEqual(report["status"], "completed")
+        self.assertEqual(opener.call_count, 1)
+        self.assertEqual(report["reviewed"], 1)
+        self.assertNotIn("last_ai_attempt", second)
+        provider = a.Provider({**ENV, "AI_MAX_CALLS": "1"})
+        with patch.object(provider.opener, "open", side_effect=AssertionError("cannot reserve repair")):
+            report = a.review_candidates(self.state(candidate()), {}, NOW, ENV, provider_factory=lambda env: provider)
+        self.assertEqual(report["status"], "failed")
+        self.assertEqual(report["calls"], 0)
 
     def test_cli_failure_still_saves_preview_and_replay_is_always_offline(self):
         with tempfile.TemporaryDirectory() as directory:
