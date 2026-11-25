@@ -14,7 +14,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-PROMPT_VERSION = 2
+PROMPT_VERSION = 3
 MAX_REPAIR_FEEDBACK = 256
 CATEGORIES = {"作品与案例", "案例与模板", "模板与组件", "工具与集成产品", "教程与学习资源", "项目（待分类）"}
 RELEVANCE = {"supported", "mention_only", "unclear", "unrelated"}
@@ -34,6 +34,10 @@ reference_value: 8–240 字单行中文，说明可能借鉴什么，推断需�
 checks: 1–6 条需要人工核实的单行中文，每条 4–160 字；
 evidence_ids: 支撑建议的输入 evidence.id 数组，至少一项，禁止编造来源。
 所有文本只写纯文本，不含 HTML、Markdown 链接或代码。不要作正式收录决定，不要输出审核状态。
+输出结构示例（实际文本必须依据对应候选）：
+{"reviews":[{"id":"c1","relevance":"unclear","category":"项目（待分类）","entry":"待核对","summary":"来源信息有限，具体项目用途仍需人工核对。","reason":"当前片段不足以确认实际使用关系，需核对原始工程。","reference_value":"可能提供工作流线索，具体参考价值仍需人工确认。","checks":["核对原作者和工程入口"],"evidence_ids":["s1"]}]}
+每条结果必须包含名为 id 的字段，不能改名为 candidate_id、candidateId 或编号。id 必须逐字复制对应输入候选的 c1、c2 等编号。
+reviews 的数量必须等于输入候选数，每个候选恰好一次；evidence_ids 必须复制该候选 evidence 中的 s1、s2 等编号，不得使用 URL 或自行构造编号。
 """
 
 
@@ -133,7 +137,10 @@ def decode_wire_reviews(payload, batch):
     decoded = []
     for value in payload["reviews"]:
         if not isinstance(value, dict) or not isinstance(value.get("id"), str) or value["id"] not in identities:
-            raise ReviewError("AI 返回未知候选编号；必须逐字复用输入的 c1、c2 等编号")
+            kind = "missing" if isinstance(value, dict) and "id" not in value else ("string" if isinstance(value, dict) and isinstance(value.get("id"), str) else "non-string")
+            length = len(value["id"]) if kind == "string" else "n/a"
+            alias = isinstance(value, dict) and any(key in value for key in ("candidate_id", "candidateId", "ID"))
+            raise ReviewError(f"AI 返回未知候选编号（id={kind}, length={length}, alternate_id_field={alias}）；必须使用 id 字段和输入的 c1、c2 等编号")
         candidate = identities[value["id"]]
         sources = {f"s{n}": e["id"] for n, e in enumerate(sorted(candidate["evidence"], key=lambda e: e["id"]), 1)}
         ids = value.get("evidence_ids")

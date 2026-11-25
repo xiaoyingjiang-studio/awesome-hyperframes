@@ -115,6 +115,13 @@ class ContractTests(unittest.TestCase):
                 with self.assertRaises(a.ReviewError):
                     provider.request([item])
 
+    def test_identifier_diagnostics_report_shape_without_returning_model_text(self):
+        for value, expected in [({"candidate_id": "PRIVATE BODY"}, "id=missing"), ({"id": "PRIVATE BODY"}, "id=string, length=12"), ({"id": []}, "id=non-string")]:
+            with self.subTest(value=value), self.assertRaises(a.ReviewError) as raised:
+                a.decode_wire_reviews({"reviews": [value]}, [candidate()])
+            self.assertIn(expected, str(raised.exception))
+            self.assertNotIn("PRIVATE BODY", str(raised.exception))
+
     def test_budgets_are_checked_before_network_including_retries(self):
         item = candidate()
         provider = a.Provider({**ENV, "AI_MAX_CALLS": "1"})
