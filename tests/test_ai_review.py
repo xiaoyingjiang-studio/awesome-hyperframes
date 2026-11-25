@@ -250,6 +250,64 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(selected, [item["id"]])
         self.assertIn("调用或配置失败", body)
 
+    def test_format_repair_is_bounded_and_uses_only_safe_validation_feedback(self):
+        item = candidate()
+        invalid = Reply([item], lambda payload: {"reviews": [{**payload["reviews"][0], "summary": "短说明"}]})
+        valid = Reply([item])
+        provider = a.Provider(ENV)
+        state = self.state(item)
+        with patch.object(provider.opener, "open", side_effect=[io.BytesIO(invalid.raw), io.BytesIO(valid.raw)]) as opener:
+            report = a.review_candidates(state, {}, NOW, ENV, provider_factory=lambda env: provider)
+        self.assertEqual(report["status"], "completed")
+        self.assertEqual(report["calls"], 2)
+        self.assertEqual(report["reviewed"], 1)
+        repair = json.loads(opener.call_args_list[1].args[0].data)["messages"][-1]["content"]
+        self.assertIn("summary", repair)
+        self.assertIn("length=3", repair)
+        self.assertNotIn("短说明", repair)
+
+    def test_unrepairable_format_failure_does_not_retry_forever(self):
+        item = candidate()
+        provider = a.Provider(ENV)
+        invalid = Reply([item], lambda payload: {"reviews": []})
+        with patch.object(provider.opener, "open", side_effect=lambda *args, **kwargs: io.BytesIO(invalid.raw)):
+            report = a.review_candidates(self.state(item), {}, NOW, ENV, provider_factory=lambda env: provider)
+        self.assertEqual(report["status"], "failed")
+        self.assertEqual(report["calls"], 2)
+        self.assertNotIn("ai_review", item)
+
+    def test_budget_exhaustion_defers_backlog_after_success_without_failing(self):
+        first, second = candidate("a"), candidate("b")
+        state = self.state(first, second)
+        provider = a.Provider({**ENV, "AI_MAX_CALLS": "1"})
+        provider.opener = Reply([first])
+        report = a.review_candidates(state, {"ai": {"max_candidates_per_run": 2, "batch_size": 1}}, NOW, ENV, provider_factory=lambda env: provider)
+        self.assertEqual(report["status"], "completed")
+        self.assertEqual(report["calls"], 1)
+        self.assertEqual(report["remaining"], 1)
+        self.assertTrue(report["notices"])
+        self.assertNotIn("ai_review", second)
+
+    def test_budget_too_small_for_first_request_is_visible_failure(self):
+        item = candidate()
+        provider = a.Provider({**ENV, "AI_MAX_TOTAL_TOKENS": "1000"})
+        report = a.review_candidates(self.state(item), {}, NOW, ENV, provider_factory=lambda env: provider)
+        self.assertEqual(report["status"], "failed")
+        self.assertEqual(report["calls"], 0)
+
+    def test_budget_does_not_hide_failed_request_or_unrepaired_format(self):
+        for network_error in [False, True]:
+            item = candidate()
+            provider = a.Provider({**ENV, "AI_MAX_CALLS": "1"})
+            invalid = Reply([item], lambda payload: {"reviews": []})
+            effect = TimeoutError if network_error else lambda *args, **kwargs: io.BytesIO(invalid.raw)
+            with patch.object(provider.opener, "open", side_effect=effect):
+                report = a.review_candidates(self.state(item), {}, NOW, ENV, provider_factory=lambda env: provider, sleep=lambda seconds: None)
+            self.assertEqual(report["status"], "failed")
+            self.assertEqual(report["calls"], 1)
+            self.assertTrue(report["errors"])
+            self.assertNotIn("ai_review", item)
+
     def test_cli_failure_still_saves_preview_and_replay_is_always_offline(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
