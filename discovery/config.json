@@ -10,6 +10,7 @@
   "overlap_days": 3,
   "enrich_per_run": 15,
   "digest_limit": 15,
+  "ai": {"max_candidates_per_run": 15, "batch_size": 5},
   "official_owners": ["heygen-com"],
   "excluded_repositories": [
     "xiaoyingjiang-studio/awesome-hyperframes",

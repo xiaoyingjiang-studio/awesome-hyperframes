@@ -20,6 +20,11 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode, urljoin, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
+if __package__:
+    from . import ai_review
+else:
+    import ai_review
+
 ROOT = Path(__file__).resolve().parents[1]
 SHANGHAI = timezone(timedelta(hours=8))
 STATE_PATH = "state.json"
@@ -266,7 +271,7 @@ def parse_source(source, text, source_url, sha, now):
 
 
 def fingerprint(candidate):
-    value = {k: v for k, v in candidate.items() if k not in {"first_seen", "last_seen", "last_changed", "status", "review", "evidence", "enriched_at", "last_enrichment_attempt", "enrichment_error", "last_recommended"}}
+    value = {k: v for k, v in candidate.items() if k not in {"first_seen", "last_seen", "last_changed", "status", "review", "evidence", "enriched_at", "last_enrichment_attempt", "enrichment_error", "last_recommended", "ai_review", "last_ai_attempt"}}
     # Unrelated edits to the source file must not make every resource look updated.
     value["evidence"] = [{k: v for k, v in e.items() if k not in {"observed_at", "blob_sha"}} for e in candidate["evidence"]]
     return hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
@@ -346,10 +351,10 @@ def enrich(api, candidate, now):
     readme = base64.b64decode(result["content"]).decode("utf-8-sig")[:60000]
     matches = [line.strip() for line in readme.splitlines() if re.search(r"hyperframes", line, re.I)]
     candidate["association"] = "README 提及，实际使用待核对" if matches else "仅搜索命中，关系待核对"
+    # Do not retain an obsolete excerpt when the current README removes the mention.
+    candidate["evidence"] = [e for e in candidate["evidence"] if e["id"] != "repository-readme"]
     if matches:
-        incoming = copy.deepcopy(candidate)
-        incoming["evidence"] = [source_record("repository-readme", result["html_url"], result["sha"], now, " ".join(matches)[:240])]
-        candidate["evidence"] = [e for e in candidate["evidence"] if e["id"] != "repository-readme"] + incoming["evidence"]
+        candidate["evidence"].append(source_record("repository-readme", result["html_url"], result["sha"], now, " ".join(matches)[:240]))
     candidate["enriched_at"] = now
     candidate.pop("enrichment_error", None)
 
@@ -452,6 +457,17 @@ def render_digest(state, config, now, repository):
         lines.append("- 许可：" + (f"GitHub 元数据报告 {plain(c['license_spdx'])}；原始声明与素材许可待核对。" if c.get("license_spdx") else "未确认；代码、文字与素材需分别核对。"))
         for e in c["evidence"]:
             lines.append(f"- 来源证据：{md_link(e['id'], e['url'])}；读取于 {e['observed_at'][:10]}；{plain(e['detail'])}")
+        suggestion = ai_review.current_review(c)
+        if suggestion:
+            relevance = {"supported": "来源片段支持使用关系", "mention_only": "仅提及名称", "unclear": "证据不足", "unrelated": "来源片段表明无关"}[suggestion["relevance"]]
+            lines += [f"- AI 辅助建议（未经人工核实；{plain(suggestion['model'])}；{suggestion['generated_at'][:10]}）：{relevance}；建议分类：{plain(suggestion['category'])}；建议入口：{plain(suggestion['entry'])}。",
+                      "- AI 简介：" + plain(suggestion["summary"]),
+                      "- AI 判断依据：" + plain(suggestion["reason"]),
+                      "- AI 参考价值：" + plain(suggestion["reference_value"]),
+                      "- AI 引用来源 ID：" + "、".join(plain(key) for key in suggestion["evidence_ids"])]
+            lines += ["- AI 待核实：" + plain(check) for check in suggestion["checks"]]
+        elif c.get("ai_review"):
+            lines.append("- AI 建议已因来源变化失效，等待重新分析。")
         if c.get("enrichment_error"):
             lines.append("- 信息缺口：README 补充读取失败，需人工核对。")
         lines += ["- [ ] 核对作者与 HyperFrames 关系、用途与参考价值、成片与工程入口、许可与使用条件、实际验证边界。", ""]
@@ -464,6 +480,14 @@ def render_digest(state, config, now, repository):
     lines += ["- " + plain(p, 500) for p in problems] if problems else ["最近一次任务未记录采集异常；不代表全网覆盖或资源内容已验证。"]
     if last:
         lines += ["- " + plain(notice, 500) for notice in last.get("notices", [])]
+    ai = state.get("last_ai_run", {})
+    lines += ["", "## AI 辅助记录", ""]
+    labels = {"completed": "已完成本次额度内的分析", "partial": "部分完成后出错", "failed": "调用或配置失败", "not_configured": "未配置，使用规则采集", "disabled": "本次关闭"}
+    lines.append(f"状态：{labels.get(ai.get('status'), '尚无调用记录')}；本次请求 {ai.get('calls', 0)} 次、分析 {ai.get('reviewed', 0)} 项、命中缓存 {ai.get('cache_hits', 0)} 项、待分析 {ai.get('remaining', 0)} 项。")
+    if ai.get("reserved_tokens"):
+        lines.append(f"保守预算用量（输入 UTF-8 字节数加输出 Token 上限）：{ai['reserved_tokens']}；服务报告实际用量：{plain(json.dumps(ai.get('usage', {}), ensure_ascii=False))}。")
+    lines += ["- " + plain(error) for error in ai.get("errors", [])]
+    lines.append("AI 只处理已提取的公开来源片段；没有浏览或执行能力，不决定收录，也不证明工程、成片或授权已验证。有效缓存可能来自早先运行，生成日期见各条建议。")
     state_url = f"https://github.com/{repository}/blob/{config['state_branch']}/{STATE_PATH}"
     lines += ["", md_link("完整候选记录与处理状态", state_url), "", "请勿在此 Issue 粘贴密钥、私人素材或账号信息。"]
     body = "\n".join(lines) + "\n"
@@ -497,6 +521,7 @@ def publish_digest(api, repository, week, body):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mode", choices=["discover", "digest", "discover-and-digest"], default="discover-and-digest")
+    parser.add_argument("--ai", choices=["auto", "off", "required"], default="auto", help="Optional AI editing; required fails visibly when configuration is absent")
     parser.add_argument("--config", type=Path, default=ROOT / "discovery/config.json")
     parser.add_argument("--reviews", type=Path, default=ROOT / "discovery/reviews.json")
     parser.add_argument("--repository", default=os.environ.get("GITHUB_REPOSITORY", "xiaoyingjiang-studio/awesome-hyperframes"))
@@ -538,6 +563,8 @@ def main(argv=None):
         full = args.full or datetime.fromisoformat(now).astimezone(SHANGHAI).day == 1
         problems = collect(api, config, state, now, full)
     apply_reviews(state, reviews, known)
+    # Replay must remain offline even when the host has provider credentials.
+    ai = ai_review.review_candidates(state, config, now, os.environ, "off" if args.replay else args.ai)
     week, body, selected = render_digest(state, config, now, args.repository)
     (args.output / "weekly-review.md").write_text(body, encoding="utf-8")
     if args.publish:
@@ -558,8 +585,11 @@ def main(argv=None):
     print(f"Candidates: {len(state['candidates'])}; source problems: {len(problems)}; preview: {args.output / 'weekly-review.md'}")
     for problem in problems:
         print("Source problem: " + problem, file=sys.stderr)
+    print(f"AI: {ai['status']}; calls: {ai['calls']}; reviewed: {ai['reviewed']}; cache hits: {ai['cache_hits']}")
+    for error in ai["errors"]:
+        print("AI problem: " + error, file=sys.stderr)
     # A partial run preserves usable evidence but visibly fails CI instead of claiming success.
-    return 1 if problems else 0
+    return 1 if problems or ai["status"] in {"failed", "partial"} else 0
 
 
 if __name__ == "__main__":

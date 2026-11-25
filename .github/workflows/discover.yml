@@ -15,6 +15,14 @@ on:
           - discover
           - digest
         default: discover-and-digest
+      ai:
+        description: AI 辅助（auto 配好即用，off 关闭，required 要求配置完整）
+        type: choice
+        options:
+          - auto
+          - off
+          - required
+        default: auto
       full:
         description: 忽略搜索检查点，补查全部范围（仍受分页上限限制）
         type: boolean
@@ -30,7 +38,7 @@ concurrency:
 jobs:
   discover:
     # fork 不自动向其仓库写入状态或 Issue；仍可由 fork 维护者手动运行。
-    if: github.repository == 'xiaoyingjiang-studio/awesome-hyperframes' || github.event_name == 'workflow_dispatch'
+    if: github.ref_name == github.event.repository.default_branch && (github.repository == 'xiaoyingjiang-studio/awesome-hyperframes' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
@@ -48,9 +56,17 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           DISCOVERY_MODE: ${{ github.event_name == 'schedule' && github.event.schedule == '17 2 * * 1' && 'digest' || inputs.mode || 'discover' }}
           FULL_SCAN: ${{ inputs.full || false }}
+          AI_MODE: ${{ inputs.ai || 'auto' }}
+          AI_ENDPOINT: ${{ vars.AI_ENDPOINT }}
+          AI_MODEL: ${{ vars.AI_MODEL }}
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+          AI_MAX_CALLS: '3'
+          AI_MAX_TOTAL_TOKENS: '60000'
+          AI_MAX_OUTPUT_TOKENS: '4000'
+          AI_TIMEOUT_MS: '60000'
         shell: bash
         run: |
-          args=(--mode "$DISCOVERY_MODE" --publish --repository "$GITHUB_REPOSITORY")
+          args=(--mode "$DISCOVERY_MODE" --ai "$AI_MODE" --publish --repository "$GITHUB_REPOSITORY")
           if [ "$FULL_SCAN" = "true" ]; then args+=(--full); fi
           python scripts/discover.py "${args[@]}"
       - name: 发布运行摘要
