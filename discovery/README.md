@@ -11,7 +11,7 @@
 - 官方 [registry.json](https://github.com/heygen-com/hyperframes/blob/main/registry/registry.json)：初始只发现 `hyperframes:example`，避免组件索引淹没审核队列。可通过 `types` 增加 `hyperframes:block`、`hyperframes:component`。
 - 官方 [hyperframes-launches](https://github.com/heygen-com/hyperframes-launches)：提取作品工程及 README 提供的成片入口。
 
-仓库搜索结果每天最多读取每个查询 2 页、每页 30 项；超过单次预算时保存分页进度，下次续查。README 补充读取最多 15 个项目；每周推荐最多 15 项。旧候选轮流进入推荐和补充读取队列。资源类型为建议，Studio / 框架入口仍需审核。没有使用星标作质量排名，也没有调用 AI 或商业搜索服务。
+仓库搜索结果每天最多读取每个查询 2 页、每页 30 项；超过单次预算时保存分页进度，下次续查。README 补充读取最多 15 个项目；每周推荐最多 15 项。旧候选轮流进入推荐和补充读取队列。资源类型为建议，Studio / 框架入口仍需审核。没有使用星标作质量排名，也没有调用商业搜索服务；AI 辅助可按下文配置启用。
 
 此版本不覆盖全网、私有社区、登录后的 Studio 作品和全部闭源产品。外部资源仍可通过[投稿表单](../.github/ISSUE_TEMPLATE/submit-resource.yml)提供，人工按现有贡献流程处理。视频播放、外部官网访问、链接健康巡检、工程渲染及自动生成收录 PR 不属于本版已实现的验证。
 
@@ -24,7 +24,7 @@
 3. 查看运行摘要、名为 `[自动发现] HyperFrames 候选审核 YYYY-Www` 的 Issue，以及 `automation/discovery-state` 分支的 `state.json`。
 4. 后续北京时间每天 09:23 采集，周一 10:17 生成周报。每月 1 日采集会忽略增量搜索检查点，补查旧项目。
 
-认证只使用每次任务自动提供的 `GITHUB_TOKEN`，无需新增长期密钥或生产部署凭据。没有申请 PR 审批或合并权限。fork 默认不执行定时写入，但其维护者可以手动触发。
+GitHub 读写只使用每次任务自动提供的 `GITHUB_TOKEN`，无需新增长期 GitHub 密钥或生产部署凭据。可选 AI 单独使用下述已有服务凭据。没有申请 PR 审批或合并权限。任务只允许在默认分支运行；fork 默认不执行定时写入，但其维护者可以在默认分支手动触发。
 
 日常任务不需要本地电脑开机。GitHub 的定时任务可能延迟或丢弃；公开仓库长期无活动可能自动停用，维护者需留意 Actions 记录并在需要时手动补跑。工作流文件仅放在本地、未合入默认分支时不会开始定时运行。
 
@@ -37,6 +37,30 @@
 | `discover-and-digest` | 是 | 是 | 是 |
 
 表中的写入仅在传入 `--publish` 时发生。`digest` 要求已经存在采集记录。
+
+## 可选 AI 辅助
+
+沿用 `hyperframes-cn` 的兼容 Chat Completions 接口约定，不增加新的供应商账号或 SDK。由 GitHub Actions 执行，日常任务无需维护者本地电脑开机。AI 在应用人工审核决定之后运行，只分析仍为 `pending` 的候选；三个运行模式都可按需补充 AI 建议。
+
+在本仓库 Settings → Secrets and variables → Actions 设置以下项目，或使用已允许本仓库访问的组织级配置：
+
+| 名称 | 存放位置 | 要求 |
+| --- | --- | --- |
+| `AI_ENDPOINT` | Variables | 完整 HTTPS `.../chat/completions` 地址，与现有服务一致 |
+| `AI_MODEL` | Variables | 已开通且支持该接口的模型名称 |
+| `AI_API_KEY` | Secrets | 已有服务的 API Key，禁止写入代码、Issue 或日志 |
+
+另一个仓库的 repository Secret 不会自动继承，也不能从 GitHub 读回明文。复用现有服务时需从原有安全存储配置到本仓库，或由组织管理员将现有组织 Secret 的可访问仓库范围包含本仓库。不要通过临时工作流导出或公开密钥。变量配置位置不能替代 Secret。
+
+Run workflow 的 `ai` 选项：`auto`（默认）在三项齐全时使用 AI，否则明确显示“未配置，使用规则采集”；`off` 关闭本次调用；`required` 在配置缺失时也使运行失败，便于首次验证接入。首次真实检查可用 `mode: discover`、`ai: required`，查看摘要中的调用次数、分析数量、模型和服务用量。若尚无候选需要分析或全部命中缓存，请求次数可为零，不能据此声称接口已连通。
+
+默认每次最多处理 15 项、每批最多 5 项，最多 3 次 HTTP 请求（含重试），输出上限每次 4,000 Token；保守预算上限 60,000，按“输入 UTF-8 字节数 + 请求输出 Token 上限”逐次预留，不等同于实际账单 Token。AI 请求超时 60 秒，仅网络错误、429 和 5xx 最多重试一次；鉴权、配置及输出格式错误不重试。请求和预算上限在工作流中设置，候选数和批量在 `config.json` 中设置。真实成本以供应商账单为准。
+
+输入只有已采集的公开标题、入口、作者自述和来源短片段，不包含 GitHub Token、服务密钥或完整第三方文件。AI 没有浏览器、Shell 或执行工具。来源文字作为不可信数据处理；输出必须是受限 JSON，引用真实候选及已有来源 ID，不接受新增链接、未知分类、空泛英文或部分虚构候选。仅搜索命中不能被判为实际使用证据。格式验证不能证明模型判断正确，仍需人工核实。
+
+结果单独保存在 `ai_review`，不会改写原始来源、人工状态或正式目录。每项包括模型、生成时间、输入摘要哈希、提示词版本和来源 ID。来源内容、模型或提示词版本变化会重新进入分析队列；仅读取日期或无关的来源文件提交变化不重复调用。来源变化后的旧建议不显示为当前建议；AI 判断无关也不自动隐藏候选。队列轮换避免长期遗漏积压项。
+
+AI 出错时仍保存已采集记录、生成规则清单并按原模式发布周报，同时使任务失败并在摘要中记录脱敏原因，避免把降级写成 AI 成功。未配置的 `auto` 和主动关闭不使规则采集失败。相同周报保留人工编辑，重跑不会将后来补齐的 AI 建议覆盖到旧 Issue；最新预览在本次运行摘要，持久结果在状态分支，下周新报使用有效结果。
 
 ## 审核与正式收录
 
@@ -82,7 +106,7 @@ API 报告结果不完整、超过单个查询 1000 项或请求失败时，不�
 
 采集任务通过统一并发组串行运行，状态更新使用文件 SHA 防止覆盖冲突。API 读取有有界重试和超时，写请求不自动重试，以免重复创建 Issue。令牌只发送到 GitHub API；资源页面中的命令不会执行，来源文字会转义后放入 Issue。
 
-候选规模较大时可增加查询分页、拆分查询或调整周报数量。状态与 Issue 查询也有大小上限，超限会报错而不静默丢弃记录；届时应迁移或分片。AI 摘要、外部订阅源、链接巡检及批准后自动生成 PR 可在规则稳定后另行扩展。
+候选规模较大时可增加查询分页、拆分查询或调整周报数量。状态与 Issue 查询也有大小上限，超限会报错而不静默丢弃记录；届时应迁移或分片。外部订阅源、链接巡检及批准后自动生成 PR 可在规则稳定后另行扩展。
 
 ## 本地预览与检查
 
@@ -90,14 +114,16 @@ API 报告结果不完整、超过单个查询 1000 项或请求失败时，不�
 
 ```powershell
 python -m unittest discover -s tests -v
-python scripts/discover.py --mode discover-and-digest --full
-python scripts/discover.py --mode digest
+python scripts/discover.py --mode discover-and-digest --full --ai off
+python scripts/discover.py --mode digest --ai off
 ```
 
 预览和本地状态默认输出到已忽略的 `artifacts/discovery/`；它们不是正式验证报告，请勿提交。默认本地状态与远程状态分开，预览会复用该目录中的本地状态。`--state` 可指定其他本地状态文件，`--output` 可指定输出目录。
 
 未提供令牌时使用公开 API，可能很快限流；需要较高读取配额时可由环境提供已有的 `GH_TOKEN` 或 `GITHUB_TOKEN`，不要把值写入代码或终端记录。认证读取的结果仍只接受公开仓库。公司网络若有自定义证书，应按其规范配置可信 CA，不要关闭 TLS 验证。
 
-`--replay <文件>` 可回放捕获的公开 API 响应进行离线预览，格式是“API 路径 → JSON 响应”的对象，不允许发布。自动化测试使用合成来源，覆盖来源解析、改名去重、审核保留、检查点失败、周报轮换和状态分支保护；不等于已在线创建 Issue 或渲染任何作品。
+本地如需 AI，使用环境变量提供相同三项并传入 `--ai auto` 或 `--ai required`；脚本不自动加载 `.env`。不要把密钥直接写进终端命令或历史记录。
+
+`--replay <文件>` 可回放捕获的公开 API 响应进行离线预览，格式是“API 路径 → JSON 响应”的对象，不允许发布，且始终关闭 AI 网络调用（即使主机配置了凭据）。自动化测试使用合成来源与模拟 AI 响应，覆盖来源解析、改名去重、审核保留、检查点失败、周报轮换、状态分支保护、AI 字段验证、缓存、预算、脱敏和失败保留；不等于已调用真实 AI、在线创建 Issue 或渲染任何作品。
 
 相关依据：[GitHub 搜索限制](https://docs.github.com/en/rest/search/search)、[定时触发说明](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)、[GITHUB_TOKEN 权限与事件行为](https://docs.github.com/en/actions/concepts/security/github_token)。这些链接说明平台行为，不构成本仓库已成功运行的证明。

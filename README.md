@@ -66,6 +66,8 @@ Curated examples, templates and resources for HyperFrames, maintained by Xiaoyin
 
 仓库提供 GitHub Actions 自动采集流程，按配置发现公开项目、官方案例和产品线索，去重后形成每周候选审核 Issue。候选池与精选目录分开维护；自动任务不修改本页、不运行第三方工程，也不自动批准投稿。
 
+可选 AI 辅助沿用 `hyperframes-cn` 的 `AI_ENDPOINT`、`AI_MODEL`、`AI_API_KEY` 配置约定，为候选补充相关性判断、中文简介、参考价值和人工核实清单。建议附来源 ID 与生成日期，未变化的来源复用缓存；AI 不决定正式收录。配置和额度见[AI 辅助说明](discovery/README.md#可选-ai-辅助)。
+
 来源、运行方式、审核状态和验证边界见[自动发现说明](discovery/README.md)，搜索与来源规则见[采集配置](discovery/config.json)。工作流需合入 GitHub 默认分支并具备相应权限后运行；仓库中的配置文件不代表定时任务已经启用或执行成功。
 
 ## 收录与贡献
