@@ -97,6 +97,41 @@ class ContractTests(unittest.TestCase):
             provider.request([item])
         self.assertEqual(provider.calls, 0)
 
+    def test_thinking_parameter_is_explicit_and_optional_for_generic_providers(self):
+        item = candidate()
+        for setting, expected in [(None, None), ("auto", None), ("false", False), ("true", True)]:
+            env = {**ENV, **({"AI_ENABLE_THINKING": setting} if setting else {})}
+            provider = a.Provider(env)
+            reply = Reply([item])
+            provider.opener = reply
+            provider.request([item])
+            body = json.loads(reply.requests[0].data)
+            if expected is None:
+                self.assertNotIn("enable_thinking", body)
+            else:
+                self.assertIs(body["enable_thinking"], expected)
+        with self.assertRaises(a.ReviewError):
+            a.Provider({**ENV, "AI_ENABLE_THINKING": "unrecognized"})
+
+    def test_reasoning_only_and_truncated_responses_keep_usage_without_reasoning_text(self):
+        item = candidate()
+        for finish, text in [("length", ""), ("stop", ""), ("length", json.dumps({"reviews": [suggestion(item)]}))]:
+            provider = a.Provider(ENV)
+            raw = json.dumps({"choices": [{"finish_reason": finish, "message": {"content": text, "reasoning_content": "PRIVATE REASONING"}}], "usage": {"prompt_tokens": 100, "completion_tokens": 4000, "total_tokens": 4100, "completion_tokens_details": {"reasoning_tokens": 4000}}}).encode()
+            with patch.object(provider.opener, "open", return_value=io.BytesIO(raw)), self.assertRaises(a.ReviewError):
+                provider.request([item])
+            self.assertEqual(provider.usage["reasoning_tokens"], 4000)
+            self.assertEqual(provider.usage["total_tokens"], 4100)
+            self.assertTrue(provider.responses[0]["has_reasoning"])
+            self.assertNotIn("PRIVATE REASONING", json.dumps(provider.responses))
+
+    def test_invalid_json_response_still_counts_reported_usage(self):
+        provider = a.Provider(ENV)
+        raw = json.dumps({"choices": [{"message": {"content": "not-json"}}], "usage": {"total_tokens": 500}}).encode()
+        with patch.object(provider.opener, "open", return_value=io.BytesIO(raw)), self.assertRaises(a.ReviewError):
+            provider.request([candidate()])
+        self.assertEqual(provider.usage["total_tokens"], 500)
+
     def test_http_errors_are_redacted_and_redirects_refused(self):
         provider = a.Provider(ENV)
         with patch.object(provider.opener, "open", side_effect=HTTPError(ENV["AI_ENDPOINT"], 401, "synthetic-secret", {}, io.BytesIO(b"synthetic-secret"))):
@@ -151,6 +186,13 @@ class PipelineTests(unittest.TestCase):
         self.assertIsNone(a.current_review(item))
         self.assertEqual(self.run_review(state)["reviewed"], 1)
         self.assertEqual(self.run_review(state, {**ENV, "AI_MODEL": "new-model"})["reviewed"], 1)
+
+    def test_thinking_option_changes_invalidate_cache(self):
+        state = self.state(candidate())
+        self.run_review(state)
+        env = {**ENV, "AI_ENABLE_THINKING": "false"}
+        self.assertEqual(self.run_review(state, env)["reviewed"], 1)
+        self.assertEqual(self.run_review(state, env)["cache_hits"], 1)
 
     def test_off_missing_and_manual_decisions_never_call_provider(self):
         state = self.state(candidate())
