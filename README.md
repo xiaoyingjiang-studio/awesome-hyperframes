@@ -14,7 +14,7 @@ Maintained by [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). I
 
 <a id="目录"></a>
 
-[Start here](#start-here) · [Featured examples](#featured-examples) · [Official resources](#official-resources) · [Learning](#learning) · [Templates & tools](#templates-and-tools) · [Discovery](#discovery-and-review) · [Contribute](#contributing)
+[Start here](#start-here) · [Featured examples](#featured-examples) · [Official resources](#official-resources) · [Learning](#learning) · [Daily catalog](#automated-catalog) · [Templates & tools](#templates-and-tools) · [Discovery](#discovery-and-review) · [Contribute](#contributing)
 
 <a id="start-here"></a>
 
@@ -83,6 +83,20 @@ Official documentation is linked above. The following community resources are in
 - [Chinese typography](https://xiaoyingjiang.com/guides/chinese-typography/) — Font selection, text layout and readable Chinese video design.
 - [Guide source](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — The independent Chinese website, example projects and maintenance records.
 
+<!-- AUTO-CATALOG:START -->
+
+<a id="automated-catalog"></a>
+
+## Daily catalog
+
+Automatically compiled from cited sources, with AI-written summaries. Projects have not been independently run and reuse rights still need checking.
+
+[Browse the full catalog (0)](catalog/README.md)
+
+No qualifying entries yet; source-backed candidates are processed within the daily AI budget.
+
+<!-- AUTO-CATALOG:END -->
+
 <a id="模板与项目"></a>
 
 <a id="工具与集成产品"></a>
@@ -93,7 +107,7 @@ Official documentation is linked above. The following community resources are in
 
 The four [featured examples](#featured-examples) are starting points for reusable projects. Follow the original source and its dependencies, reproduction notes and licenses.
 
-Tools, plugins and product integrations are added after their actual HyperFrames relationship, author, use conditions and licenses have been reviewed. Official adopter lists and search hits remain research leads until reviewed. [Recommend a tool](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose).
+Qualified tools and integrations are added to the daily catalog automatically, with original sources and reuse conditions to check. The handpicked examples above are maintained separately.
 
 <a id="自动发现与审核"></a>
 
@@ -101,11 +115,11 @@ Tools, plugins and product integrations are added after their actual HyperFrames
 
 ## Discovery
 
-**Automated discovery → source evidence and optional AI notes → maintainer review → curated entry.**
+**Daily collection → deduplication → source and AI checks → direct update to main.**
 
-The candidate pool is separate from this catalog. AI can suggest relevance, a description, a category and checks to perform; it does not approve entries, execute projects or establish reuse rights. Inclusion in a weekly review is not an endorsement.
+Every successful daily run publishes qualifying entries and summaries in all eight languages directly to the catalog and homepage. Search-only or insufficiently supported leads stay in the candidate pool. No weekly issue or manual merge is needed.
 
-[Review queue](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues?q=is%3Aissue+%22%5B%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0%5D%22) · [Workflow runs](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Full candidate records](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Maintainer guide (中文)](discovery/README.md)
+[Daily catalog](catalog/README.md) · [Workflow runs](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Full candidate records](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Maintainer guide (中文)](discovery/README.md)
 
 <a id="收录与贡献"></a>
 
@@ -115,7 +129,7 @@ The candidate pool is separate from this catalog. AI can suggest relevance, a de
 
 Found something useful? [Recommend a resource](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose) or open a pull request using the [contribution guide](CONTRIBUTING.en.md). Include the author, original source, use case, practical reference value, source availability, licenses and exactly what has been checked.
 
-This collection favors traceable work and useful production knowledge. Entries are reviewed by maintainers; submissions are not automatically approved or merged.
+Handpicked highlights and external pull requests are reviewed by maintainers. Daily catalog updates publish automatically.
 
 <a id="归属与许可"></a>
 

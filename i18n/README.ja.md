@@ -12,7 +12,7 @@ HyperFrames フレームワークと HyperFrames Studio の動画作品、再利
 
 > このカタログは翻訳されています。リンク先の動画、制作記録、一部のガイドは中国語です。
 
-[はじめに](#start-here) · [注目の制作例](#featured-examples) · [公式リソース](#official-resources) · [学習資料](#learning) · [テンプレートとツール](#templates-and-tools) · [自動収集](#discovery-and-review) · [貢献する](#contributing)
+[はじめに](#start-here) · [注目の制作例](#featured-examples) · [公式リソース](#official-resources) · [学習資料](#learning) · [日次自動カタログ](#automated-catalog) · [テンプレートとツール](#templates-and-tools) · [自動収集](#discovery-and-review) · [貢献する](#contributing)
 
 <a id="start-here"></a>
 
@@ -71,23 +71,37 @@ Xiaoyingjiang Studio による四つのオリジナル制作例です。完成�
 - [中国語のフォントと組版](https://xiaoyingjiang.com/guides/chinese-typography/) — フォント選び、文字配置、読みやすい動画設計。
 - [ガイドのソース](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — 独立した中国語サイト、制作例、管理記録。
 
+<!-- AUTO-CATALOG:START -->
+
+<a id="automated-catalog"></a>
+
+## 日次自動カタログ
+
+引用元に基づいて自動整理し、AI が紹介文を作成します。プロジェクトの実行や再利用権は独立に確認していません。
+
+[全件を見る (0)](../catalog/README.ja.md)
+
+掲載条件を満たす項目はまだありません。出典のある候補を日次 AI 予算内で処理します。
+
+<!-- AUTO-CATALOG:END -->
+
 <a id="templates-and-tools"></a>
 
 ## テンプレートとツール
 
 四つの[注目の制作例](#featured-examples)を再利用の出発点にできます。元のプロジェクトの依存関係、再現手順、ライセンスに従ってください。
 
-ツール、プラグイン、製品連携は、HyperFrames との実際の関係、作者、利用条件、ライセンスを確認してから掲載します。公式の利用者一覧や検索結果は、確認前の調査候補です。[ツールを推薦する](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose)。
+条件を満たすツールや連携を、原典と確認すべき再利用条件とともに日次カタログへ自動掲載します。上記の手選びの制作例は別に管理します。
 
 <a id="discovery-and-review"></a>
 
 ## 自動収集
 
-**自動収集 → 出典と任意の AI 補助メモ → 管理者の確認 → 正式掲載。**
+**毎日の収集 → 重複排除 → 出典と AI の確認 → main へ直接反映。**
 
-候補データと正式カタログは分けて管理します。AI は関連性、紹介文、分類、確認事項を提案しますが、掲載を承認したり、プロジェクトを実行したり、利用権を証明したりしません。週次レビューへの追加は推薦や保証を意味しません。
+毎日の処理が成功すると、条件を満たす項目と八言語の紹介文をカタログとホームに直接反映します。検索だけの一致や証拠が不十分な候補は保留します。週次 Issue や手動マージは不要です。
 
-[レビュー待ち候補](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues?q=is%3Aissue+%22%5B%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0%5D%22) · [ワークフローの実行履歴](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [すべての候補記録](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [管理ガイド（中国語）](../discovery/README.md)
+[日次自動カタログ](../catalog/README.ja.md) · [ワークフローの実行履歴](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [すべての候補記録](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [管理ガイド（中国語）](../discovery/README.md)
 
 <a id="contributing"></a>
 
@@ -95,7 +109,7 @@ Xiaoyingjiang Studio による四つのオリジナル制作例です。完成�
 
 役立つ作品やツールを見つけましたか。[リソースを推薦する](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose)か、[貢献ガイド（英語）](../CONTRIBUTING.en.md)に沿って PR を提出してください。作者、原典、用途、参考になる点、ソースの有無、ライセンス、実際に確認した内容を記載してください。
 
-明確な出典と具体的な制作知識を大切にしています。掲載は管理者が確認し、投稿を自動で承認・マージすることはありません。
+手選びの紹介と外部からの PR は管理者が確認します。日次カタログは自動公開します。
 
 <a id="attribution-and-reuse"></a>
 

@@ -14,7 +14,8 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-PROMPT_VERSION = 3
+PROMPT_VERSION = 4
+LANGUAGES = ("en", "zh-CN", "ja", "es", "fr", "de", "pt-BR", "ko")
 MAX_REPAIR_FEEDBACK = 256
 CATEGORIES = {"作品与案例", "案例与模板", "模板与组件", "工具与集成产品", "教程与学习资源", "项目（待分类）"}
 RELEVANCE = {"supported", "mention_only", "unclear", "unrelated"}
@@ -33,9 +34,10 @@ summary: 8–180 字单行中文简介；reason: 8–240 字单行中文判断�
 reference_value: 8–240 字单行中文，说明可能借鉴什么，推断需明确为可能，信息不足则说明不足；
 checks: 1–6 条需要人工核实的单行中文，每条 4–160 字；
 evidence_ids: 支撑建议的输入 evidence.id 数组，至少一项，禁止编造来源。
+summaries: 对象，必须恰好包含 en、zh-CN、ja、es、fr、de、pt-BR、ko 八个键，每个值为 8–240 字符的对应语言单行简介。八版表达相同事实、用途与限定，保留资源原名；不要扩充事实，不要声明维护者已实测或确认授权。
 所有文本只写纯文本，不含 HTML、Markdown 链接或代码。不要作正式收录决定，不要输出审核状态。
 输出结构示例（实际文本必须依据对应候选）：
-{"reviews":[{"id":"c1","relevance":"unclear","category":"项目（待分类）","entry":"待核对","summary":"来源信息有限，具体项目用途仍需人工核对。","reason":"当前片段不足以确认实际使用关系，需核对原始工程。","reference_value":"可能提供工作流线索，具体参考价值仍需人工确认。","checks":["核对原作者和工程入口"],"evidence_ids":["s1"]}]}
+{"reviews":[{"id":"c1","relevance":"unclear","category":"项目（待分类）","entry":"待核对","summary":"来源信息有限，具体项目用途仍需人工核对。","reason":"当前片段不足以确认实际使用关系，需核对原始工程。","reference_value":"可能提供工作流线索，具体参考价值仍需人工确认。","checks":["核对原作者和工程入口"],"evidence_ids":["s1"],"summaries":{"en":"The source mentions HyperFrames; its practical use remains unclear.","zh-CN":"来源提及 HyperFrames，具体使用情况仍待核对。","ja":"出典に HyperFrames の記載がありますが、実際の用途は未確認です。","es":"La fuente menciona HyperFrames; su uso práctico no está confirmado.","fr":"La source mentionne HyperFrames ; son usage concret reste à confirmer.","de":"Die Quelle erwähnt HyperFrames; die tatsächliche Nutzung ist noch unklar.","pt-BR":"A fonte menciona HyperFrames; o uso prático ainda não foi confirmado.","ko":"출처에 HyperFrames가 언급되지만 실제 사용 방식은 확인이 필요합니다."}}]}
 每条结果必须包含名为 id 的字段，不能改名为 candidate_id、candidateId 或编号。id 必须逐字复制对应输入候选的 c1、c2 等编号。
 reviews 的数量必须等于输入候选数，每个候选恰好一次；evidence_ids 必须复制该候选 evidence 中的 s1、s2 等编号，不得使用 URL 或自行构造编号。
 """
@@ -113,10 +115,32 @@ def validate_reviews(payload, batch):
         if result["relevance"] == "supported" and all(item.startswith("github-search:") for item in evidence_ids):
             raise ReviewError("仅搜索命中不能被 AI 认定为实际使用证据")
         result["evidence_ids"] = sorted(set(evidence_ids))
+        result["summaries"] = validate_summaries(value.get("summaries"))
         results[value["id"]] = result
     if set(results) != set(expected):
         raise ReviewError("AI 返回候选不完整")
     return results
+
+
+def validate_summaries(values):
+    if not isinstance(values, dict) or set(values) != set(LANGUAGES):
+        raise ReviewError("AI summaries 必须完整包含八个语言键：en、zh-CN、ja、es、fr、de、pt-BR、ko")
+    result = {}
+    for language in LANGUAGES:
+        value = values[language]
+        if not isinstance(value, str) or not 8 <= len(value.strip()) <= 240:
+            raise ReviewError(f"AI 多语种简介长度或类型不符合约定：{language}（expected=8..240）")
+        if re.search(r"[\r\n<>`]|https?://|www\.", value, re.I):
+            raise ReviewError(f"AI 多语种简介必须为无链接、无代码的单行文本：{language}")
+        script = {"zh-CN": r"[\u4e00-\u9fff]", "ja": r"[\u3040-\u30ff\u4e00-\u9fff]", "ko": r"[\uac00-\ud7af]"}.get(language, r"[A-Za-zÀ-ÖØ-öø-ÿ]")
+        if not re.search(script, value):
+            raise ReviewError(f"AI 多语种简介不符合目标语言文字要求：{language}")
+        if language == "zh-CN":
+            text_field(value, "summaries.zh-CN", 8, 240)
+        if re.search(r"verified by (?:the )?maintainer|maintainer[- ]tested|we (?:have )?(?:verified|tested|rendered)", value, re.I):
+            raise ReviewError(f"AI 多语种简介包含未经授权的实测结论：{language}")
+        result[language] = value.strip()
+    return result
 
 
 def wire_candidates(batch):
@@ -285,7 +309,8 @@ def review_candidates(state, config, now, env, mode="auto", provider_factory=Pro
                 report["cache_hits"] += 1
             else:
                 queue.append(candidate)
-        queue.sort(key=lambda c: (c.get("last_ai_attempt", ""), c.get("last_recommended", ""), c["first_seen"], c["id"]))
+        # Work with original-source excerpts before broad search-only leads.
+        queue.sort(key=lambda c: (not any(not e["id"].startswith("github-search:") for e in c["evidence"]), c.get("last_ai_attempt", ""), c.get("last_recommended", ""), c["first_seen"], c["id"]))
         report.update(status="completed", model=provider.model, request_options=provider.options, queued=len(queue))
         deferred = False
         for offset in range(0, min(len(queue), limit), batch_size):

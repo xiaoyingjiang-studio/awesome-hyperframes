@@ -12,7 +12,7 @@ HyperFrames 프레임워크와 HyperFrames Studio의 영상, 재사용 가능한
 
 > 카탈로그는 번역되어 있습니다. 연결된 영상, 예제 제작 기록, 일부 가이드는 중국어로 제공됩니다.
 
-[시작하기](#start-here) · [주요 예제](#featured-examples) · [공식 자료](#official-resources) · [학습 자료](#learning) · [템플릿과 도구](#templates-and-tools) · [자동 수집](#discovery-and-review) · [기여하기](#contributing)
+[시작하기](#start-here) · [주요 예제](#featured-examples) · [공식 자료](#official-resources) · [학습 자료](#learning) · [일일 자동 카탈로그](#automated-catalog) · [템플릿과 도구](#templates-and-tools) · [자동 수집](#discovery-and-review) · [기여하기](#contributing)
 
 <a id="start-here"></a>
 
@@ -71,23 +71,37 @@ Xiaoyingjiang Studio가 제작한 네 가지 프레임워크 예제입니다. �
 - [중국어 타이포그래피](https://xiaoyingjiang.com/guides/chinese-typography/) — 글꼴 선택, 텍스트 배치, 영상의 가독성.
 - [가이드 소스](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — 독립 중국어 사이트, 예제 프로젝트, 유지 관리 기록.
 
+<!-- AUTO-CATALOG:START -->
+
+<a id="automated-catalog"></a>
+
+## 일일 자동 카탈로그
+
+인용된 출처를 바탕으로 자동 정리하며 소개는 AI가 작성합니다. 프로젝트를 독립적으로 실행하지 않았으며 재사용 권한은 별도 확인이 필요합니다.
+
+[전체 카탈로그 보기 (0)](../catalog/README.ko.md)
+
+아직 조건에 맞는 항목이 없습니다. 출처가 있는 후보를 일일 AI 예산 내에서 처리합니다.
+
+<!-- AUTO-CATALOG:END -->
+
 <a id="templates-and-tools"></a>
 
 ## 템플릿과 도구
 
 네 가지 [주요 예제](#featured-examples)를 재사용 가능한 프로젝트의 출발점으로 삼을 수 있습니다. 원본의 의존성, 재현 방법, 라이선스를 따르세요.
 
-도구, 플러그인, 제품 연동은 실제 HyperFrames 관련성, 작성자, 이용 조건, 라이선스를 검토한 뒤 수록합니다. 공식 사용자 목록과 검색 결과도 검토 전에는 조사 후보입니다. [도구 추천하기](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose).
+조건에 맞는 도구와 연동은 원본 출처 및 확인이 필요한 재사용 조건과 함께 일일 카탈로그에 자동 등록됩니다. 위의 직접 선정한 예제는 별도로 관리합니다.
 
 <a id="discovery-and-review"></a>
 
 ## 자동 수집
 
-**자동 수집 → 출처 근거와 선택적 AI 메모 → 관리자 검토 → 정식 수록.**
+**일일 수집 → 중복 제거 → 출처 및 AI 검사 → main에 직접 반영.**
 
-후보 목록은 정식 카탈로그와 분리해 관리합니다. AI는 관련성, 소개, 분류, 확인 항목을 제안하지만 수록을 승인하거나 프로젝트를 실행하거나 재사용 권한을 입증하지 않습니다. 주간 검토 목록에 포함되었다고 추천이나 보증을 받은 것은 아닙니다.
+매일 실행이 성공하면 조건에 맞는 항목과 8개 언어 소개를 카탈로그와 홈에 직접 게시합니다. 단순 검색 결과나 근거가 부족한 후보는 대기 목록에 남습니다. 주간 Issue나 수동 병합이 필요하지 않습니다.
 
-[검토 대기 목록](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues?q=is%3Aissue+%22%5B%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0%5D%22) · [워크플로 실행 기록](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [전체 후보 기록](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [유지 관리 가이드 (중국어)](../discovery/README.md)
+[일일 자동 카탈로그](../catalog/README.ko.md) · [워크플로 실행 기록](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [전체 후보 기록](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [유지 관리 가이드 (중국어)](../discovery/README.md)
 
 <a id="contributing"></a>
 
@@ -95,7 +109,7 @@ Xiaoyingjiang Studio가 제작한 네 가지 프레임워크 예제입니다. �
 
 유용한 자료를 찾으셨나요? [자료를 추천](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose)하거나 [기여 안내 (영어)](../CONTRIBUTING.en.md)에 따라 PR을 제출하세요. 작성자, 원본 출처, 용도, 참고할 점, 소스 공개 여부, 라이선스, 실제 확인한 내용을 적어 주세요.
 
-명확한 출처와 구체적인 제작 지식을 중요하게 생각합니다. 항목은 관리자가 검토하며 제안을 자동으로 승인하거나 병합하지 않습니다.
+직접 선정한 추천과 외부 PR은 관리자가 검토합니다. 일일 카탈로그는 자동 게시됩니다.
 
 <a id="attribution-and-reuse"></a>
 

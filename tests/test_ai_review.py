@@ -24,7 +24,7 @@ def candidate(name="demo"):
 
 
 def suggestion(item):
-    return {"id": item["id"], "relevance": "unclear", "category": "工具与集成产品", "entry": "待核对", "summary": "作者正在探索使用 HyperFrames 制作产品视频。", "reason": "来源自述仅说明正在探索，尚不能确定实际集成情况。", "reference_value": "可能参考产品视频工作流，具体实现需要查看原工程。", "checks": ["核对原作者和工程入口", "核对素材许可与使用条件"], "evidence_ids": [item["evidence"][0]["id"]]}
+    return {"id": item["id"], "relevance": "unclear", "category": "工具与集成产品", "entry": "待核对", "summary": "作者正在探索使用 HyperFrames 制作产品视频。", "reason": "来源自述仅说明正在探索，尚不能确定实际集成情况。", "reference_value": "可能参考产品视频工作流，具体实现需要查看原工程。", "checks": ["核对原作者和工程入口", "核对素材许可与使用条件"], "evidence_ids": [item["evidence"][0]["id"]], "summaries": {"en":"The author is exploring HyperFrames for product videos.","zh-CN":"作者正在探索使用 HyperFrames 制作产品视频。","ja":"作者は製品動画への HyperFrames の利用を検討しています。","es":"El autor explora HyperFrames para vídeos de producto.","fr":"L’auteur explore HyperFrames pour des vidéos produit.","de":"Der Autor erprobt HyperFrames für Produktvideos.","pt-BR":"O autor explora HyperFrames para vídeos de produto.","ko":"작성자는 제품 영상에 HyperFrames를 활용하는 방안을 살펴보고 있습니다."}}
 
 
 class Reply:
@@ -386,7 +386,7 @@ class PipelineTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / "state.json").write_text(json.dumps(self.state(candidate())), encoding="utf-8")
-            args = ["--mode", "digest", "--state", str(root / "state.json"), "--output", str(root), "--ai", "required"]
+            args = ["--mode", "publish", "--state", str(root / "state.json"), "--output", str(root), "--ai", "required"]
             with patch.dict("os.environ", {}, clear=True):
                 self.assertEqual(d.main(args), 1)
             self.assertTrue((root / "weekly-review.md").exists())

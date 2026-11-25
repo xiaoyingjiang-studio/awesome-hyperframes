@@ -12,7 +12,7 @@
 
 > 目录提供多语种版本；链接中的成片、案例记录和部分指南使用中文。
 
-[从这里开始](#start-here) · [精选案例](#featured-examples) · [官方资源](#official-resources) · [学习资料](#learning) · [模板与工具](#templates-and-tools) · [自动发现](#discovery-and-review) · [参与贡献](#contributing)
+[从这里开始](#start-here) · [精选案例](#featured-examples) · [官方资源](#official-resources) · [学习资料](#learning) · [每日自动目录](#automated-catalog) · [模板与工具](#templates-and-tools) · [自动发现](#discovery-and-review) · [参与贡献](#contributing)
 
 <a id="start-here"></a>
 
@@ -71,23 +71,37 @@
 - [中文字体与排版](https://xiaoyingjiang.com/guides/chinese-typography/) — 字体选择、文字布局与视频阅读体验。
 - [指南源码](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — 独立中文网站、案例工程与维护记录。
 
+<!-- AUTO-CATALOG:START -->
+
+<a id="automated-catalog"></a>
+
+## 每日自动目录
+
+按引用来源自动整理，简介由 AI 生成；尚未独立运行工程，复用授权仍须核对。
+
+[浏览完整目录 (0)](../catalog/README.zh-CN.md)
+
+暂无符合规则的条目；有来源依据的候选按每日 AI 额度继续处理。
+
+<!-- AUTO-CATALOG:END -->
+
 <a id="templates-and-tools"></a>
 
 ## 模板与工具
 
 可以从四个[精选案例](#featured-examples)开始复用工程，按原项目的依赖、复现说明与许可继续修改。
 
-工具、插件与产品集成需核对实际 HyperFrames 关系、作者、使用条件与许可后收录。官方使用者名单和搜索结果只作为待审核线索。[推荐一项工具](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose)。
+符合来源和 AI 检查的工具与集成会自动加入每日目录，并保留原始来源与待核对的复用条件。上方人工精选案例单独维护。
 
 <a id="discovery-and-review"></a>
 
 ## 自动发现
 
-**自动发现 → 来源证据与可选 AI 建议 → 维护者审核 → 正式收录。**
+**每日采集 → 去重 → 来源与 AI 检查 → 直接更新 main。**
 
-候选池与正式目录分开维护。AI 可以辅助判断相关性、整理简介、分类与核实清单，但不批准收录、不执行工程，也不证明复用授权。进入每周审核清单不等于获得推荐或背书。
+每天成功运行后，符合规则的条目和八语种简介会直接写入目录与首页。仅搜索命中或证据不足的线索继续保存在候选池，不再需要每周 Issue 或人工合并。
 
-[候选审核队列](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues?q=is%3Aissue+%22%5B%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0%5D%22) · [工作流运行记录](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [完整候选记录](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [维护说明](../discovery/README.md)
+[每日自动目录](../catalog/README.zh-CN.md) · [工作流运行记录](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [完整候选记录](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [维护说明](../discovery/README.md)
 
 <a id="contributing"></a>
 
@@ -95,7 +109,7 @@
 
 发现了值得参考的作品或工具？欢迎[推荐资源](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose)，或按[贡献指南](../CONTRIBUTING.md)提交 PR。请附作者、原始来源、用途与参考价值、源码可用性、许可，以及实际核对过的内容。
 
-我们重视清楚的出处和具体的制作知识。条目由维护者审核，不自动批准或合并投稿。
+人工精选与外部投稿 PR 仍由维护者审核；每日自动目录直接发布。
 
 <a id="attribution-and-reuse"></a>
 

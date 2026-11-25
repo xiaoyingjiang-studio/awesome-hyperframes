@@ -12,7 +12,7 @@ Mantenido por [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). U
 
 > El catálogo está traducido; los vídeos enlazados, las notas de los ejemplos y algunas guías están en chino.
 
-[Primeros pasos](#start-here) · [Ejemplos destacados](#featured-examples) · [Recursos oficiales](#official-resources) · [Aprendizaje](#learning) · [Plantillas y herramientas](#templates-and-tools) · [Descubrimiento](#discovery-and-review) · [Contribuir](#contributing)
+[Primeros pasos](#start-here) · [Ejemplos destacados](#featured-examples) · [Recursos oficiales](#official-resources) · [Aprendizaje](#learning) · [Catálogo diario](#automated-catalog) · [Plantillas y herramientas](#templates-and-tools) · [Descubrimiento](#discovery-and-review) · [Contribuir](#contributing)
 
 <a id="start-here"></a>
 
@@ -71,23 +71,37 @@ La documentación oficial está enlazada arriba. Estos recursos de la comunidad 
 - [Tipografía china](https://xiaoyingjiang.com/guides/chinese-typography/) — Selección de fuentes, composición de texto y legibilidad en vídeo.
 - [Código de la guía](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — El sitio independiente en chino, los ejemplos y los registros de mantenimiento.
 
+<!-- AUTO-CATALOG:START -->
+
+<a id="automated-catalog"></a>
+
+## Catálogo diario
+
+Recopilado automáticamente a partir de las fuentes citadas, con descripciones de IA. Los proyectos no se han ejecutado de forma independiente y los permisos de reutilización requieren revisión.
+
+[Ver el catálogo completo (0)](../catalog/README.es.md)
+
+Aún no hay entradas aptas; los candidatos con fuentes se procesan dentro del presupuesto diario de IA.
+
+<!-- AUTO-CATALOG:END -->
+
 <a id="templates-and-tools"></a>
 
 ## Plantillas y herramientas
 
 Los cuatro [ejemplos destacados](#featured-examples) sirven como punto de partida para proyectos reutilizables. Sigue las dependencias, las instrucciones de reproducción y las licencias del proyecto original.
 
-Las herramientas, los complementos y las integraciones se añaden tras revisar su relación real con HyperFrames, autoría, condiciones de uso y licencias. Las listas oficiales de usuarios y los resultados de búsqueda siguen siendo pistas pendientes de revisión. [Recomienda una herramienta](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose).
+Las herramientas e integraciones aptas se añaden automáticamente al catálogo diario, con fuentes originales y condiciones de reutilización por comprobar. Los ejemplos seleccionados de arriba se mantienen por separado.
 
 <a id="discovery-and-review"></a>
 
 ## Descubrimiento
 
-**Descubrimiento automático → fuentes y notas opcionales de IA → revisión de los mantenedores → entrada seleccionada.**
+**Recopilación diaria → deduplicación → comprobación de fuentes e IA → actualización directa de main.**
 
-Los candidatos se mantienen separados del catálogo. La IA puede sugerir relevancia, descripciones, categorías y comprobaciones; no aprueba entradas, ejecuta proyectos ni acredita derechos de reutilización. Aparecer en una revisión semanal no supone un respaldo.
+Cada ejecución diaria correcta publica las entradas aptas y sus descripciones en ocho idiomas en el catálogo y la página principal. Los resultados de búsqueda sin pruebas suficientes quedan como candidatos. No se necesita un Issue semanal ni una fusión manual.
 
-[Cola de revisión](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues?q=is%3Aissue+%22%5B%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0%5D%22) · [Ejecuciones del workflow](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Registro completo de candidatos](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Guía de mantenimiento (chino)](../discovery/README.md)
+[Catálogo diario](../catalog/README.es.md) · [Ejecuciones del workflow](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Registro completo de candidatos](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Guía de mantenimiento (chino)](../discovery/README.md)
 
 <a id="contributing"></a>
 
@@ -95,7 +109,7 @@ Los candidatos se mantienen separados del catálogo. La IA puede sugerir relevan
 
 ¿Has encontrado algo útil? [Recomienda un recurso](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose) o abre un PR siguiendo la [guía de contribución (inglés)](../CONTRIBUTING.en.md). Incluye autoría, fuente original, uso, valor práctico, disponibilidad del código, licencias y lo que se ha comprobado realmente.
 
-Priorizamos las fuentes identificables y los conocimientos de producción útiles. Los mantenedores revisan las entradas; las propuestas no se aprueban ni fusionan automáticamente.
+Los mantenedores revisan las selecciones destacadas y los PR externos. El catálogo diario se publica automáticamente.
 
 <a id="attribution-and-reuse"></a>
 
