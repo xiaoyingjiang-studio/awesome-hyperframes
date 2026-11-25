@@ -1,83 +1,130 @@
-# Awesome HyperFrames
+<a id="awesome-hyperframes"></a>
 
-由[小影匠工作室](https://github.com/xiaoyingjiang-studio)维护的 HyperFrames 优质案例、模板与学习资源精选。帮助创作者找到值得参考的作品，也找到可以继续修改的项目与制作方法。
+<h1 align="center"><img src="assets/readme-banner.svg" alt="Awesome HyperFrames" width="1200"></h1>
 
-Curated examples, templates and resources for HyperFrames, maintained by Xiaoyingjiang Studio. Independent community collection; not an official HeyGen repository.
+<p align="center"><strong>A curated collection for people creating with HyperFrames.</strong></p>
 
-> 优先收录“能看成片、能找到来源、能了解如何制作”的内容。本站原创案例与官方作品分开标注，不把框架案例描述为 Studio 实操。
+Explore videos, reusable projects, templates, tools and learning resources across the HyperFrames framework and HyperFrames Studio.
 
-## 目录
+**English** · [简体中文](i18n/README.zh-CN.md) · [日本語](i18n/README.ja.md) · [Español](i18n/README.es.md) · [Français](i18n/README.fr.md) · [Deutsch](i18n/README.de.md) · [Português (Brasil)](i18n/README.pt-BR.md) · [한국어](i18n/README.ko.md)
 
-- [作品与用例](#作品与用例)
-- [官方资源](#官方资源)
-- [中文学习](#中文学习)
-- [模板与项目](#模板与项目)
-- [工具与集成产品](#工具与集成产品)
-- [自动发现与审核](#自动发现与审核)
-- [收录与贡献](#收录与贡献)
-- [归属与许可](#归属与许可)
+Maintained by [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). Independent community collection; not an official HeyGen project.
 
-## 作品与用例
+> The catalog is translated; linked videos, example notes and some guides are in Chinese.
 
-### 小影匠原创案例
+<a id="目录"></a>
 
-下面四个案例来自中文指南项目，均提供真实成片、源码与下载包。它们是 HyperFrames 框架教学作品，不是登录 Studio 后制作流程的实测。
+[Start here](#start-here) · [Featured examples](#featured-examples) · [Official resources](#official-resources) · [Learning](#learning) · [Templates & tools](#templates-and-tools) · [Discovery](#discovery-and-review) · [Contribute](#contributing)
 
-| 案例 | 可以借鉴什么 | 观看与复现 |
-| --- | --- | --- |
-| [产品介绍](examples/product-intro/README.md) | 用标题、概念界面和时间安排表达产品价值 | [成片与说明](https://xiaoyingjiang.com/showcase/product-intro/) · [源码](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/main/examples/product-intro) |
-| [中文知识讲解](examples/chinese-explainer/README.md) | 中文排版、信息层级与字幕时序 | [成片与说明](https://xiaoyingjiang.com/showcase/chinese-explainer/) · [源码](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/main/examples/chinese-explainer) |
-| [数据表达](examples/data-story/README.md) | 用动态图表表现比较与变化；数据为演示数据 | [成片与说明](https://xiaoyingjiang.com/showcase/data-story/) · [源码](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/main/examples/data-story) |
-| [素材剪辑](examples/footage-edit/README.md) | 重新组织现有片段并叠加文字、安排节奏 | [成片与说明](https://xiaoyingjiang.com/showcase/footage-edit/) · [源码](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/main/examples/footage-edit) |
+<a id="start-here"></a>
 
-历史验证依据：[verification.json](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/examples/verification.json)。记录中的 HyperFrames 版本为 0.9.92，四例均为 960 × 540、30fps、8 秒、无音轨；源项目在 Windows 上完成 lint、完整 check、渲染与媒体检查。此处为引用既有记录，本目录初始化时未重跑渲染，不保证在其他版本或环境中直接复现。
+## Start here
 
-### 官方作品与灵感
+| Your goal | Start with |
+| --- | --- |
+| Create in Studio | [Official first-video walkthrough](https://hyperframes.heygen.com/studio-app/first-video)<br>Follow the desktop app workflow. |
+| Build with the framework | [Official repository](https://github.com/heygen-com/hyperframes)<br>Explore the source and framework documentation. |
+| Adapt an example | [Community example projects](#featured-examples)<br>Study a video, inspect its project, then adapt it. |
 
-- [HyperFrames Inspiration](https://hyperframes.heygen.com/examples) — 官方作品与创意展示入口，可参考不同叙事和视觉风格；是否提供源码、模板或复用权限，以原条目说明为准。
-- [Studio 首次创作演示](https://hyperframes.heygen.com/studio-app/first-video) — 官方 Studio 操作录屏与步骤说明；官方演示不等于本仓库维护者的操作实测。
+<a id="作品与用例"></a>
 
-后续社区作品经来源与可访问性核实后加入本节，不按星标或未经证实的效果排名。
+<a id="小影匠原创案例"></a>
 
-## 官方资源
+<a id="featured-examples"></a>
 
-- [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) — HeyGen 维护的 HyperFrames 官方项目与源码。
-- [HyperFrames 官网与文档](https://hyperframes.heygen.com/) — 官方产品、创作入口与使用资料。
-- [Studio 官方下载](https://hyperframes.studio/studio/download) — 官方应用下载入口；本仓库不分发安装包。
+## Featured examples
 
-## 中文学习
+Four original framework examples by Xiaoyingjiang Studio. Each links to a finished video, project source and production notes. The example videos use Chinese on-screen text.
 
-- [HyperFrames 中文指南](https://xiaoyingjiang.com/) — 小影匠独立维护的中文产品介绍、安装与上手资料。
-- [指南源码](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — 中文网站、来源维护、案例工程与验证记录。
-- [Studio 中文上手](https://xiaoyingjiang.com/start/studio/) — 桌面应用的中文入门说明，操作验证范围以页面标注为准。
-- [中文字体与排版](https://xiaoyingjiang.com/guides/chinese-typography/) — 中文字形、字体与布局的实践说明。
+| Product intro | Chinese explainer |
+| --- | --- |
+| [![Product intro](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/product-intro.jpg)](https://xiaoyingjiang.com/showcase/product-intro/) | [![Chinese explainer](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/chinese-explainer.jpg)](https://xiaoyingjiang.com/showcase/chinese-explainer/) |
+| **Product intro** — Product messaging, visual hierarchy and scene timing. | **Chinese explainer** — Chinese typography, information pacing and caption timing. |
+| [Watch & overview (中文)](https://xiaoyingjiang.com/showcase/product-intro/) · [Source project](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/product-intro) · [Production notes (中文)](examples/product-intro/README.md) | [Watch & overview (中文)](https://xiaoyingjiang.com/showcase/chinese-explainer/) · [Source project](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/chinese-explainer) · [Production notes (中文)](examples/chinese-explainer/README.md) |
 
-## 模板与项目
+| Data story | Footage edit |
+| --- | --- |
+| [![Data story](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/data-story.jpg)](https://xiaoyingjiang.com/showcase/data-story/) | [![Footage edit](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/footage-edit.jpg)](https://xiaoyingjiang.com/showcase/footage-edit/) |
+| **Data story** — Animated charts and comparisons using clearly labeled sample data. | **Footage edit** — Clip sequencing, text overlays and editing rhythm. |
+| [Watch & overview (中文)](https://xiaoyingjiang.com/showcase/data-story/) · [Source project](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/data-story) · [Production notes (中文)](examples/data-story/README.md) | [Watch & overview (中文)](https://xiaoyingjiang.com/showcase/footage-edit/) · [Source project](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/footage-edit) · [Production notes (中文)](examples/footage-edit/README.md) |
 
-先从以上四个原创案例的源码或项目 ZIP 开始修改。更多模板按以下类别收录：产品介绍、知识讲解、数据表达、素材剪辑，以及可复用的字幕、片头、图表和转场。
 
-新模板需要提供演示、项目文件、依赖、复现步骤与许可，提交流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。单个案例的记录格式见 [examples/README.md](examples/README.md)。
+<details>
+<summary>Verification & reuse</summary>
 
-## 工具与集成产品
+These are HyperFrames framework examples. The product UI is a concept illustration; the examples are not records of operating Studio. The [source verification record](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/examples/verification.json) reports Windows checks and rendering with HyperFrames 0.9.92: 960 × 540, 30 fps, eight seconds, no audio. This catalog cites that historical record; the videos were not rendered again for this homepage update. Other environments and versions require their own checks. See the source project’s [content license](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/CONTENT_LICENSE.md) and [third-party notices](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/THIRD_PARTY_NOTICES.md).
 
-收集基于 HyperFrames 或 HyperFrames Studio 的工具、插件、工作流和产品集成。条目需说明与 HyperFrames 的实际关系、原作者入口、可参考的使用方式，以及账号、付费和许可条件；官方名单中的使用或探索线索仍需审核，不直接视为维护者实测。候选经审核后加入本节。
+</details>
 
-## 自动发现与审核
+<a id="官方资源"></a>
 
-仓库提供 GitHub Actions 自动采集流程，按配置发现公开项目、官方案例和产品线索，去重后形成每周候选审核 Issue。候选池与精选目录分开维护；自动任务不修改本页、不运行第三方工程，也不自动批准投稿。
+<a id="官方作品与灵感"></a>
 
-可选 AI 辅助沿用 `hyperframes-cn` 的 `AI_ENDPOINT`、`AI_MODEL`、`AI_API_KEY` 配置约定，为候选补充相关性判断、中文简介、参考价值和人工核实清单。建议附来源 ID 与生成日期，未变化的来源复用缓存；AI 不决定正式收录。配置和额度见[AI 辅助说明](discovery/README.md#可选-ai-辅助)。
+<a id="official-resources"></a>
 
-来源、运行方式、审核状态和验证边界见[自动发现说明](discovery/README.md)，搜索与来源规则见[采集配置](discovery/config.json)。工作流需合入 GitHub 默认分支并具备相应权限后运行；仓库中的配置文件不代表定时任务已经启用或执行成功。
+## Official resources
 
-## 收录与贡献
+- [HyperFrames repository](https://github.com/heygen-com/hyperframes) — The official framework and source code, maintained by HeyGen.
+- [Website & documentation](https://hyperframes.heygen.com/) — Official product information, creation entry points and documentation.
+- [Studio downloads](https://hyperframes.studio/studio/download) — Official application downloads and current installation options.
+- [Inspiration gallery](https://hyperframes.heygen.com/examples) — Official video examples; source availability and reuse rights vary by entry.
+- [Studio first-video guide](https://hyperframes.heygen.com/studio-app/first-video) — An official walkthrough of the desktop workflow; not a maintainer execution record.
 
-欢迎通过 [Issue](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose) 推荐资源，或按[贡献指南](CONTRIBUTING.md)提交 PR。请说明作者、原始链接、适用场景、可借鉴内容、源码与素材许可，以及你实际验证到哪一步。
+<a id="中文学习"></a>
 
-只收录有明确出处、与 HyperFrames 相关且有实际参考价值的资源。付费内容、账号要求、关联关系及推广性质需要说明；不收录虚构测试、侵权搬运或只有宣传而没有案例信息的条目。
+<a id="learning"></a>
 
-## 归属与许可
+## Learning
 
-HyperFrames 由 HeyGen 开发，本仓库由小影匠独立维护。各链接指向的作品、代码、商标、字体、音视频和素材归原权利人所有，依各自许可使用；“被收录”不代表可自由复制、商业使用或再次授权。本站原创案例的许可见[原项目声明](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/main/THIRD_PARTY_NOTICES.md)。
+Official documentation is linked above. The following community resources are in **Chinese**:
 
-本目录初版仅保存链接与简介，不镜像第三方工程、视频或安装包。后续收录资源时保留作者、来源和原许可。
+- [HyperFrames Chinese Guide](https://xiaoyingjiang.com/) — Product introductions, installation and getting started.
+- [Studio quick start](https://xiaoyingjiang.com/start/studio/) — A Chinese introduction to the desktop app.
+- [Chinese typography](https://xiaoyingjiang.com/guides/chinese-typography/) — Font selection, text layout and readable Chinese video design.
+- [Guide source](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — The independent Chinese website, example projects and maintenance records.
+
+<a id="模板与项目"></a>
+
+<a id="工具与集成产品"></a>
+
+<a id="templates-and-tools"></a>
+
+## Templates & tools
+
+The four [featured examples](#featured-examples) are starting points for reusable projects. Follow the original source and its dependencies, reproduction notes and licenses.
+
+Tools, plugins and product integrations are added after their actual HyperFrames relationship, author, use conditions and licenses have been reviewed. Official adopter lists and search hits remain research leads until reviewed. [Recommend a tool](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose).
+
+<a id="自动发现与审核"></a>
+
+<a id="discovery-and-review"></a>
+
+## Discovery
+
+**Automated discovery → source evidence and optional AI notes → maintainer review → curated entry.**
+
+The candidate pool is separate from this catalog. AI can suggest relevance, a description, a category and checks to perform; it does not approve entries, execute projects or establish reuse rights. Inclusion in a weekly review is not an endorsement.
+
+[Review queue](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues?q=is%3Aissue+%22%5B%E8%87%AA%E5%8A%A8%E5%8F%91%E7%8E%B0%5D%22) · [Workflow runs](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Full candidate records](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Maintainer guide (中文)](discovery/README.md)
+
+<a id="收录与贡献"></a>
+
+<a id="contributing"></a>
+
+## Contribute
+
+Found something useful? [Recommend a resource](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose) or open a pull request using the [contribution guide](CONTRIBUTING.en.md). Include the author, original source, use case, practical reference value, source availability, licenses and exactly what has been checked.
+
+This collection favors traceable work and useful production knowledge. Entries are reviewed by maintainers; submissions are not automatically approved or merged.
+
+<a id="归属与许可"></a>
+
+<a id="attribution-and-reuse"></a>
+
+## Attribution & reuse
+
+HyperFrames is developed by [HeyGen](https://github.com/heygen-com/hyperframes). Linked projects, videos, trademarks, fonts and other materials belong to their respective owners and retain their original licenses. Listing a resource does not grant permission to copy, redistribute or use it commercially. This repository links to original work rather than mirroring third-party projects, media or installers.
+
+---
+
+Curated by Xiaoyingjiang Studio · Original sources · Clear attribution · Honest verification
