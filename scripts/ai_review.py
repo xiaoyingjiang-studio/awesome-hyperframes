@@ -302,7 +302,7 @@ def review_candidates(state, config, now, env, mode="auto", provider_factory=Pro
             raise ReviewError("AI 候选或批量配置无效")
         queue = []
         for candidate in state["candidates"].values():
-            if candidate["status"] != "pending":
+            if candidate["status"] not in {"pending", "accepted"}:
                 continue
             cached = current_review(candidate)
             if cached and cached.get("model") == provider.model and cached.get("request_options", {}) == provider.options:
