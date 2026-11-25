@@ -241,10 +241,23 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(a.review_candidates(state, {}, NOW, {})["status"], "not_configured")
             self.assertEqual(a.review_candidates(state, {}, NOW, {}, "required")["status"], "failed")
         item = next(iter(state["candidates"].values()))
+        for status in ("rejected", "watch", "listed"):
+            item["status"] = status
+            result = self.run_review(state)
+            self.assertEqual(result["calls"], 0)
+            self.assertNotIn("ai_review", item)
+
+    def test_accepted_candidates_receive_current_translations_without_changing_status(self):
+        item = candidate()
         item["status"] = "accepted"
-        result = self.run_review(state)
-        self.assertEqual(result["calls"], 0)
-        self.assertNotIn("ai_review", item)
+        state = self.state(item)
+        self.assertEqual(self.run_review(state)["reviewed"], 1)
+        self.assertEqual(item["status"], "accepted")
+        self.assertEqual(set(a.current_review(item)["summaries"]), set(a.LANGUAGES))
+        self.assertEqual(self.run_review(state)["cache_hits"], 1)
+        item["ai_review"]["prompt_version"] = a.PROMPT_VERSION - 1
+        self.assertEqual(self.run_review(state)["reviewed"], 1)
+        self.assertEqual(item["status"], "accepted")
 
     def test_ai_does_not_refresh_source_or_approve_and_stale_text_is_hidden(self):
         item = candidate()
