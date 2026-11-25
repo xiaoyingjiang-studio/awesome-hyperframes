@@ -20,7 +20,7 @@ on:
         type: choice
         options:
           - auto
-          - off
+          - 'off'
           - required
         default: auto
       full:

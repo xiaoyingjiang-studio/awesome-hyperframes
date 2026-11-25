@@ -491,6 +491,7 @@ def render_digest(state, config, now, repository):
     for response in ai.get("responses", []):
         lines.append(f"- AI 响应诊断：finish_reason={plain(response['finish_reason'])}；有正文={response['has_content']}；有思考内容={response['has_reasoning']}（不保存思考正文）。")
     lines += ["- " + plain(error) for error in ai.get("errors", [])]
+    lines += ["- " + plain(notice) for notice in ai.get("notices", [])]
     lines.append("AI 只处理已提取的公开来源片段；没有浏览或执行能力，不决定收录，也不证明工程、成片或授权已验证。有效缓存可能来自早先运行，生成日期见各条建议。")
     state_url = f"https://github.com/{repository}/blob/{config['state_branch']}/{STATE_PATH}"
     lines += ["", md_link("完整候选记录与处理状态", state_url), "", "请勿在此 Issue 粘贴密钥、私人素材或账号信息。"]

@@ -37,9 +37,14 @@ evidence_ids: 支撑建议的输入 evidence.id 数组，至少一项，禁止�
 
 
 class ReviewError(RuntimeError):
-    def __init__(self, message, *, retryable=False):
+    def __init__(self, message, *, retryable=False, repairable=False):
         super().__init__(message)
         self.retryable = retryable
+        self.repairable = repairable
+
+
+class BudgetExceeded(ReviewError):
+    pass
 
 
 class NoRedirects(HTTPRedirectHandler):
@@ -68,7 +73,9 @@ def current_review(candidate):
 
 def text_field(value, name, minimum, maximum):
     if not isinstance(value, str) or not minimum <= len(value) <= maximum:
-        raise ReviewError(f"AI 字段长度或类型不符合约定：{name}")
+        kind = "string" if isinstance(value, str) else "non-string"
+        length = len(value) if isinstance(value, str) else "n/a"
+        raise ReviewError(f"AI 字段长度或类型不符合约定：{name}（{kind}, length={length}, expected={minimum}..{maximum}）")
     if re.search(r"[\r\n<>`]|https?://|www\.", value, re.I) or not re.search(r"[\u4e00-\u9fff]", value):
         raise ReviewError(f"AI 字段必须是无链接、无代码的单行中文：{name}")
     if re.search(r"维护者(?:已经|已)(?:验证|实测|运行|渲染)|(?:已登录|已观看|已实测|已验证成功)|(?:可免费商用|许可已核实)", value):
@@ -141,12 +148,14 @@ class Provider:
         self.responses = []
         self.opener = build_opener(NoRedirects())
 
-    def request(self, batch):
+    def request(self, batch, feedback=None):
         messages = [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": json.dumps({"candidates": [candidate_input(c) for c in batch]}, ensure_ascii=False)}]
+        if feedback:
+            messages.append({"role": "user", "content": "上次响应未通过本地格式验证：" + feedback + "。请重新返回完整批次；逐项检查所有字段、长度和来源 ID，不要添加解释或改变事实。"})
         # Match the existing project: UTF-8 input bytes + requested output-token ceiling.
         reservation = len(json.dumps(messages, ensure_ascii=False).encode()) + self.max_output
         if self.calls >= self.max_calls or self.reserved + reservation > self.max_tokens:
-            raise ReviewError("达到本次 AI 调用或保守 Token 预算上限")
+            raise BudgetExceeded("达到本次 AI 调用或保守 Token 预算上限")
         self.calls += 1
         self.reserved += reservation
         request = Request(self.endpoint, method="POST", headers={"Content-Type": "application/json", "Authorization": f"Bearer {self.key}"}, data=json.dumps({"model": self.model, "messages": messages, "max_tokens": self.max_output, "temperature": 0.2, **self.options}, ensure_ascii=False).encode())
@@ -185,18 +194,22 @@ class Provider:
             # Reasoning is neither a usable review nor something to log or persist.
             value = re.sub(r"^```(?:json)?\s*|\s*```$", "", value.strip())
             payload = json.loads(value)
-            return validate_reviews(payload, batch)
+            try:
+                return validate_reviews(payload, batch)
+            except ReviewError as error:
+                error.repairable = True
+                raise
         except HTTPError as error:
             # Never expose upstream bodies, headers, endpoint credentials or authorization values.
             raise ReviewError(f"AI 请求失败（HTTP {error.code}）", retryable=error.code == 429 or error.code >= 500) from None
         except (URLError, TimeoutError, OSError, HTTPException):
             raise ReviewError("AI 网络请求失败或超时", retryable=True) from None
         except (KeyError, IndexError, TypeError, AttributeError, json.JSONDecodeError, UnicodeDecodeError):
-            raise ReviewError("AI 响应无法按候选 JSON 约定解析") from None
+            raise ReviewError("AI 响应无法按候选 JSON 约定解析", repairable=True) from None
 
 
 def review_candidates(state, config, now, env, mode="auto", provider_factory=Provider, sleep=time.sleep):
-    report = {"at": now, "status": "disabled", "calls": 0, "reviewed": 0, "cache_hits": 0, "errors": []}
+    report = {"at": now, "status": "disabled", "calls": 0, "reviewed": 0, "cache_hits": 0, "errors": [], "notices": []}
     if mode == "off":
         state["last_ai_run"] = report
         return report
@@ -224,25 +237,38 @@ def review_candidates(state, config, now, env, mode="auto", provider_factory=Pro
                 queue.append(candidate)
         queue.sort(key=lambda c: (c.get("last_ai_attempt", ""), c.get("last_recommended", ""), c["first_seen"], c["id"]))
         report.update(status="completed", model=provider.model, request_options=provider.options, queued=len(queue))
+        deferred = False
         for offset in range(0, min(len(queue), limit), batch_size):
             batch = queue[offset:min(offset + batch_size, limit)]
+            feedback = None
             for candidate in batch:
                 candidate["last_ai_attempt"] = now
             for attempt in range(2):
                 try:
-                    result = provider.request(batch)
+                    result = provider.request(batch, feedback=feedback)
                     for candidate in batch:
                         candidate["ai_review"] = {**result[candidate["id"]], "input_hash": input_hash(candidate), "prompt_version": PROMPT_VERSION, "model": provider.model, "request_options": provider.options, "generated_at": now}
                     report["reviewed"] += len(batch)
                     break
+                except BudgetExceeded as error:
+                    if provider.calls:
+                        report["notices"].append(str(error) + "；剩余候选留待后续运行")
+                        deferred = True
+                    else:
+                        report.update(status="failed", errors=["AI 预算不足以发出首个请求；请调整批次或预算"])
+                    break
                 except ReviewError as error:
+                    if error.repairable and attempt == 0:
+                        feedback = str(error)
+                        report["notices"].append("AI 输出格式不符，进入一次修正尝试；仍受本次请求及总预算上限限制")
+                        continue
                     if error.retryable and attempt == 0:
                         sleep(2)
                         continue
                     report["errors"].append(str(error))
                     report["status"] = "partial" if report["reviewed"] else "failed"
                     break
-            if report["errors"]:
+            if report["errors"] or deferred:
                 # Auth/config errors stop AI work; normal discovery and publishing still proceed.
                 break
         report.update(calls=provider.calls, reserved_tokens=provider.reserved, usage=provider.usage, responses=provider.responses, remaining=len(queue) - report["reviewed"])
