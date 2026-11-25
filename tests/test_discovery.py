@@ -296,7 +296,7 @@ class StateTests(unittest.TestCase):
             if method == "GET" and "/contents/state.json?" in path:
                 if remote["state"] is None:
                     raise d.ApiError("not installed", 404)
-                return {"sha": "state-file-sha", "content": base64.b64encode(remote["state"].encode()).decode()}
+                return {"sha": "state-file-sha", "encoding": "base64", "content": base64.b64encode(remote["state"].encode()).decode()}
             if method == "GET" and "/git/ref/heads/" in path:
                 raise d.ApiError("not installed", 404)
             if method == "POST" and path.endswith("/git/trees"):
@@ -339,6 +339,29 @@ class StateTests(unittest.TestCase):
             return {"ref": "refs/heads/automation/discovery-state"}
         with self.assertRaisesRegex(ValueError, "state.json is missing"):
             d.load_state(FakeApi(handler), REPO, "automation/discovery-state")
+
+    def test_large_state_uses_exact_blob_and_preserves_update_sha(self):
+        state = d.empty_state()
+        state["padding"] = "x" * (1024 * 1024 + 1)
+        raw = json.dumps(state)
+        sha = "a" * 40
+        def handler(path, *unused):
+            if "/contents/state.json?" in path:
+                return {"sha": sha, "size": len(raw), "encoding": "none", "content": ""}
+            if path == f"/repos/{REPO}/git/blobs/{sha}":
+                return {"sha": sha, "encoding": "base64", "content": base64.b64encode(raw.encode()).decode()}
+            self.fail("Unexpected API call: " + path)
+        api = FakeApi(handler)
+        loaded, update_sha = d.load_state(api, REPO, "automation/discovery-state")
+        self.assertEqual(loaded, state)
+        self.assertEqual(update_sha, sha)
+        self.assertEqual(len(api.calls), 2)
+
+    def test_large_file_fallback_refuses_wrong_blob_or_unsupported_encoding(self):
+        sha = "a" * 40
+        for blob in [{"sha": "b" * 40, "encoding": "base64", "content": "e30="}, {"sha": sha, "encoding": "none", "content": ""}]:
+            with self.subTest(blob=blob), self.assertRaises(ValueError):
+                d.decode_file(FakeApi(lambda *unused: blob), REPO, {"sha": sha, "encoding": "none"})
 
     def test_fresh_install_creates_orphan_branch_not_default_branch(self):
         api = FakeApi(lambda *args: {"sha": "new-sha"})
