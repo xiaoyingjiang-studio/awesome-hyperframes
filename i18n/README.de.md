@@ -12,7 +12,7 @@ Gepflegt von [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). Ei
 
 > Der Katalog ist übersetzt. Verlinkte Videos, Beispielnotizen und einige Anleitungen sind auf Chinesisch.
 
-[Einstieg](#start-here) · [Ausgewählte Beispiele](#featured-examples) · [Offizielle Ressourcen](#official-resources) · [Lernen](#learning) · [Täglicher Katalog](#automated-catalog) · [Vorlagen und Werkzeuge](#templates-and-tools) · [Automatische Suche](#discovery-and-review) · [Mitmachen](#contributing)
+[Einstieg](#start-here) · [Ausgewählte Beispiele](#featured-examples) · [Offizielle Ressourcen](#official-resources) · [Lernen](#learning) · [Automatischer Katalog](#automated-catalog) · [Vorlagen und Werkzeuge](#templates-and-tools) · [Automatische Suche](#discovery-and-review) · [Mitmachen](#contributing)
 
 <a id="start-here"></a>
 
@@ -75,7 +75,7 @@ Die offizielle Dokumentation ist oben verlinkt. Diese Community-Ressourcen sind 
 
 <a id="automated-catalog"></a>
 
-## Täglicher Katalog
+## Automatischer Katalog
 
 Automatisch aus den genannten Quellen zusammengestellt, mit KI-Beschreibungen. Die Projekte wurden nicht unabhängig ausgeführt; Nutzungsrechte müssen noch geprüft werden.
 
@@ -96,17 +96,19 @@ Automatisch aus den genannten Quellen zusammengestellt, mit KI-Beschreibungen. D
 
 Die vier [ausgewählten Beispiele](#featured-examples) eignen sich als Ausgangspunkt für eigene Projekte. Beachte die Abhängigkeiten, Reproduktionshinweise und Lizenzen des Quellprojekts.
 
-Geeignete Werkzeuge und Integrationen werden mit Originalquellen und noch zu prüfenden Nutzungsbedingungen automatisch in den täglichen Katalog aufgenommen. Die handverlesenen Beispiele oben werden getrennt gepflegt.
+Geeignete Werkzeuge und Integrationen werden mit Originalquellen und noch zu prüfenden Nutzungsbedingungen automatisch in den automatischen Katalog aufgenommen. Die handverlesenen Beispiele oben werden getrennt gepflegt.
 
 <a id="discovery-and-review"></a>
 
 ## Automatische Suche
 
-**Tägliche Suche → Deduplizierung → Quellen- und KI-Prüfung → direkte Aktualisierung von main.**
+Geplante Ausführung mittwochs und sonntags um 08:00 Uhr chinesischer Standardzeit (UTC+8).
 
-Jeder erfolgreiche tägliche Lauf veröffentlicht geeignete Einträge und Beschreibungen in acht Sprachen direkt im Katalog und auf der Startseite. Reine Suchtreffer und unzureichend belegte Hinweise bleiben Kandidaten. Ein wöchentliches Issue oder manuelles Zusammenführen ist nicht nötig.
+**Geplante Suche → Deduplizierung → Quellen- und KI-Prüfung → direkte Aktualisierung von main.**
 
-[Täglicher Katalog](../catalog/README.de.md) · [Workflow-Ausführungen](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Alle Kandidaten](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Wartungsleitfaden (Chinesisch)](../discovery/README.md)
+Jeder erfolgreiche geplante Lauf veröffentlicht geeignete Einträge und Beschreibungen in acht Sprachen direkt im Katalog und auf der Startseite. Reine Suchtreffer und unzureichend belegte Hinweise bleiben Kandidaten. Ein wöchentliches Issue oder manuelles Zusammenführen ist nicht nötig.
+
+[Automatischer Katalog](../catalog/README.de.md) · [Workflow-Ausführungen](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Alle Kandidaten](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Wartungsleitfaden (Chinesisch)](../discovery/README.md)
 
 <a id="contributing"></a>
 
@@ -114,7 +116,7 @@ Jeder erfolgreiche tägliche Lauf veröffentlicht geeignete Einträge und Beschr
 
 Etwas Nützliches gefunden? [Schlage eine Ressource vor](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose) oder öffne einen PR nach dem [Beitragsleitfaden (Englisch)](../CONTRIBUTING.en.md). Nenne Autor, Originalquelle, Einsatzzweck, praktischen Nutzen, Quellcode-Verfügbarkeit, Lizenzen und tatsächlich durchgeführte Prüfungen.
 
-Maintainer prüfen handverlesene Empfehlungen und externe Pull Requests. Der tägliche Katalog wird automatisch veröffentlicht.
+Maintainer prüfen handverlesene Empfehlungen und externe Pull Requests. Der automatische Katalog wird automatisch veröffentlicht.
 
 <a id="attribution-and-reuse"></a>
 

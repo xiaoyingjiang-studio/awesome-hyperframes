@@ -14,7 +14,7 @@ Maintained by [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). I
 
 <a id="目录"></a>
 
-[Start here](#start-here) · [Featured examples](#featured-examples) · [Official resources](#official-resources) · [Learning](#learning) · [Daily catalog](#automated-catalog) · [Templates & tools](#templates-and-tools) · [Discovery](#discovery-and-review) · [Contribute](#contributing)
+[Start here](#start-here) · [Featured examples](#featured-examples) · [Official resources](#official-resources) · [Learning](#learning) · [Automatic catalog](#automated-catalog) · [Templates & tools](#templates-and-tools) · [Discovery](#discovery-and-review) · [Contribute](#contributing)
 
 <a id="start-here"></a>
 
@@ -87,7 +87,7 @@ Official documentation is linked above. The following community resources are in
 
 <a id="automated-catalog"></a>
 
-## Daily catalog
+## Automatic catalog
 
 Automatically compiled from cited sources, with AI-written summaries. Projects have not been independently run and reuse rights still need checking.
 
@@ -112,7 +112,7 @@ Automatically compiled from cited sources, with AI-written summaries. Projects h
 
 The four [featured examples](#featured-examples) are starting points for reusable projects. Follow the original source and its dependencies, reproduction notes and licenses.
 
-Qualified tools and integrations are added to the daily catalog automatically, with original sources and reuse conditions to check. The handpicked examples above are maintained separately.
+Qualified tools and integrations are added automatically to the catalog, with original sources and reuse conditions to check. The handpicked examples above are maintained separately.
 
 <a id="自动发现与审核"></a>
 
@@ -120,11 +120,13 @@ Qualified tools and integrations are added to the daily catalog automatically, w
 
 ## Discovery
 
-**Daily collection → deduplication → source and AI checks → direct update to main.**
+Scheduled for Wednesdays and Sundays at 08:00 China Standard Time (UTC+8).
 
-Every successful daily run publishes qualifying entries and summaries in all eight languages directly to the catalog and homepage. Search-only or insufficiently supported leads stay in the candidate pool. No weekly issue or manual merge is needed.
+**Scheduled collection → deduplication → source and AI checks → direct update to main.**
 
-[Daily catalog](catalog/README.md) · [Workflow runs](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Full candidate records](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Maintainer guide (中文)](discovery/README.md)
+Every successful scheduled run publishes qualifying entries and summaries in all eight languages directly to the catalog and homepage. Search-only or insufficiently supported leads stay in the candidate pool. No weekly issue or manual merge is needed.
+
+[Automatic catalog](catalog/README.md) · [Workflow runs](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Full candidate records](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Maintainer guide (中文)](discovery/README.md)
 
 <a id="收录与贡献"></a>
 
@@ -134,7 +136,7 @@ Every successful daily run publishes qualifying entries and summaries in all eig
 
 Found something useful? [Recommend a resource](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose) or open a pull request using the [contribution guide](CONTRIBUTING.en.md). Include the author, original source, use case, practical reference value, source availability, licenses and exactly what has been checked.
 
-Handpicked highlights and external pull requests are reviewed by maintainers. Daily catalog updates publish automatically.
+Handpicked highlights and external pull requests are reviewed by maintainers. The automatic catalog is published by the workflow.
 
 <a id="归属与许可"></a>
 

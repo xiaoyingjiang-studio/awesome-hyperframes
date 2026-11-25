@@ -1,4 +1,4 @@
-# Daily catalog
+# Automatic catalog
 
 Automatically compiled from cited sources, with AI-written summaries. Projects have not been independently run and reuse rights still need checking.
 

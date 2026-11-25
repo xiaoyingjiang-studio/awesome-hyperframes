@@ -12,7 +12,7 @@ Mantenido por [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). U
 
 > El catálogo está traducido; los vídeos enlazados, las notas de los ejemplos y algunas guías están en chino.
 
-[Primeros pasos](#start-here) · [Ejemplos destacados](#featured-examples) · [Recursos oficiales](#official-resources) · [Aprendizaje](#learning) · [Catálogo diario](#automated-catalog) · [Plantillas y herramientas](#templates-and-tools) · [Descubrimiento](#discovery-and-review) · [Contribuir](#contributing)
+[Primeros pasos](#start-here) · [Ejemplos destacados](#featured-examples) · [Recursos oficiales](#official-resources) · [Aprendizaje](#learning) · [Catálogo automático](#automated-catalog) · [Plantillas y herramientas](#templates-and-tools) · [Descubrimiento](#discovery-and-review) · [Contribuir](#contributing)
 
 <a id="start-here"></a>
 
@@ -75,7 +75,7 @@ La documentación oficial está enlazada arriba. Estos recursos de la comunidad 
 
 <a id="automated-catalog"></a>
 
-## Catálogo diario
+## Catálogo automático
 
 Recopilado automáticamente a partir de las fuentes citadas, con descripciones de IA. Los proyectos no se han ejecutado de forma independiente y los permisos de reutilización requieren revisión.
 
@@ -96,17 +96,19 @@ Recopilado automáticamente a partir de las fuentes citadas, con descripciones d
 
 Los cuatro [ejemplos destacados](#featured-examples) sirven como punto de partida para proyectos reutilizables. Sigue las dependencias, las instrucciones de reproducción y las licencias del proyecto original.
 
-Las herramientas e integraciones aptas se añaden automáticamente al catálogo diario, con fuentes originales y condiciones de reutilización por comprobar. Los ejemplos seleccionados de arriba se mantienen por separado.
+Las herramientas e integraciones aptas se añaden automáticamente al catálogo automático, con fuentes originales y condiciones de reutilización por comprobar. Los ejemplos seleccionados de arriba se mantienen por separado.
 
 <a id="discovery-and-review"></a>
 
 ## Descubrimiento
 
-**Recopilación diaria → deduplicación → comprobación de fuentes e IA → actualización directa de main.**
+Se ejecuta los miércoles y domingos a las 08:00, hora estándar de China (UTC+8).
 
-Cada ejecución diaria correcta publica las entradas aptas y sus descripciones en ocho idiomas en el catálogo y la página principal. Los resultados de búsqueda sin pruebas suficientes quedan como candidatos. No se necesita un Issue semanal ni una fusión manual.
+**Recopilación programada → deduplicación → comprobación de fuentes e IA → actualización directa de main.**
 
-[Catálogo diario](../catalog/README.es.md) · [Ejecuciones del workflow](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Registro completo de candidatos](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Guía de mantenimiento (chino)](../discovery/README.md)
+Cada ejecución programada correcta publica las entradas aptas y sus descripciones en ocho idiomas en el catálogo y la página principal. Los resultados de búsqueda sin pruebas suficientes quedan como candidatos. No se necesita un Issue semanal ni una fusión manual.
+
+[Catálogo automático](../catalog/README.es.md) · [Ejecuciones del workflow](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Registro completo de candidatos](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Guía de mantenimiento (chino)](../discovery/README.md)
 
 <a id="contributing"></a>
 
@@ -114,7 +116,7 @@ Cada ejecución diaria correcta publica las entradas aptas y sus descripciones e
 
 ¿Has encontrado algo útil? [Recomienda un recurso](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose) o abre un PR siguiendo la [guía de contribución (inglés)](../CONTRIBUTING.en.md). Incluye autoría, fuente original, uso, valor práctico, disponibilidad del código, licencias y lo que se ha comprobado realmente.
 
-Los mantenedores revisan las selecciones destacadas y los PR externos. El catálogo diario se publica automáticamente.
+Los mantenedores revisan las selecciones destacadas y los PR externos. El catálogo automático se publica automáticamente.
 
 <a id="attribution-and-reuse"></a>
 

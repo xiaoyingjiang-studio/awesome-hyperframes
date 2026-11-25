@@ -1,4 +1,4 @@
-# Catálogo diário
+# Catálogo automático
 
 Compilado automaticamente a partir das fontes citadas, com descrições de IA. Os projetos não foram executados de forma independente e os direitos de reutilização precisam ser verificados.
 

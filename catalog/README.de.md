@@ -1,4 +1,4 @@
-# Täglicher Katalog
+# Automatischer Katalog
 
 Automatisch aus den genannten Quellen zusammengestellt, mit KI-Beschreibungen. Die Projekte wurden nicht unabhängig ausgeführt; Nutzungsrechte müssen noch geprüft werden.
 
