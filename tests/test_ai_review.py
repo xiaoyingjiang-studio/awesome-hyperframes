@@ -29,7 +29,12 @@ def suggestion(item):
 
 class Reply:
     def __init__(self, batch, transform=lambda x: x):
-        payload = transform({"reviews": [suggestion(c) for c in batch]})
+        # Simulate a model echoing the short identifiers from its actual input.
+        values = []
+        for n, item in enumerate(batch, 1):
+            sources = sorted(item["evidence"], key=lambda e: e["id"])
+            values.append({**suggestion(item), "id": f"c{n}", "evidence_ids": [f"s{sources.index(item['evidence'][0]) + 1}"]})
+        payload = transform({"reviews": values})
         self.raw = json.dumps({"choices": [{"message": {"content": json.dumps(payload, ensure_ascii=False)}}], "usage": {"total_tokens": 123}}).encode()
         self.requests = []
 
@@ -79,8 +84,36 @@ class ContractTests(unittest.TestCase):
         self.assertNotIn("synthetic-secret", json.dumps(body))
         self.assertNotIn("not-public", json.dumps(body))
         self.assertIn(item["id"], result)
+        wire = json.loads(body["messages"][1]["content"])["candidates"][0]
+        self.assertEqual(wire["id"], "c1")
+        self.assertEqual(wire["evidence"][0]["id"], "s1")
+        self.assertEqual(result[item["id"]]["evidence_ids"], ["repository-readme"])
         self.assertEqual(provider.usage["total_tokens"], 123)
         self.assertEqual(provider.calls, 1)
+
+    def test_short_ids_map_reordered_results_to_exact_candidates_and_sources(self):
+        first, second = candidate("LongCaseSensitiveID"), candidate("another")
+        second["evidence"][0]["id"] = "different-source"
+        provider = a.Provider(ENV)
+        provider.opener = Reply([first, second], lambda payload: {"reviews": list(reversed(payload["reviews"]))})
+        results = provider.request([first, second])
+        self.assertEqual(set(results), {first["id"], second["id"]})
+        self.assertEqual(results[first["id"]]["evidence_ids"], ["repository-readme"])
+        self.assertEqual(results[second["id"]]["evidence_ids"], ["different-source"])
+
+    def test_short_id_mapping_cannot_bypass_validation_or_substitute_full_url_ids(self):
+        item = candidate()
+        item["evidence"][0]["id"] = "github-search:query"
+        invalid = [lambda p: {"reviews": p["reviews"] * 2},
+                   lambda p: {"reviews": [{**p["reviews"][0], "id": item["id"]}]},
+                   lambda p: {"reviews": [{**p["reviews"][0], "evidence_ids": ["s99"]}]},
+                   lambda p: {"reviews": [{**p["reviews"][0], "relevance": "supported"}]}]
+        for transform in invalid:
+            with self.subTest(transform=transform):
+                provider = a.Provider(ENV)
+                provider.opener = Reply([item], transform)
+                with self.assertRaises(a.ReviewError):
+                    provider.request([item])
 
     def test_budgets_are_checked_before_network_including_retries(self):
         item = candidate()

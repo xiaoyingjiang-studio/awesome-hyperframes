@@ -14,7 +14,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-PROMPT_VERSION = 1
+PROMPT_VERSION = 2
 MAX_REPAIR_FEEDBACK = 256
 CATEGORIES = {"作品与案例", "案例与模板", "模板与组件", "工具与集成产品", "教程与学习资源", "项目（待分类）"}
 RELEVANCE = {"supported", "mention_only", "unclear", "unrelated"}
@@ -115,6 +115,35 @@ def validate_reviews(payload, batch):
     return results
 
 
+def wire_candidates(batch):
+    """Use short, batch-local identifiers; the model never has to copy URL IDs."""
+    result = []
+    for index, candidate in enumerate(batch, 1):
+        value = candidate_input(candidate)
+        value["id"] = f"c{index}"
+        value["evidence"] = [{**e, "id": f"s{n}"} for n, e in enumerate(value["evidence"], 1)]
+        result.append(value)
+    return result
+
+
+def decode_wire_reviews(payload, batch):
+    if not isinstance(payload, dict) or not isinstance(payload.get("reviews"), list):
+        raise ReviewError("AI 未返回 reviews 数组")
+    identities = {f"c{n}": candidate for n, candidate in enumerate(batch, 1)}
+    decoded = []
+    for value in payload["reviews"]:
+        if not isinstance(value, dict) or not isinstance(value.get("id"), str) or value["id"] not in identities:
+            raise ReviewError("AI 返回未知候选编号；必须逐字复用输入的 c1、c2 等编号")
+        candidate = identities[value["id"]]
+        sources = {f"s{n}": e["id"] for n, e in enumerate(sorted(candidate["evidence"], key=lambda e: e["id"]), 1)}
+        ids = value.get("evidence_ids")
+        if not isinstance(ids, list) or not ids or any(not isinstance(key, str) or key not in sources for key in ids):
+            raise ReviewError("AI 引用了输入中不存在的来源编号")
+        decoded.append({**value, "id": candidate["id"], "evidence_ids": [sources[key] for key in ids]})
+    # This still rejects duplicates, missing items, unsupported claims and all unsafe fields.
+    return validate_reviews({"reviews": decoded}, batch)
+
+
 def integer_setting(env, name, default, minimum, maximum):
     try:
         value = int(env.get(name, str(default)))
@@ -150,7 +179,7 @@ class Provider:
         self.opener = build_opener(NoRedirects())
 
     def messages(self, batch, feedback=None):
-        messages = [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": json.dumps({"candidates": [candidate_input(c) for c in batch]}, ensure_ascii=False)}]
+        messages = [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": json.dumps({"candidates": wire_candidates(batch)}, ensure_ascii=False)}]
         if feedback:
             messages.append({"role": "user", "content": "上次响应未通过本地格式验证：" + feedback[:MAX_REPAIR_FEEDBACK] + "。请重新返回完整批次；逐项检查所有字段、长度和来源 ID，不要添加解释或改变事实。"})
         return messages
@@ -209,7 +238,7 @@ class Provider:
             value = re.sub(r"^```(?:json)?\s*|\s*```$", "", value.strip())
             payload = json.loads(value)
             try:
-                return validate_reviews(payload, batch)
+                return decode_wire_reviews(payload, batch)
             except ReviewError as error:
                 error.repairable = True
                 raise
