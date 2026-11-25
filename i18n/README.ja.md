@@ -16,7 +16,7 @@ HyperFrames フレームワークと HyperFrames Studio の動画作品、再利
 
 > カタログは8言語に対応しています。リンク先の資料は原語のままです。
 
-[はじめに](#start-here) · [注目の制作例](#featured-examples) · [公式リソース](#official-resources) · [学習資料](#learning) · [自動カタログ](#automated-catalog) · [テンプレートとツール](#templates-and-tools) · [自動収集](#discovery-and-review) · [貢献する](#contributing)
+[はじめに](#start-here) · [注目の制作例](#featured-examples) · [公式リソース](#official-resources) · [学習資料](#learning) · [自動カタログ](#automated-catalog) · [テンプレートとツール](#templates-and-tools) · [貢献する](#contributing)
 
 <a id="start-here"></a>
 
@@ -108,16 +108,6 @@ HeyGen の公式プロジェクトから始めましょう。ソースで構成�
 コミュニティのツールと連携は、原典と確認すべき再利用条件を添えて自動カタログに掲載します。
 
 <a id="discovery-and-review"></a>
-
-## 自動収集
-
-毎週水曜・日曜の中国標準時 08:00（UTC+8）に定期実行します。
-
-**定期収集 → 重複排除 → 出典と AI の確認 → main へ直接反映。**
-
-定期処理が成功すると、条件を満たす項目と八言語の紹介文をカタログとホームに直接反映します。検索だけの一致や証拠が不十分な候補は保留します。週次 Issue や手動マージは不要です。
-
-[自動カタログ](../catalog/README.ja.md) · [ワークフローの実行履歴](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [すべての候補記録](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [管理ガイド（中国語）](../discovery/README.md)
 
 <a id="contributing"></a>
 

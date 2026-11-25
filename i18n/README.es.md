@@ -16,7 +16,7 @@ Mantenido por [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio). U
 
 > El catálogo está disponible en ocho idiomas. Los recursos enlazados conservan su idioma original.
 
-[Primeros pasos](#start-here) · [Ejemplos destacados](#featured-examples) · [Recursos oficiales](#official-resources) · [Aprendizaje](#learning) · [Catálogo automático](#automated-catalog) · [Plantillas y herramientas](#templates-and-tools) · [Descubrimiento](#discovery-and-review) · [Contribuir](#contributing)
+[Primeros pasos](#start-here) · [Ejemplos destacados](#featured-examples) · [Recursos oficiales](#official-resources) · [Aprendizaje](#learning) · [Catálogo automático](#automated-catalog) · [Plantillas y herramientas](#templates-and-tools) · [Contribuir](#contributing)
 
 <a id="start-here"></a>
 
@@ -108,16 +108,6 @@ Explora las plantillas oficiales y adapta su contenido, tiempos y recursos a tu 
 Las herramientas e integraciones comunitarias figuran en el catálogo automático con sus fuentes y condiciones de reutilización por comprobar.
 
 <a id="discovery-and-review"></a>
-
-## Descubrimiento
-
-Se ejecuta los miércoles y domingos a las 08:00, hora estándar de China (UTC+8).
-
-**Recopilación programada → deduplicación → comprobación de fuentes e IA → actualización directa de main.**
-
-Cada ejecución programada correcta publica las entradas aptas y sus descripciones en ocho idiomas en el catálogo y la página principal. Los resultados de búsqueda sin pruebas suficientes quedan como candidatos. No se necesita un Issue semanal ni una fusión manual.
-
-[Catálogo automático](../catalog/README.es.md) · [Ejecuciones del workflow](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [Registro completo de candidatos](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [Guía de mantenimiento (chino)](../discovery/README.md)
 
 <a id="contributing"></a>
 
