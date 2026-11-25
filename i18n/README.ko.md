@@ -8,9 +8,13 @@ HyperFrames 프레임워크와 HyperFrames Studio의 영상, 재사용 가능한
 
 [English](../README.md) · [简体中文](../i18n/README.zh-CN.md) · [日本語](../i18n/README.ja.md) · [Español](../i18n/README.es.md) · [Français](../i18n/README.fr.md) · [Deutsch](../i18n/README.de.md) · [Português (Brasil)](../i18n/README.pt-BR.md) · **한국어**
 
+> **이 자료 모음이 유용한가요?**
+>
+> ⭐ 위의 **Star**로 저장하고 프로젝트를 응원해 주세요. **Watch**에서 GitHub 알림을 선택하거나 [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio)에서 **Follow**를 눌러 조직의 공개 활동을 볼 수 있습니다.
+
 [Xiaoyingjiang Studio](https://github.com/xiaoyingjiang-studio)가 관리하는 독립 커뮤니티 자료 모음입니다. HeyGen 공식 프로젝트가 아닙니다.
 
-> 카탈로그는 번역되어 있습니다. 연결된 영상, 예제 제작 기록, 일부 가이드는 중국어로 제공됩니다.
+> 카탈로그는 8개 언어로 제공됩니다. 연결된 자료는 원래 언어를 유지합니다.
 
 [시작하기](#start-here) · [주요 예제](#featured-examples) · [공식 자료](#official-resources) · [학습 자료](#learning) · [자동 카탈로그](#automated-catalog) · [템플릿과 도구](#templates-and-tools) · [자동 수집](#discovery-and-review) · [기여하기](#contributing)
 
@@ -22,33 +26,24 @@ HyperFrames 프레임워크와 HyperFrames Studio의 영상, 재사용 가능한
 | --- | --- |
 | Studio에서 제작하기 | [첫 영상 공식 가이드](https://hyperframes.heygen.com/studio-app/first-video)<br>데스크톱 앱의 제작 과정을 살펴봅니다. |
 | 프레임워크로 개발하기 | [공식 저장소](https://github.com/heygen-com/hyperframes)<br>프레임워크 소스 코드와 공식 문서를 확인합니다. |
-| 예제 수정하기 | [커뮤니티 예제 프로젝트](#featured-examples)<br>완성 영상을 보고 프로젝트와 제작 방식을 살펴본 뒤 수정합니다. |
+| 예제 수정하기 | [소스가 있는 예제 프로젝트](#featured-examples)<br>완성 영상을 보고 프로젝트와 제작 방식을 살펴본 뒤 수정합니다. |
 
 <a id="featured-examples"></a>
 
 ## 주요 예제
 
-Xiaoyingjiang Studio가 제작한 네 가지 프레임워크 예제입니다. 각 예제는 완성 영상, 원본 프로젝트, 제작 기록을 제공합니다. 영상 속 텍스트는 중국어입니다.
+HeyGen의 공식 프로젝트부터 살펴보세요. 소스에서 구성을 확인하고 자신의 콘텐츠에 맞게 바꿀 수 있습니다.
 
-| 제품 소개 | 중국어 설명 영상 |
+| 예제 | 참고할 내용 |
 | --- | --- |
-| [![제품 소개](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/product-intro.jpg)](https://xiaoyingjiang.com/showcase/product-intro/) | [![중국어 설명 영상](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/chinese-explainer.jpg)](https://xiaoyingjiang.com/showcase/chinese-explainer/) |
-| **제품 소개** — 제품 메시지, 시각적 계층, 장면 전환의 타이밍. | **중국어 설명 영상** — 중국어 타이포그래피, 정보 구분, 자막 타이밍. |
-| [영상과 설명 (중국어)](https://xiaoyingjiang.com/showcase/product-intro/) · [원본 프로젝트](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/product-intro) · [제작 기록 (중국어)](../examples/product-intro/README.md) | [영상과 설명 (중국어)](https://xiaoyingjiang.com/showcase/chinese-explainer/) · [원본 프로젝트](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/chinese-explainer) · [제작 기록 (중국어)](../examples/chinese-explainer/README.md) |
+| [product-promo](https://github.com/heygen-com/hyperframes/tree/main/registry/examples/product-promo) | 여러 장면의 제품 스토리 구성과 SVG 자료. |
+| [kinetic-type](https://github.com/heygen-com/hyperframes/tree/main/registry/examples/kinetic-type) | 글자 중심 홍보 영상, 제목 모션과 시각적 리듬. |
+| [nyt-graph](https://github.com/heygen-com/hyperframes/tree/main/registry/examples/nyt-graph) | 인쇄 편집 스타일의 애니메이션 차트. |
+| [Website → HyperFrames](https://github.com/heygen-com/hyperframes-launches/tree/main/website-to-hyperframes) | 소스, 대본, 스토리보드가 포함된 웹사이트 영상화 소개 영상. |
 
-| 데이터 스토리 | 촬영 영상 편집 |
-| --- | --- |
-| [![데이터 스토리](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/data-story.jpg)](https://xiaoyingjiang.com/showcase/data-story/) | [![촬영 영상 편집](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/footage-edit.jpg)](https://xiaoyingjiang.com/showcase/footage-edit/) |
-| **데이터 스토리** — 예시임을 명시한 데이터로 만드는 애니메이션 차트와 비교. | **촬영 영상 편집** — 클립 구성, 텍스트 오버레이, 편집 리듬. |
-| [영상과 설명 (중국어)](https://xiaoyingjiang.com/showcase/data-story/) · [원본 프로젝트](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/data-story) · [제작 기록 (중국어)](../examples/data-story/README.md) | [영상과 설명 (중국어)](https://xiaoyingjiang.com/showcase/footage-edit/) · [원본 프로젝트](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/footage-edit) · [제작 기록 (중국어)](../examples/footage-edit/README.md) |
+[공식 영감 갤러리](https://hyperframes.heygen.com/examples) · [Apache-2.0](https://github.com/heygen-com/hyperframes/blob/main/LICENSE) · [출시 프로젝트 라이선스](https://github.com/heygen-com/hyperframes-launches#license)
 
-
-<details>
-<summary>검증 범위와 재사용 조건</summary>
-
-이 자료는 HyperFrames 프레임워크 예제입니다. 제품 화면은 콘셉트 표현이며 Studio의 실제 조작 기록이 아닙니다. [원본 검증 기록](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/examples/verification.json)에는 Windows와 HyperFrames 0.9.92에서 수행한 검사 및 렌더링이 기재되어 있습니다. 출력은 960 × 540, 30 fps, 8초이며 오디오가 없습니다. 이 카탈로그는 과거 기록을 인용하며 이번 홈페이지 변경을 위해 다시 렌더링하지 않았습니다. 다른 버전과 환경은 별도로 확인해야 합니다. 원본 프로젝트의 [콘텐츠 라이선스](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/CONTENT_LICENSE.md)와 [제3자 권리 고지](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/THIRD_PARTY_NOTICES.md)를 확인하세요.
-
-</details>
+재사용 전에 코드 라이선스와 미디어, 글꼴, 브랜드 자료의 별도 권리를 확인하세요.
 
 <a id="official-resources"></a>
 
@@ -64,12 +59,24 @@ Xiaoyingjiang Studio가 제작한 네 가지 프레임워크 예제입니다. �
 
 ## 학습 자료
 
-공식 문서는 위 링크에서 볼 수 있습니다. 다음 커뮤니티 자료는 **중국어**입니다.
+**공식 가이드 (영어)**
 
-- [HyperFrames 중국어 가이드](https://xiaoyingjiang.com/) — 제품 소개, 설치, 시작 안내.
-- [Studio 빠른 시작](https://xiaoyingjiang.com/start/studio/) — 데스크톱 앱을 위한 중국어 입문 안내.
-- [중국어 타이포그래피](https://xiaoyingjiang.com/guides/chinese-typography/) — 글꼴 선택, 텍스트 배치, 영상의 가독성.
-- [가이드 소스](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — 독립 중국어 사이트, 예제 프로젝트, 유지 관리 기록.
+- [첫 영상 만들기](https://hyperframes.heygen.com/quickstart)
+- [HyperFrames + Codex](https://hyperframes.heygen.com/guides/with-codex)
+- [HyperFrames + Claude Code](https://hyperframes.heygen.com/guides/with-claude-code)
+
+<details>
+<summary>중국어 커뮤니티 자료</summary>
+
+중국어로 제작하는 분들을 위해 Xiaoyingjiang Studio가 가이드와 제작 기록을 관리합니다.
+
+- [HyperFrames Chinese Guide](https://xiaoyingjiang.com/)
+- [Studio quick start](https://xiaoyingjiang.com/start/studio/)
+- [Chinese typography](https://xiaoyingjiang.com/guides/chinese-typography/)
+- [Guide source](https://github.com/xiaoyingjiang-studio/hyperframes-cn)
+- [중국어 예제 프로젝트와 제작 기록](../examples/README.md)
+
+</details>
 
 <!-- AUTO-CATALOG:START -->
 
@@ -94,9 +101,11 @@ Xiaoyingjiang Studio가 제작한 네 가지 프레임워크 예제입니다. �
 
 ## 템플릿과 도구
 
-네 가지 [주요 예제](#featured-examples)를 재사용 가능한 프로젝트의 출발점으로 삼을 수 있습니다. 원본의 의존성, 재현 방법, 라이선스를 따르세요.
+공식 프로젝트 템플릿을 살펴보고 콘텐츠, 타이밍, 자료를 자신의 기획에 맞게 바꿔 보세요.
 
-조건에 맞는 도구와 연동은 원본 출처 및 확인이 필요한 재사용 조건과 함께 자동 카탈로그에 자동 등록됩니다. 위의 직접 선정한 예제는 별도로 관리합니다.
+[HyperFrames registry](https://github.com/heygen-com/hyperframes/tree/main/registry/examples) · [공식 예제 출처 기록 (중국어)](../examples/official-examples/README.md)
+
+커뮤니티 도구와 연동은 원본 출처 및 확인이 필요한 재사용 조건과 함께 자동 카탈로그에 등록됩니다.
 
 <a id="discovery-and-review"></a>
 

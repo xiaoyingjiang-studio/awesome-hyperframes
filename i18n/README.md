@@ -26,3 +26,5 @@ The English [README](../README.md) is the primary catalog. Each edition below co
 - Keep live candidate counts and CI status out of handwritten catalog copy. The scheduled publisher updates only the `AUTO-CATALOG:START` / `AUTO-CATALOG:END` region in each homepage and the generated catalog/ files; do not edit those regions manually. Qualified entries publish directly without a weekly issue or manual merge. Handpicked highlights and external submissions still receive maintainer review.
 
 Contribution guidelines are available in [English](../CONTRIBUTING.en.md) and [简体中文](../CONTRIBUTING.md). Detailed example notes and automation documentation currently remain in Chinese.
+
+- Keep the global homepage focused on source-linked examples. Language-specific community material belongs in the labeled expandable learning section and the example index. Translate the GitHub Star / Watch / organization Follow invitation with the same meaning; do not promise notifications for catalog commits.

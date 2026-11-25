@@ -8,9 +8,13 @@
 
 [English](../README.md) · **简体中文** · [日本語](../i18n/README.ja.md) · [Español](../i18n/README.es.md) · [Français](../i18n/README.fr.md) · [Deutsch](../i18n/README.de.md) · [Português (Brasil)](../i18n/README.pt-BR.md) · [한국어](../i18n/README.ko.md)
 
+> **觉得这份目录有用？**
+>
+> ⭐ 点击仓库上方的 **Star** 收藏并支持项目；通过 **Watch** 自选 GitHub 通知，或在 [小影匠工作室](https://github.com/xiaoyingjiang-studio) 主页点击 **Follow**，关注组织公开动态。
+
 由[小影匠工作室](https://github.com/xiaoyingjiang-studio)维护。独立社区精选目录，非 HeyGen 官方项目。
 
-> 目录提供多语种版本；链接中的成片、案例记录和部分指南使用中文。
+> 目录提供八语种版本；链接资源保留各自的原始语言。
 
 [从这里开始](#start-here) · [精选案例](#featured-examples) · [官方资源](#official-resources) · [学习资料](#learning) · [自动资源目录](#automated-catalog) · [模板与工具](#templates-and-tools) · [自动发现](#discovery-and-review) · [参与贡献](#contributing)
 
@@ -22,33 +26,24 @@
 | --- | --- |
 | 在 Studio 中创作 | [官方首次创作演示](https://hyperframes.heygen.com/studio-app/first-video)<br>了解桌面应用的创作流程。 |
 | 使用框架开发 | [官方源码仓库](https://github.com/heygen-com/hyperframes)<br>查看框架源码与官方文档。 |
-| 从案例开始修改 | [社区案例工程](#featured-examples)<br>先看成片，再研究源码和制作方法。 |
+| 从案例开始修改 | [示例源工程](#featured-examples)<br>先看成片，再研究源码和制作方法。 |
 
 <a id="featured-examples"></a>
 
 ## 精选案例
 
-小影匠工作室原创的四个框架案例，均提供成片、原始工程与制作说明。视频中的文字使用中文；各例的音轨情况以记录为准。
+从 HeyGen 提供的这些官方项目开始，查看源工程中的画面组织，并按自己的内容进行改编。
 
-| 产品介绍 | 中文知识讲解 |
+| 示例 | 可借鉴内容 |
 | --- | --- |
-| [![产品介绍](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/product-intro.jpg)](https://xiaoyingjiang.com/showcase/product-intro/) | [![中文知识讲解](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/chinese-explainer.jpg)](https://xiaoyingjiang.com/showcase/chinese-explainer/) |
-| **产品介绍** — 产品信息表达、视觉层级与场景节奏。 | **中文知识讲解** — 中文排版、信息分段与字幕时序。 |
-| [成片与说明](https://xiaoyingjiang.com/showcase/product-intro/) · [原始工程](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/product-intro) · [制作记录](../examples/product-intro/README.md) | [成片与说明](https://xiaoyingjiang.com/showcase/chinese-explainer/) · [原始工程](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/chinese-explainer) · [制作记录](../examples/chinese-explainer/README.md) |
+| [product-promo](https://github.com/heygen-com/hyperframes/tree/main/registry/examples/product-promo) | 多场景产品叙事与 SVG 素材。 |
+| [kinetic-type](https://github.com/heygen-com/hyperframes/tree/main/registry/examples/kinetic-type) | 文字驱动的宣传片、标题动画与视觉节奏。 |
+| [nyt-graph](https://github.com/heygen-com/hyperframes/tree/main/registry/examples/nyt-graph) | 印刷编辑风格的动态图表。 |
+| [Website → HyperFrames](https://github.com/heygen-com/hyperframes-launches/tree/main/website-to-hyperframes) | 包含源工程、脚本与分镜的网站转视频发布短片。 |
 
-| 数据表达 | 素材剪辑 |
-| --- | --- |
-| [![数据表达](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/data-story.jpg)](https://xiaoyingjiang.com/showcase/data-story/) | [![素材剪辑](https://raw.githubusercontent.com/xiaoyingjiang-studio/hyperframes-cn/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/media/footage-edit.jpg)](https://xiaoyingjiang.com/showcase/footage-edit/) |
-| **数据表达** — 用明确标注的演示数据呈现动态图表与比较。 | **素材剪辑** — 片段编排、文字叠加与剪辑节奏。 |
-| [成片与说明](https://xiaoyingjiang.com/showcase/data-story/) · [原始工程](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/data-story) · [制作记录](../examples/data-story/README.md) | [成片与说明](https://xiaoyingjiang.com/showcase/footage-edit/) · [原始工程](https://github.com/xiaoyingjiang-studio/hyperframes-cn/tree/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/examples/footage-edit) · [制作记录](../examples/footage-edit/README.md) |
+[官方灵感画廊](https://hyperframes.heygen.com/examples) · [Apache-2.0](https://github.com/heygen-com/hyperframes/blob/main/LICENSE) · [发布项目许可](https://github.com/heygen-com/hyperframes-launches#license)
 
-
-<details>
-<summary>验证范围与复用条件</summary>
-
-这些是 HyperFrames 框架案例。产品界面为概念演示，不代表 Studio 实际界面，也不是 Studio 操作实测。[源项目验证记录](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/public/examples/verification.json)报告：在 Windows、HyperFrames 0.9.92 下完成检查与渲染，输出为 960 × 540、30fps、8 秒、无音轨。本目录引用该历史记录，本次首页更新未重新渲染；其他版本与环境需自行核对。复用前请阅读源项目的[内容许可](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/CONTENT_LICENSE.md)与[第三方归属](https://github.com/xiaoyingjiang-studio/hyperframes-cn/blob/2cbf04a35769f80bc6dff8f6332054d63d6cc9e1/THIRD_PARTY_NOTICES.md)。
-
-</details>
+复用前核对上游代码许可，以及媒体、字体和品牌素材各自的使用权。
 
 <a id="official-resources"></a>
 
@@ -64,12 +59,24 @@
 
 ## 学习资料
 
-官方文档见上方入口。以下是独立社区维护的**中文**资料：
+**官方指南（英文）**
 
-- [HyperFrames 中文指南](https://xiaoyingjiang.com/) — 产品介绍、安装与入门资料。
-- [Studio 中文上手](https://xiaoyingjiang.com/start/studio/) — 桌面应用的中文入门说明。
-- [中文字体与排版](https://xiaoyingjiang.com/guides/chinese-typography/) — 字体选择、文字布局与视频阅读体验。
-- [指南源码](https://github.com/xiaoyingjiang-studio/hyperframes-cn) — 独立中文网站、案例工程与维护记录。
+- [制作第一支视频](https://hyperframes.heygen.com/quickstart)
+- [HyperFrames + Codex](https://hyperframes.heygen.com/guides/with-codex)
+- [HyperFrames + Claude Code](https://hyperframes.heygen.com/guides/with-claude-code)
+
+<details>
+<summary>中文社区资料</summary>
+
+面向中文创作者，以下社区指南与案例记录由小影匠工作室维护。
+
+- [HyperFrames Chinese Guide](https://xiaoyingjiang.com/)
+- [Studio quick start](https://xiaoyingjiang.com/start/studio/)
+- [Chinese typography](https://xiaoyingjiang.com/guides/chinese-typography/)
+- [Guide source](https://github.com/xiaoyingjiang-studio/hyperframes-cn)
+- [中文案例工程与制作记录](../examples/README.md)
+
+</details>
 
 <!-- AUTO-CATALOG:START -->
 
@@ -94,9 +101,11 @@
 
 ## 模板与工具
 
-可以从四个[精选案例](#featured-examples)开始复用工程，按原项目的依赖、复现说明与许可继续修改。
+浏览官方项目模板，按自己的创作需求调整内容、节奏与素材。
 
-符合来源和 AI 检查的工具与集成会自动加入自动目录，并保留原始来源与待核对的复用条件。上方人工精选案例单独维护。
+[HyperFrames registry](https://github.com/heygen-com/hyperframes/tree/main/registry/examples) · [官方示例来源记录](../examples/official-examples/README.md)
+
+社区工具与集成收录在自动目录中，并附原始来源及待核对的复用条件。
 
 <a id="discovery-and-review"></a>
 
