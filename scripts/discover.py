@@ -429,7 +429,7 @@ def collect(api, config, state, now, full=False):
         except (ApiError, ValueError, KeyError, TypeError) as error:
             progress[query] = session
             problems.append(f"搜索失败，保留原检查点：{query}: {error}")
-    # Old, unprocessed candidates get a turn even when the daily budget is exhausted.
+    # Old, unprocessed candidates get a turn even when the per-run budget is exhausted.
     queue = sorted((c for c in state["candidates"].values() if c.get("repository") and c["status"] == "pending"), key=lambda c: (c.get("last_enrichment_attempt", ""), c["first_seen"], c["id"]))
     for candidate in queue[:config["enrich_per_run"]]:
         before = fingerprint(candidate)
@@ -605,7 +605,7 @@ def main(argv=None):
                     publication = {"status": "failed", "reason": str(error)}
                     catalog_failed = True
     state["last_catalog_run"] = publication
-    summary = ["# 每日采集与自动入库", "", f"采集记录：{now}；候选：{len(state['candidates'])}。", "", f"AI：{ai['status']}；请求 {ai['calls']} 次，分析 {ai['reviewed']} 项，缓存 {ai['cache_hits']} 项。", "", "自动目录：" + plain(json.dumps(publication, ensure_ascii=False), 1500), "", md_link("查看默认分支完整目录", f"https://github.com/{args.repository}/blob/HEAD/catalog/README.md"), ""]
+    summary = ["# 定时采集与自动入库", "", f"采集记录：{now}；候选：{len(state['candidates'])}。", "", f"AI：{ai['status']}；请求 {ai['calls']} 次，分析 {ai['reviewed']} 项，缓存 {ai['cache_hits']} 项。", "", "自动目录：" + plain(json.dumps(publication, ensure_ascii=False), 1500), "", md_link("查看默认分支完整目录", f"https://github.com/{args.repository}/blob/HEAD/catalog/README.md"), ""]
     summary += ["- " + plain(note, 500) for note in [*problems, *(state.get("last_run") or {}).get("warnings", []), *ai["errors"], *ai.get("notices", [])]]
     if publication.get("commit"):
         summary += ["", md_link("本次自动提交", f"https://github.com/{args.repository}/commit/{publication['commit']}")]

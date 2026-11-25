@@ -12,7 +12,7 @@ HyperFrames フレームワークと HyperFrames Studio の動画作品、再利
 
 > このカタログは翻訳されています。リンク先の動画、制作記録、一部のガイドは中国語です。
 
-[はじめに](#start-here) · [注目の制作例](#featured-examples) · [公式リソース](#official-resources) · [学習資料](#learning) · [日次自動カタログ](#automated-catalog) · [テンプレートとツール](#templates-and-tools) · [自動収集](#discovery-and-review) · [貢献する](#contributing)
+[はじめに](#start-here) · [注目の制作例](#featured-examples) · [公式リソース](#official-resources) · [学習資料](#learning) · [自動カタログ](#automated-catalog) · [テンプレートとツール](#templates-and-tools) · [自動収集](#discovery-and-review) · [貢献する](#contributing)
 
 <a id="start-here"></a>
 
@@ -75,7 +75,7 @@ Xiaoyingjiang Studio による四つのオリジナル制作例です。完成�
 
 <a id="automated-catalog"></a>
 
-## 日次自動カタログ
+## 自動カタログ
 
 引用元に基づいて自動整理し、AI が紹介文を作成します。プロジェクトの実行や再利用権は独立に確認していません。
 
@@ -96,17 +96,19 @@ Xiaoyingjiang Studio による四つのオリジナル制作例です。完成�
 
 四つの[注目の制作例](#featured-examples)を再利用の出発点にできます。元のプロジェクトの依存関係、再現手順、ライセンスに従ってください。
 
-条件を満たすツールや連携を、原典と確認すべき再利用条件とともに日次カタログへ自動掲載します。上記の手選びの制作例は別に管理します。
+条件を満たすツールや連携を、原典と確認すべき再利用条件とともに自動カタログへ自動掲載します。上記の手選びの制作例は別に管理します。
 
 <a id="discovery-and-review"></a>
 
+毎週水曜・日曜の中国標準時 08:00（UTC+8）に定期実行します。
+
 ## 自動収集
 
-**毎日の収集 → 重複排除 → 出典と AI の確認 → main へ直接反映。**
+**定期収集 → 重複排除 → 出典と AI の確認 → main へ直接反映。**
 
-毎日の処理が成功すると、条件を満たす項目と八言語の紹介文をカタログとホームに直接反映します。検索だけの一致や証拠が不十分な候補は保留します。週次 Issue や手動マージは不要です。
+定期処理が成功すると、条件を満たす項目と八言語の紹介文をカタログとホームに直接反映します。検索だけの一致や証拠が不十分な候補は保留します。週次 Issue や手動マージは不要です。
 
-[日次自動カタログ](../catalog/README.ja.md) · [ワークフローの実行履歴](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [すべての候補記録](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [管理ガイド（中国語）](../discovery/README.md)
+[自動カタログ](../catalog/README.ja.md) · [ワークフローの実行履歴](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [すべての候補記録](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [管理ガイド（中国語）](../discovery/README.md)
 
 <a id="contributing"></a>
 
@@ -114,7 +116,7 @@ Xiaoyingjiang Studio による四つのオリジナル制作例です。完成�
 
 役立つ作品やツールを見つけましたか。[リソースを推薦する](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose)か、[貢献ガイド（英語）](../CONTRIBUTING.en.md)に沿って PR を提出してください。作者、原典、用途、参考になる点、ソースの有無、ライセンス、実際に確認した内容を記載してください。
 
-手選びの紹介と外部からの PR は管理者が確認します。日次カタログは自動公開します。
+手選びの紹介と外部からの PR は管理者が確認します。自動カタログは自動公開します。
 
 <a id="attribution-and-reuse"></a>
 

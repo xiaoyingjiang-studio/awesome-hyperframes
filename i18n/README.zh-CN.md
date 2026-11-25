@@ -12,7 +12,7 @@
 
 > 目录提供多语种版本；链接中的成片、案例记录和部分指南使用中文。
 
-[从这里开始](#start-here) · [精选案例](#featured-examples) · [官方资源](#official-resources) · [学习资料](#learning) · [每日自动目录](#automated-catalog) · [模板与工具](#templates-and-tools) · [自动发现](#discovery-and-review) · [参与贡献](#contributing)
+[从这里开始](#start-here) · [精选案例](#featured-examples) · [官方资源](#official-resources) · [学习资料](#learning) · [自动资源目录](#automated-catalog) · [模板与工具](#templates-and-tools) · [自动发现](#discovery-and-review) · [参与贡献](#contributing)
 
 <a id="start-here"></a>
 
@@ -75,7 +75,7 @@
 
 <a id="automated-catalog"></a>
 
-## 每日自动目录
+## 自动资源目录
 
 按引用来源自动整理，简介由 AI 生成；尚未独立运行工程，复用授权仍须核对。
 
@@ -96,17 +96,19 @@
 
 可以从四个[精选案例](#featured-examples)开始复用工程，按原项目的依赖、复现说明与许可继续修改。
 
-符合来源和 AI 检查的工具与集成会自动加入每日目录，并保留原始来源与待核对的复用条件。上方人工精选案例单独维护。
+符合来源和 AI 检查的工具与集成会自动加入自动目录，并保留原始来源与待核对的复用条件。上方人工精选案例单独维护。
 
 <a id="discovery-and-review"></a>
 
+定时执行：每周三、周日北京时间 08:00。
+
 ## 自动发现
 
-**每日采集 → 去重 → 来源与 AI 检查 → 直接更新 main。**
+**定时采集 → 去重 → 来源与 AI 检查 → 直接更新 main。**
 
-每天成功运行后，符合规则的条目和八语种简介会直接写入目录与首页。仅搜索命中或证据不足的线索继续保存在候选池，不再需要每周 Issue 或人工合并。
+每次成功运行后，符合规则的条目和八语种简介会直接写入目录与首页。仅搜索命中或证据不足的线索继续保存在候选池，不再需要每周 Issue 或人工合并。
 
-[每日自动目录](../catalog/README.zh-CN.md) · [工作流运行记录](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [完整候选记录](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [维护说明](../discovery/README.md)
+[自动资源目录](../catalog/README.zh-CN.md) · [工作流运行记录](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/actions/workflows/discover.yml) · [完整候选记录](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/blob/automation/discovery-state/state.json) · [维护说明](../discovery/README.md)
 
 <a id="contributing"></a>
 
@@ -114,7 +116,7 @@
 
 发现了值得参考的作品或工具？欢迎[推荐资源](https://github.com/xiaoyingjiang-studio/awesome-hyperframes/issues/new/choose)，或按[贡献指南](../CONTRIBUTING.md)提交 PR。请附作者、原始来源、用途与参考价值、源码可用性、许可，以及实际核对过的内容。
 
-人工精选与外部投稿 PR 仍由维护者审核；每日自动目录直接发布。
+人工精选与外部投稿 PR 仍由维护者审核；自动资源目录直接发布。
 
 <a id="attribution-and-reuse"></a>
 

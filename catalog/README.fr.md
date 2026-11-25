@@ -1,4 +1,4 @@
-# Catalogue quotidien
+# Catalogue automatique
 
 Compilation automatique des sources citées, avec des descriptions rédigées par l’IA. Les projets n’ont pas été exécutés indépendamment et les droits de réutilisation restent à vérifier.
 

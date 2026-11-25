@@ -35,7 +35,7 @@ The English [README](README.md) is the primary catalog. The [translated editions
 
 ## Discovery and review
 
-Automation collects leads, deduplicates them and directly updates the default branch each day. Entries need original-source evidence, a supported relationship and validated summaries in all eight catalog languages. They appear in the automatic catalog and the managed homepage sections without a weekly issue or a manual merge. Automatic publication does not establish that a project works or that reuse is permitted.
+Automation collects leads, deduplicates them and directly updates the default branch on Wednesdays and Sundays at 08:00 China Standard Time (UTC+8). Entries need original-source evidence, a supported relationship and validated summaries in all eight catalog languages. They appear in the automatic catalog and the managed homepage sections without a weekly issue or a manual merge. Automatic publication does not establish that a project works or that reuse is permitted.
 
 Maintain exclusion decisions through [reviews.json](discovery/reviews.json), following the [discovery guide](discovery/README.md) (Chinese). Rejected and deferred leads retain their reasons and are removed from the automatic catalog on its next successful update. Handpicked highlights and external submissions still follow maintainer review; the workflow does not automatically merge external pull requests.
 
