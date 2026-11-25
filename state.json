@@ -27931,39 +27931,13 @@
     "search:\"hyperframes-studio\" in:name,description,readme fork:false archived:false is:public": "2026-11-25T07:24:49+00:00"
   },
   "last_ai_run": {
-    "at": "2026-11-25T09:07:11+00:00",
+    "at": "2026-11-25T09:09:19+00:00",
     "cache_hits": 0,
-    "calls": 2,
+    "calls": 0,
     "errors": [],
-    "model": "deepseek-v4.1-flash",
-    "notices": [
-      "剩余额度不足以支持新批次及一次完整重试或格式修正；未发出新请求，剩余候选留待后续运行"
-    ],
-    "queued": 884,
-    "remaining": 880,
-    "request_options": {
-      "enable_thinking": false
-    },
-    "reserved_tokens": 31326,
-    "responses": [
-      {
-        "finish_reason": "stop",
-        "has_content": true,
-        "has_reasoning": false
-      },
-      {
-        "finish_reason": "stop",
-        "has_content": true,
-        "has_reasoning": false
-      }
-    ],
-    "reviewed": 4,
-    "status": "completed",
-    "usage": {
-      "completion_tokens": 2221,
-      "prompt_tokens": 2771,
-      "total_tokens": 4992
-    }
+    "notices": [],
+    "reviewed": 0,
+    "status": "disabled"
   },
   "last_run": {
     "at": "2026-11-25T09:07:11+00:00",
