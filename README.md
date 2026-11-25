@@ -12,6 +12,8 @@ Curated examples, templates and resources for HyperFrames, maintained by Xiaoyin
 - [官方资源](#官方资源)
 - [中文学习](#中文学习)
 - [模板与项目](#模板与项目)
+- [工具与集成产品](#工具与集成产品)
+- [自动发现与审核](#自动发现与审核)
 - [收录与贡献](#收录与贡献)
 - [归属与许可](#归属与许可)
 
@@ -55,6 +57,16 @@ Curated examples, templates and resources for HyperFrames, maintained by Xiaoyin
 先从以上四个原创案例的源码或项目 ZIP 开始修改。更多模板按以下类别收录：产品介绍、知识讲解、数据表达、素材剪辑，以及可复用的字幕、片头、图表和转场。
 
 新模板需要提供演示、项目文件、依赖、复现步骤与许可，提交流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。单个案例的记录格式见 [examples/README.md](examples/README.md)。
+
+## 工具与集成产品
+
+收集基于 HyperFrames 或 HyperFrames Studio 的工具、插件、工作流和产品集成。条目需说明与 HyperFrames 的实际关系、原作者入口、可参考的使用方式，以及账号、付费和许可条件；官方名单中的使用或探索线索仍需审核，不直接视为维护者实测。候选经审核后加入本节。
+
+## 自动发现与审核
+
+仓库提供 GitHub Actions 自动采集流程，按配置发现公开项目、官方案例和产品线索，去重后形成每周候选审核 Issue。候选池与精选目录分开维护；自动任务不修改本页、不运行第三方工程，也不自动批准投稿。
+
+来源、运行方式、审核状态和验证边界见[自动发现说明](discovery/README.md)，搜索与来源规则见[采集配置](discovery/config.json)。工作流需合入 GitHub 默认分支并具备相应权限后运行；仓库中的配置文件不代表定时任务已经启用或执行成功。
 
 ## 收录与贡献
 

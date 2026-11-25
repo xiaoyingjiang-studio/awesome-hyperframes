@@ -6,3 +6,5 @@ Thumbs.db
 node_modules/
 artifacts/
 .cache/
+__pycache__/
+*.pyc

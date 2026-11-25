@@ -1,0 +1,62 @@
+name: 自动发现与每周审核
+
+on:
+  schedule:
+    # 北京时间每天 09:23 发现；周一 10:17 生成审核清单。避开整点。
+    - cron: '23 1 * * *'
+    - cron: '17 2 * * 1'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 执行内容
+        type: choice
+        options:
+          - discover-and-digest
+          - discover
+          - digest
+        default: discover-and-digest
+      full:
+        description: 忽略搜索检查点，补查全部范围（仍受分页上限限制）
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hyperframes-discovery
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    # fork 不自动向其仓库写入状态或 Issue；仍可由 fork 维护者手动运行。
+    if: github.repository == 'xiaoyingjiang-studio/awesome-hyperframes' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: 采集与发布
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DISCOVERY_MODE: ${{ github.event_name == 'schedule' && github.event.schedule == '17 2 * * 1' && 'digest' || inputs.mode || 'discover' }}
+          FULL_SCAN: ${{ inputs.full || false }}
+        shell: bash
+        run: |
+          args=(--mode "$DISCOVERY_MODE" --publish --repository "$GITHUB_REPOSITORY")
+          if [ "$FULL_SCAN" = "true" ]; then args+=(--full); fi
+          python scripts/discover.py "${args[@]}"
+      - name: 发布运行摘要
+        if: always()
+        shell: bash
+        run: |
+          if [ -f artifacts/discovery/weekly-review.md ]; then
+            cat artifacts/discovery/weekly-review.md >> "$GITHUB_STEP_SUMMARY"
+          fi
