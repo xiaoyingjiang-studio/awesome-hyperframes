@@ -79,9 +79,14 @@
 
 按引用来源自动整理，简介由 AI 生成；尚未独立运行工程，复用授权仍须核对。
 
-[浏览完整目录 (0)](../catalog/README.zh-CN.md)
+[浏览完整目录 (4)](../catalog/README.zh-CN.md)
 
-暂无符合规则的条目；有来源依据的候选按每日 AI 额度继续处理。
+| 资源 | 简介 |
+| --- | --- |
+| [Jtensetti/arkivX](<https://github.com/jtensetti/arkivx>)<br><sub>项目（待分类）</sub> | 瑞典语 README 描述的短视频批量项目，称用 HyperFrames 模板配合 GSAP 与变量生成渲染视频。 |
+| [jolangker/content-engine](<https://github.com/jolangker/content-engine>)<br><sub>项目（待分类）</sub> | 内容引擎仓库，README 称以可复用创意板驱动短视频生产，流程从简报、调研到 HyperFrames 环节。 |
+| [johnviklund/j-skills](<https://github.com/johnviklund/j-skills>)<br><sub>工具与集成产品</sub> | j-skills 的 README 提到安装 HyperFrames 自带技能，并关闭其遥测，用于将网页转为 MP4 的视频步骤。 |
+| [jogden12/brimm-video-studio](<https://github.com/jogden12/brimm-video-studio>)<br><sub>工具与集成产品</sub> | BRIMM Video Studio 自述为 brimm-video 的下一版本，围绕 HyperFrames Mac 应用做视频导入、读取、生成项目并回收导出。 |
 
 <!-- AUTO-CATALOG:END -->
 

@@ -79,9 +79,14 @@ Die offizielle Dokumentation ist oben verlinkt. Diese Community-Ressourcen sind 
 
 Automatisch aus den genannten Quellen zusammengestellt, mit KI-Beschreibungen. Die Projekte wurden nicht unabhängig ausgeführt; Nutzungsrechte müssen noch geprüft werden.
 
-[Vollständigen Katalog öffnen (0)](../catalog/README.de.md)
+[Vollständigen Katalog öffnen (4)](../catalog/README.de.md)
 
-Noch keine geeigneten Einträge; belegte Kandidaten werden innerhalb des täglichen KI-Budgets verarbeitet.
+| Ressource | Beschreibung |
+| --- | --- |
+| [Jtensetti/arkivX](<https://github.com/jtensetti/arkivx>)<br><sub>Projekte</sub> | Ein schwedisches README beschreibt ein Kurzvideo-Batchprojekt, das HyperFrames-Vorlagen mit GSAP und Variablen zur Erzeugung gerenderter Videos nutzt. |
+| [jolangker/content-engine](<https://github.com/jolangker/content-engine>)<br><sub>Projekte</sub> | Ein Content-Engine-Repository, dessen README wiederverwendbare Creative Boards für Kurzvideo-Produktion beschreibt, vom Briefing und der Recherche bis zu einem HyperFrames-Schritt. |
+| [johnviklund/j-skills](<https://github.com/johnviklund/j-skills>)<br><sub>Werkzeuge und Integrationen</sub> | Die j-skills-README erwähnt die Installation der HyperFrames-eigenen Skills und das Abschalten der Telemetrie für einen Videoschritt, der eine Webseite in MP4 umwandelt. |
+| [jogden12/brimm-video-studio](<https://github.com/jogden12/brimm-video-studio>)<br><sub>Werkzeuge und Integrationen</sub> | BRIMM Video Studio bezeichnet sich als nächste Version von brimm-video und übernimmt rund um die HyperFrames-Mac-App Videoeingang, Einlesen, Projekterstellung und Exportsammlung. |
 
 <!-- AUTO-CATALOG:END -->
 

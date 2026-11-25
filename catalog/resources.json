@@ -1,4 +1,178 @@
 {
+  "resources": {
+    "url:https://github.com/jogden12/brimm-video-studio": {
+      "ai": {
+        "generated_at": "2026-11-25T09:07:11+00:00",
+        "input_hash": "b1b84b0dd15fef3f6029a5a4faa088c1a1a1c3b1ce32a648099d172c3f0d0c06",
+        "model": "deepseek-v4.1-flash",
+        "prompt_version": 4
+      },
+      "author": "jogden12",
+      "category": "工具与集成产品",
+      "entry": "Studio",
+      "evidence": [
+        {
+          "blob_sha": null,
+          "detail": "搜索命中仅代表候选相关性，尚未核对实际使用。",
+          "id": "github-search:\"hyperframes-studio\" in:name,description,readme fork:false archived:false is:public",
+          "observed_at": "2026-11-25T07:24:49+00:00",
+          "url": "https://github.com/search?q=%22hyperframes-studio%22+in%3Aname%2Cdescription%2Creadme+fork%3Afalse+archived%3Afalse+is%3Apublic&type=repositories"
+        },
+        {
+          "blob_sha": "4063401212b7cc07f4426fce015b9836659c80f9",
+          "detail": "> **This repository is BRIMM Video Studio, the next version of brimm-video.** The HyperFrames Mac app will do the editing; Studio does everything around it: it takes a video in, reads it, makes the app's project, takes the exports back and ",
+          "id": "repository-readme",
+          "observed_at": "2026-11-25T07:57:40+00:00",
+          "url": "https://github.com/jogden12/brimm-video-studio/blob/main/README.md"
+        }
+      ],
+      "id": "url:https://github.com/jogden12/brimm-video-studio",
+      "license_spdx": null,
+      "origin": "社区仓库搜索线索",
+      "summaries": {
+        "de": "BRIMM Video Studio bezeichnet sich als nächste Version von brimm-video und übernimmt rund um die HyperFrames-Mac-App Videoeingang, Einlesen, Projekterstellung und Exportsammlung.",
+        "en": "BRIMM Video Studio describes itself as the next version of brimm-video, handling video intake, reading, project creation and export collection around the HyperFrames Mac app.",
+        "es": "BRIMM Video Studio se presenta como la siguiente versión de brimm-video y gestiona la entrada, lectura, creación de proyectos y recogida de exportaciones alrededor de la app HyperFrames para Mac.",
+        "fr": "BRIMM Video Studio se présente comme la prochaine version de brimm-video et gère l’entrée, la lecture, la création de projets et la récupération des exports autour de l’app HyperFrames pour Mac.",
+        "ja": "BRIMM Video Studio は brimm-video の次期版とされ、HyperFrames Mac アプリの周辺で動画取り込み、読み取り、プロジェクト生成、書き出し回収を行います。",
+        "ko": "BRIMM Video Studio는 brimm-video의 다음 버전이라고 자칭하며 HyperFrames Mac 앱 주변에서 영상 입력, 읽기, 프로젝트 생성, 내보내기 수집을 담당합니다.",
+        "pt-BR": "O BRIMM Video Studio se apresenta como a próxima versão do brimm-video e cuida da entrada, leitura, criação de projetos e coleta de exportações ao redor do app HyperFrames para Mac.",
+        "zh-CN": "BRIMM Video Studio 自述为 brimm-video 的下一版本，围绕 HyperFrames Mac 应用做视频导入、读取、生成项目并回收导出。"
+      },
+      "title": "jogden12/brimm-video-studio",
+      "url": "https://github.com/jogden12/brimm-video-studio",
+      "verification": "source-text-only"
+    },
+    "url:https://github.com/johnviklund/j-skills": {
+      "ai": {
+        "generated_at": "2026-11-25T09:07:11+00:00",
+        "input_hash": "bae4e18332571080c973ada9206b8274bfed6f4b125c3c18eb7229d5b0fc7bd9",
+        "model": "deepseek-v4.1-flash",
+        "prompt_version": 4
+      },
+      "author": "johnviklund",
+      "category": "工具与集成产品",
+      "entry": "HyperFrames 框架",
+      "evidence": [
+        {
+          "blob_sha": null,
+          "detail": "搜索命中仅代表候选相关性，尚未核对实际使用。",
+          "id": "github-search:hyperframes in:name,description,readme fork:false archived:false is:public",
+          "observed_at": "2026-11-25T07:24:49+00:00",
+          "url": "https://github.com/search?q=hyperframes+in%3Aname%2Cdescription%2Creadme+fork%3Afalse+archived%3Afalse+is%3Apublic&type=repositories"
+        },
+        {
+          "blob_sha": "6c70ce13c28dd4e8f0be2a35e341161694a4ae21",
+          "detail": "[HyperFrames](https://hyperframes.heygen.com), the open-source tool that turns the video's web page into an MP4, and Chrome. It turns HyperFrames' telemetry off. - Install HyperFrames' own skills, which the video step reads for motion and r",
+          "id": "repository-readme",
+          "observed_at": "2026-11-25T07:57:40+00:00",
+          "url": "https://github.com/johnviklund/j-skills/blob/main/README.md"
+        }
+      ],
+      "id": "url:https://github.com/johnviklund/j-skills",
+      "license_spdx": "MIT",
+      "origin": "社区仓库搜索线索",
+      "summaries": {
+        "de": "Die j-skills-README erwähnt die Installation der HyperFrames-eigenen Skills und das Abschalten der Telemetrie für einen Videoschritt, der eine Webseite in MP4 umwandelt.",
+        "en": "The j-skills README mentions installing HyperFrames' own skills and turning off its telemetry for a video step that converts a web page into MP4.",
+        "es": "El README de j-skills menciona instalar las skills propias de HyperFrames y desactivar su telemetría para un paso de vídeo que convierte una página web en MP4.",
+        "fr": "Le README de j-skills mentionne l’installation des skills propres à HyperFrames et la désactivation de sa télémétrie pour une étape vidéo convertissant une page web en MP4.",
+        "ja": "j-skills の README は、Web ページを MP4 に変換する動画ステップ向けに HyperFrames 自身のスキルを導入し、テレメトリを無効にすることを述べています。",
+        "ko": "j-skills README는 웹 페이지를 MP4로 변환하는 영상 단계를 위해 HyperFrames 자체 스킬을 설치하고 텔레메트리를 끄는 내용을 언급합니다.",
+        "pt-BR": "O README do j-skills menciona instalar as skills próprias do HyperFrames e desativar sua telemetria para uma etapa de vídeo que converte uma página web em MP4.",
+        "zh-CN": "j-skills 的 README 提到安装 HyperFrames 自带技能，并关闭其遥测，用于将网页转为 MP4 的视频步骤。"
+      },
+      "title": "johnviklund/j-skills",
+      "url": "https://github.com/johnviklund/j-skills",
+      "verification": "source-text-only"
+    },
+    "url:https://github.com/jolangker/content-engine": {
+      "ai": {
+        "generated_at": "2026-11-25T09:07:11+00:00",
+        "input_hash": "446a3674a237bd3400e5aca34be4e7acf6aba73c2eb8c0a1713ebf365f738e7c",
+        "model": "deepseek-v4.1-flash",
+        "prompt_version": 4
+      },
+      "author": "jolangker",
+      "category": "项目（待分类）",
+      "entry": "待核对",
+      "evidence": [
+        {
+          "blob_sha": null,
+          "detail": "搜索命中仅代表候选相关性，尚未核对实际使用。",
+          "id": "github-search:hyperframes in:name,description,readme fork:false archived:false is:public",
+          "observed_at": "2026-11-25T07:24:49+00:00",
+          "url": "https://github.com/search?q=hyperframes+in%3Aname%2Cdescription%2Creadme+fork%3Afalse+archived%3Afalse+is%3Apublic&type=repositories"
+        },
+        {
+          "blob_sha": "acce1c99a09fa9610f2abe4e9ec71cc55d9d4002",
+          "detail": "Skill-driven workspace for short-form video production. Reusable creative boards define editorial, visual, motion, audio, and quality-gate contracts; episodes run from brief and research through [HyperFrames](.agents/skills/hyperframes/SKIL",
+          "id": "repository-readme",
+          "observed_at": "2026-11-25T07:57:40+00:00",
+          "url": "https://github.com/jolangker/content-engine/blob/main/README.md"
+        }
+      ],
+      "id": "url:https://github.com/jolangker/content-engine",
+      "license_spdx": null,
+      "origin": "社区仓库搜索线索",
+      "summaries": {
+        "de": "Ein Content-Engine-Repository, dessen README wiederverwendbare Creative Boards für Kurzvideo-Produktion beschreibt, vom Briefing und der Recherche bis zu einem HyperFrames-Schritt.",
+        "en": "A content-engine repository whose README describes reusable creative boards driving short-form video production, from brief and research through a HyperFrames step.",
+        "es": "Repositorio de motor de contenido cuyo README describe tableros creativos reutilizables para producir videos cortos, desde el brief y la investigación hasta un paso de HyperFrames.",
+        "fr": "Dépôt de moteur de contenu dont le README décrit des tableaux créatifs réutilisables pour produire des vidéos courtes, du brief et de la recherche jusqu'à une étape HyperFrames.",
+        "ja": "コンテンツエンジンのリポジトリで、README は再利用可能なクリエイティブボードでショート動画制作を進め、ブリーフと調査から HyperFrames 工程に至ると述べています。",
+        "ko": "콘텐츠 엔진 저장소로, README는 재사용 가능한 크리에이티브 보드로 숏폼 영상 제작을 진행하며 브리프와 리서치부터 HyperFrames 단계까지 이어진다고 설명합니다.",
+        "pt-BR": "Repositório de motor de conteúdo cujo README descreve quadros criativos reutilizáveis para produzir vídeos curtos, do briefing e pesquisa até uma etapa de HyperFrames.",
+        "zh-CN": "内容引擎仓库，README 称以可复用创意板驱动短视频生产，流程从简报、调研到 HyperFrames 环节。"
+      },
+      "title": "jolangker/content-engine",
+      "url": "https://github.com/jolangker/content-engine",
+      "verification": "source-text-only"
+    },
+    "url:https://github.com/jtensetti/arkivx": {
+      "ai": {
+        "generated_at": "2026-11-25T09:07:11+00:00",
+        "input_hash": "7831235e8293124fc432a54dacc278c49beb05ea476d8cac3ab3bd9a5f35f955",
+        "model": "deepseek-v4.1-flash",
+        "prompt_version": 4
+      },
+      "author": "Jtensetti",
+      "category": "项目（待分类）",
+      "entry": "待核对",
+      "evidence": [
+        {
+          "blob_sha": null,
+          "detail": "搜索命中仅代表候选相关性，尚未核对实际使用。",
+          "id": "github-search:\"hyperframes-studio\" in:name,description,readme fork:false archived:false is:public",
+          "observed_at": "2026-11-25T07:24:49+00:00",
+          "url": "https://github.com/search?q=%22hyperframes-studio%22+in%3Aname%2Cdescription%2Creadme+fork%3Afalse+archived%3Afalse+is%3Apublic&type=repositories"
+        },
+        {
+          "blob_sha": "90fdab6f58a1db34075a7439173dd811cc78ab26",
+          "detail": "| 2. Videor | `video/index.html` | HyperFrames-mallen (HTML + GSAP) som drivs av variabler – en rad per short | research/papers.json ─▶ content/d*.json ──build-content──▶ video/batch.json ──hyperframes──▶ renders/*.mp4 Kräver Node 22+, FFmp",
+          "id": "repository-readme",
+          "observed_at": "2026-11-25T07:57:40+00:00",
+          "url": "https://github.com/Jtensetti/arkivX/blob/claude/adoring-clarke-f8l2vm/README.md"
+        }
+      ],
+      "id": "url:https://github.com/jtensetti/arkivx",
+      "license_spdx": null,
+      "origin": "社区仓库搜索线索",
+      "summaries": {
+        "de": "Ein schwedisches README beschreibt ein Kurzvideo-Batchprojekt, das HyperFrames-Vorlagen mit GSAP und Variablen zur Erzeugung gerenderter Videos nutzt.",
+        "en": "A Swedish-language README describes a short-video batch project that uses HyperFrames templates with GSAP and variables to produce rendered videos.",
+        "es": "Un README en sueco describe un proyecto de videos cortos por lotes que usa plantillas HyperFrames con GSAP y variables para generar videos renderizados.",
+        "fr": "Un README en suédois décrit un projet de vidéos courtes par lots utilisant des modèles HyperFrames avec GSAP et des variables pour produire des vidéos rendues.",
+        "ja": "スウェーデン語の README が、HyperFrames テンプレートと GSAP・変数を用いてレンダリング動画を生成するショート動画バッチ案件を説明しています。",
+        "ko": "스웨덴어 README는 HyperFrames 템플릿과 GSAP, 변수를 활용해 렌더링 영상을 생성하는 숏폼 영상 배치 프로젝트를 설명합니다.",
+        "pt-BR": "Um README em sueco descreve um projeto de vídeos curtos em lote que usa modelos HyperFrames com GSAP e variáveis para gerar vídeos renderizados.",
+        "zh-CN": "瑞典语 README 描述的短视频批量项目，称用 HyperFrames 模板配合 GSAP 与变量生成渲染视频。"
+      },
+      "title": "Jtensetti/arkivX",
+      "url": "https://github.com/jtensetti/arkivx",
+      "verification": "source-text-only"
+    }
+  },
   "schema_version": 1,
-  "resources": {}
+  "updated_at": "2026-11-25T09:07:11+00:00"
 }

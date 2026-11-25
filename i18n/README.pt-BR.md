@@ -79,9 +79,14 @@ A documentação oficial está vinculada acima. Estes recursos da comunidade est
 
 Compilado automaticamente a partir das fontes citadas, com descrições de IA. Os projetos não foram executados de forma independente e os direitos de reutilização precisam ser verificados.
 
-[Ver o catálogo completo (0)](../catalog/README.pt-BR.md)
+[Ver o catálogo completo (4)](../catalog/README.pt-BR.md)
 
-Ainda não há entradas aptas; candidatos com fontes são processados dentro do orçamento diário de IA.
+| Recurso | Descrição |
+| --- | --- |
+| [Jtensetti/arkivX](<https://github.com/jtensetti/arkivx>)<br><sub>Projetos</sub> | Um README em sueco descreve um projeto de vídeos curtos em lote que usa modelos HyperFrames com GSAP e variáveis para gerar vídeos renderizados. |
+| [jolangker/content-engine](<https://github.com/jolangker/content-engine>)<br><sub>Projetos</sub> | Repositório de motor de conteúdo cujo README descreve quadros criativos reutilizáveis para produzir vídeos curtos, do briefing e pesquisa até uma etapa de HyperFrames. |
+| [johnviklund/j-skills](<https://github.com/johnviklund/j-skills>)<br><sub>Ferramentas e integrações</sub> | O README do j-skills menciona instalar as skills próprias do HyperFrames e desativar sua telemetria para uma etapa de vídeo que converte uma página web em MP4. |
+| [jogden12/brimm-video-studio](<https://github.com/jogden12/brimm-video-studio>)<br><sub>Ferramentas e integrações</sub> | O BRIMM Video Studio se apresenta como a próxima versão do brimm-video e cuida da entrada, leitura, criação de projetos e coleta de exportações ao redor do app HyperFrames para Mac. |
 
 <!-- AUTO-CATALOG:END -->
 

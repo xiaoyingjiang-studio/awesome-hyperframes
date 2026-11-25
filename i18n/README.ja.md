@@ -79,9 +79,14 @@ Xiaoyingjiang Studio による四つのオリジナル制作例です。完成�
 
 引用元に基づいて自動整理し、AI が紹介文を作成します。プロジェクトの実行や再利用権は独立に確認していません。
 
-[全件を見る (0)](../catalog/README.ja.md)
+[全件を見る (4)](../catalog/README.ja.md)
 
-掲載条件を満たす項目はまだありません。出典のある候補を日次 AI 予算内で処理します。
+| リソース | 紹介 |
+| --- | --- |
+| [Jtensetti/arkivX](<https://github.com/jtensetti/arkivx>)<br><sub>プロジェクト</sub> | スウェーデン語の README が、HyperFrames テンプレートと GSAP・変数を用いてレンダリング動画を生成するショート動画バッチ案件を説明しています。 |
+| [jolangker/content-engine](<https://github.com/jolangker/content-engine>)<br><sub>プロジェクト</sub> | コンテンツエンジンのリポジトリで、README は再利用可能なクリエイティブボードでショート動画制作を進め、ブリーフと調査から HyperFrames 工程に至ると述べています。 |
+| [johnviklund/j-skills](<https://github.com/johnviklund/j-skills>)<br><sub>ツールと連携</sub> | j-skills の README は、Web ページを MP4 に変換する動画ステップ向けに HyperFrames 自身のスキルを導入し、テレメトリを無効にすることを述べています。 |
+| [jogden12/brimm-video-studio](<https://github.com/jogden12/brimm-video-studio>)<br><sub>ツールと連携</sub> | BRIMM Video Studio は brimm-video の次期版とされ、HyperFrames Mac アプリの周辺で動画取り込み、読み取り、プロジェクト生成、書き出し回収を行います。 |
 
 <!-- AUTO-CATALOG:END -->
 

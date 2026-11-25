@@ -79,9 +79,14 @@ Xiaoyingjiang Studio가 제작한 네 가지 프레임워크 예제입니다. �
 
 인용된 출처를 바탕으로 자동 정리하며 소개는 AI가 작성합니다. 프로젝트를 독립적으로 실행하지 않았으며 재사용 권한은 별도 확인이 필요합니다.
 
-[전체 카탈로그 보기 (0)](../catalog/README.ko.md)
+[전체 카탈로그 보기 (4)](../catalog/README.ko.md)
 
-아직 조건에 맞는 항목이 없습니다. 출처가 있는 후보를 일일 AI 예산 내에서 처리합니다.
+| 자료 | 소개 |
+| --- | --- |
+| [Jtensetti/arkivX](<https://github.com/jtensetti/arkivx>)<br><sub>프로젝트</sub> | 스웨덴어 README는 HyperFrames 템플릿과 GSAP, 변수를 활용해 렌더링 영상을 생성하는 숏폼 영상 배치 프로젝트를 설명합니다. |
+| [jolangker/content-engine](<https://github.com/jolangker/content-engine>)<br><sub>프로젝트</sub> | 콘텐츠 엔진 저장소로, README는 재사용 가능한 크리에이티브 보드로 숏폼 영상 제작을 진행하며 브리프와 리서치부터 HyperFrames 단계까지 이어진다고 설명합니다. |
+| [johnviklund/j-skills](<https://github.com/johnviklund/j-skills>)<br><sub>도구와 연동</sub> | j-skills README는 웹 페이지를 MP4로 변환하는 영상 단계를 위해 HyperFrames 자체 스킬을 설치하고 텔레메트리를 끄는 내용을 언급합니다. |
+| [jogden12/brimm-video-studio](<https://github.com/jogden12/brimm-video-studio>)<br><sub>도구와 연동</sub> | BRIMM Video Studio는 brimm-video의 다음 버전이라고 자칭하며 HyperFrames Mac 앱 주변에서 영상 입력, 읽기, 프로젝트 생성, 내보내기 수집을 담당합니다. |
 
 <!-- AUTO-CATALOG:END -->
 
